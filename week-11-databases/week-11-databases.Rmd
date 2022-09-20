@@ -1,0 +1,15 @@
+---
+output: md_document
+
+# knitting to README.md means the output will be instantly viewable on Azure Devops
+knit: (function(inputFile, encoding) {
+        rmarkdown::render(
+          inputFile,
+          encoding = encoding,
+          output_file = file.path(dirname(inputFile), 'README.md')
+        )
+      })
+---
+# Week 11: Databases
+
+Introduce SQL connections from R. Also introduce lazy queries and `dbplyr`

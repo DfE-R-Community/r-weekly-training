@@ -1,0 +1,385 @@
+---
+output: md_document
+---
+
+<!-- Please edit README.Rmd - not README.md -->
+
+```{r setup, include=FALSE}
+# Need this so that image filepaths in the rendered README.md are relative
+# to the file, meaning they'll show up in the README on DevOps
+knitr::opts_chunk$set(
+  fig.path = "README_files/figure-markdown_strict/"
+)
+```
+
+# Week 04: Functions
+
+In weeks 1 and 2 you began to get a feel of R's capabilities for data science.
+The next step in developing your skills in R is to learn to write code which 
+is extensible, modular and readable. The best way to do this
+is to learn to use *functions* to organise your code. These problems are 
+will properly introduce functions and show you how and when to write them.
+
+# Prerequisites
+
+This week the recommended materials are especially important. These
+are linked throughout the actual exercises, as reading them all at once might
+not be the most effective approach. Please take time to read through them as
+they come up!
+
+# Exercises
+
+## Q1. Writing basic functions
+
+Before attempting these questions, please read the 'Functions' chapter of 
+[R for Data Science](https://r4ds.had.co.nz/functions.html).
+
+1.  The following code works, but could be clearer. Refactor the code to use
+    some custom functions `prop_na()` (which should compute the proportion of values
+    in a vector which are `NA`) and `var_coeff()` (which should calculate the 
+    [coefficient of variation](https://en.wikipedia.org/wiki/Coefficient_of_variation)).
+  
+    ```{r setup_and_q1.2}
+    suppressPackageStartupMessages(library(tidyverse))
+    
+    storms %>% 
+      group_by(status) %>% 
+      summarise(
+        
+        # Proportions of `NA` values for ts_diameter and hu_diameter
+        ts_diameter_prop_na = sum(is.na(ts_diameter)) / length(ts_diameter),
+        hu_diameter_prop_na = sum(is.na(hu_diameter)) / length(hu_diameter),
+        
+        # Coefficients of variation for wind and pressure
+        wind_var_coeff      = sd(wind,     na.rm = TRUE) / mean(wind,     na.rm = TRUE),
+        pressure_var_coeff  = sd(pressure, na.rm = TRUE) / mean(pressure, na.rm = TRUE),
+        
+        .groups = "drop"
+        
+      )
+    ```
+    
+    A good rule-of-thumb is that, whenever you find yourself copy/pasting 
+    code more than once, write a function. This may seem a lot of work for
+    a small amount of gain, but once you get in the habit of doing this
+    you'll never want to go back!
+    
+2.  Edit your answer to part 1 to use `dplyr::across()`. This function is extremely
+    useful, so read through its documentation carefully.
+    
+3.  Similarly, try simplifying the following code by creating a function:
+
+    ```{r}
+    # Some less-than-ideally formatted dates
+    dates1 <- c("20220103", "20220415", "20220418")
+    dates2 <- c("Mon, May 02 2022", "Thu, Jun 02 2022", "Fri, Jun 03 2022")
+    dates3 <- c("29 August 22", "26 December 22", "27 December 22")
+    
+    # -- From here onwards is the code to simplify ------------------------
+    
+    dates1_parsed       <- strptime(dates1, "%Y%m%d")
+    dates1_standardised <- strftime(dates1_parsed, "%Y-%m-%d") 
+    
+    dates2_parsed       <- strptime(dates2, "%a, %b %d %Y")
+    dates2_standardised <- strftime(dates2_parsed, "%Y-%m-%d") 
+    
+    dates3_parsed       <- strptime(dates3, "%d %B %y")
+    dates3_standardised <- strftime(dates3_parsed, "%Y-%m-%d") 
+    ```
+    
+    (Note: `strptime()` and `strftime()` are pretty useful to know about. You 
+    can remember them as 'string parse time' and 'string format time')
+    
+4.  Using your function from part 3, convert `dates1` and `dates2` to the same
+    format as `dates3` (you may need to slightly adapt your function to do this).
+
+## Q2. Pipeable functions
+
+Before attempting this question, please read the 
+[chapter on pipes](https://r4ds.had.co.nz/pipes.html) from R for Data Science. 
+
+1.  The following function is badly written and fairly useless - it simply takes 
+    a data.frame and prints the numbers of rows, columns and cells if 
+    `quiet = FALSE`. Rework this function to be compatible with the pipe `%>%`.
+    
+    ```{r}
+    print_info <- function(quiet = FALSE, df, ...) {
+      if (!quiet) {
+        cat(
+          ...,
+          paste("Rows:       ", nrow(df)),
+          paste("Columns:    ", ncol(df)),
+          paste("Total cells:", nrow(df) * ncol(df)),
+          sep = "\n"
+        )
+      }
+      invisible(NULL)
+    }
+    ```
+
+    You can check whether your function works well with the pipe by using
+    something like this:
+    
+    ```{r, eval = FALSE}
+    starwars %>% 
+      print_info() %>% 
+      count(homeworld, species) %>% 
+      print_info()
+    ```
+
+2.  Read the documentation for `gsub()`. Create a function `gsub2()` which wraps
+    `gsub()` to work well with the pipe. It should, for example, have the 
+    following behaviour:
+    
+    ```{r, eval = FALSE}
+    c("string 1", "string 2") %>% 
+      gsub2("ing", "")
+    
+    #> [1] "str 1" "str 2"
+    ```
+
+3.  Read the documentation for `` magrittr::`%>%` ``, in particular the section
+    'Placing lhs elsewhere in rhs call'. How would you get the code in 
+    part 2 working using regular `gsub()`?
+
+## Q3. Infix functions
+
+Before attempting these questions, read the [Function Forms](https://adv-r.hadley.nz/functions.html#function-forms)
+chapter of Advanced R.
+
+1.  Create a function `either(x, y)`. This should return `x` if
+    `x`'s length is greater than zero, otherwise it should return `y`.
+    
+2.  Rewrite `either()` to be an infix function. Call this function `%or%`.
+
+3.  Compare `%or%` with `%||%` from `{rlang}`/`{purrr}`. When do they return
+    different results?
+
+4.  Create an infix function `%splice%`. This should take two vectors `x` and 
+    `y` and return a new vector `z`, which takes the form 
+    `c(x[1], y[1], x[2], y[2], ...)`. If `x` and `y` have different lengths
+    it should fail with an informative error. E.g. `%splice%` should have
+    this behaviour:
+    ```{r eval = FALSE}
+    1:3 %splice% 11:13
+    
+    #> [1]  1 11  2 12  3 13
+    ```
+
+5.  **Bonus**: Create a function `%|e|%`. This should return the 
+    left-hand-side, unless for some reason the code fails, in which case it 
+    should return the right-hand-side. Hint: you can use `tryCatch()` for this.
+         
+## Q4. Creating a handy utility function
+
+The following code creates a text representation of the `dplyr::starwars`
+dataset. This text is specially formatted so that it can be copy/pasted 
+into other apps (e.g. Excel) without any trouble:
+
+```{r q3.3}
+# 1. Create a copy of `dplyr::starwars` to be transformed to text
+my_starwars <- dplyr::starwars
+
+# 2. Looping over each column in the data, transform the column
+#    to character format, then replace any `"NA"` values with `""`
+for (col_name in colnames(my_starwars)) {
+  
+  col_formatted   <- format(my_starwars[[col_name]])
+  col_na_replaced <- ifelse(col_formatted == "NA", "", col_formatted)
+  
+  my_starwars[[col_name]] <- col_na_replaced
+  
+}
+
+# 3. Create text representations of the table body and headers. `"\t"` 
+#    means 'new cell' and `"\r\n"` means 'new row'. Don't worry about
+#    `do.call()` - this might be covered in a future week.
+body_text <- do.call(paste, args = c(
+  my_starwars, sep = "\t", collapse = "\r\n"
+))
+headers_text <- paste(colnames(my_starwars), collapse = "\t")
+
+# 4. Combine headers and body
+all_text <- paste(c(headers_text, body_text), collapse = "\r\n")
+```
+
+1.  Create a function `as_text()` which wraps this code. It should have the 
+    following arguments:
+    * `df`: The `data.frame` to represent as text
+    
+    * `na`: A value to substitute in for any `NA` values in the data. This should
+      have a default value of `""`
+    
+    The function should return the generated text.
+      
+2.  Add an extra argument `headers` to `as_text()`. This should have 
+    a default value of `TRUE`, but should allow a user to exclude the table 
+    headers from the output by setting `headers = FALSE`.
+    
+3.  Look through the documentation for `format()`. There are lots of 
+    arguments here which a user of `as_text()` might want to take 
+    advantage of. Add a `...` argument to `as_text()` and pass this
+    to the `format()` call within the for-loop.
+    
+4.  Now create a new function `to_cliboard()` which wraps `as_text()`.
+    This should have the same arguments as `as_text()` and should
+    do the following:
+    * Create a text representation of the supplied data.frame `df` by leveraging 
+      `as_text()`
+    
+    * Add this text to a user's clipboard using `writeClipboard()`
+      
+    * Send a message to the console notifying the user that
+      their clipboard has been updated. This is good manners whenever you create
+      a function which has some wider effect for the user. You can use the 
+      function `cat()` to do this. Note that it might be nice if this
+      message also gave some information about the table copied, e.g. the numbers
+      of rows and columns.
+      
+    * Finally, it should *invisibly* return the unchanged `df`. This will make
+      the function compatible with the pipe `%>%`.
+    
+    Test `to_clipboard()` by copying a few datasets into Excel. Make
+    sure all the arguments, e.g. `headers = FALSE` are working correctly.
+            
+## Q5. Programming with the tidyverse
+
+To write functions which work well with the tidyverse, and particularly with
+`{dplyr}` verbs (like `select()`, `filter()`, `group_by()`, etc), some additional
+tools are needed to those covered so far. These are not part of 'base' R,
+but are instead provided by another package, `{rlang}`, which implements
+many of the low-level programming frameworks used by other tidyverse packages.
+
+Before attempting these questions, please read the `{dplyr}` vignette
+[Programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html) -
+in particular the 'How tos' section - and the `{rlang}` vignette 
+[Data mask programming patterns](https://rlang.r-lib.org/reference/topic-data-mask-programming.html).
+
+1.  The following is a very common pattern in data analysis with R:
+
+    ```{r, eval = FALSE}
+    df %>% 
+      group_by(col1, col2, col3) %>% 
+      summarise(
+        across(c(col4, col5, col5), sum), 
+        .groups = "drop"
+      )
+    ```
+    
+    Abstract this logic into a function `aggregate()`. This should have the
+    following arguments:
+    
+    * `...`: Column(s) to group by
+    
+    * `.cols`: Column(s) to aggregate
+    
+    * `.fn`: A function used to perform the summation - this should have a 
+      default value of `sum`
+        
+2.  Similarly, create a function `disaggregate()` which works in the same way
+    as `aggregate()`, but in this case groups by all columns *except* those 
+    supplied in the `...` and `.cols` arguments. Hint: you may want to read-up
+    on `?tidyselect::selection_helpers` for this question.
+    
+3.  The following is another common pattern in data analysis with R:
+
+    ```{r}
+    diamonds %>% 
+      group_by(cut, color) %>% 
+      summarise(across(price, mean), .groups = "drop") %>% 
+      ggplot(aes(price, cut, fill = color)) +
+      geom_col(position = "dodge")
+    ```
+    
+    Abstract this logic into a custom plotting function `bar_plot()`. This 
+    should have the following arguments
+    
+    * `data`: The data to plot
+    
+    * `x`: The variable for the x-axis
+    
+    * `y`: The variable for the y-axis
+    
+    * `fill`: The variable to map to the fill aesthetic. This should have a 
+      default value of `NULL`
+    
+    * `fn`: The function used to aggregate the `y` variable. This should
+      have a default value of `mean`
+      
+    Your plotting function should, if possible, make use of the function
+    `aggregate()` from part 1.
+
+3.  Add `facet = NULL` and `position = "dodge"` arguments to `bar_plot()`. 
+    The `facet` argument should be passed to `facet_wrap()` using `vars()` 
+    (e.g. `facet_warp(vars(facet))`) and the `position` argument should be
+    passed to `geom_col()`.
+
+        
+## Q6. Recursive functions
+
+A recursive function is a function which calls itself. 
+This is a slightly more advanced technique, but can occasionally be just
+the right tool for a particular job. Try and figure out how this function
+uses recursion to implement a factorial calculation:
+
+```{r}
+# N.B. There are *much* better ways than this to
+# create a factorial function
+my_factorial <- function(n) {
+  
+  if (n == 2) {
+    return(n)
+  }
+  
+  n * my_factorial(n - 1)
+}
+
+# Testing:
+5 * 4 * 3 * 2
+my_factorial(5)
+```
+
+1.  Create a recursive function `search_up()` to find a particular file on 
+    a user's PC. This function should take two arguments:
+    * `file`: The name of the file to search for
+    
+    * `dir`: The initial directory to look in, which should have a default
+      value of `getwd()`.
+    
+    If the `file` isn't found in `dir`, the function should look in `dir`'s
+    parent directory, then the next parent directory, and so on. When the file is 
+    found the function should return its location; if no such file exists it should 
+    return `NULL`.
+    
+    Hint: You may find the functions `list.files()` and `dirname()` useful for
+    this question.
+
+## Q7. Styling
+
+Read the ['Functions' section](https://style.tidyverse.org/functions.html#long-lines-1)
+of the Tidyverse Style Guide. Go back over your answers and make sure the functions
+you've written conform to these style guidelines. The names you've used for your
+functions are particularly important!
+
+# Summary of resources:
+
+* [R for Data Science](https://r4ds.had.co.nz/program-intro.html) chapters 
+  17 - 21 are a good introduction to programming in R
+  
+* [Advanced R](https://adv-r.hadley.nz/functions.html) goes into a bit more
+  technical detail about functions, and covers some techniques and topics
+  not touched on here
+  
+* [Programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html)
+  is a package vignette which introduces some tidyverse programming techniques.
+  This vignette is a really useful resource! You can also read it from within
+  R using `vignette("programming", package = "dplyr")`.
+  
+* The [ggplot2 book](https://ggplot2-book.org/programming.html) has a great 
+  chapter on creating custom plotting functions
+  
+* [The `{rlang}` package](https://rlang.r-lib.org/reference/topic-data-mask.html)
+  has a great selection of vignettes which give a comprehensive overview of
+  some tidyverse metaprogramming techniques, including the use of `{{`, `!!`,
+  `!!!`, `quo()` and `enquo()`. These are worth reading once you feel you're 
+  thoroughly confident creating normal functions.
