@@ -37,7 +37,7 @@ website](https://www.rstudio.com/products/rstudio/).
 ## RStudio Layout
 
 When opening RStudio for the first time, you should see something like
-this: ![RStudio Window](rstudio-layout.png)
+this: ![RStudio Window](week-00-setup/rstudio-layout.png)
 
 **TOP LEFT**
 
@@ -85,7 +85,7 @@ under ‘Run Region’ under ‘Code’:
 -   Run All - Runs the whole document (CTRL + ALT + R). Code that is run
     appears in the ‘Console’ pane and any variables created in the
     ‘Environment’ pane. ![RStudio
-    Console](rstudio-console-environment.png)
+    Console](week-00-setup/rstudio-console-environment.png)
 
 # Changing the Theme
 
