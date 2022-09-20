@@ -37,7 +37,7 @@ how to make the most of RStudio see the
 
 ## RStudio Layout
 When opening RStudio for the first time, you should see something like this:
-![RStudio Window](week-00-setup/rstudio-layout.png)
+![RStudio Window](week-00-setup/rstudio-layout.PNG)
 
 **TOP LEFT**
 
@@ -75,7 +75,7 @@ different chunks of code under 'Run Region' under 'Code':
 * Run code section - R runs the section your cursor is currently within (CTRL + ALT + T).
 * Run All - Runs the whole document (CTRL + ALT + R).
 Code that is run appears in the 'Console' pane and any variables created in the 'Environment' pane.
-![RStudio Console](week-00-setup/rstudio-console-environment.png)
+![RStudio Console](week-00-setup/rstudio-console-environment.PNG)
 
 # Changing the Theme
 The default RStudio theme is very white and a bit blinding, but there are lots
