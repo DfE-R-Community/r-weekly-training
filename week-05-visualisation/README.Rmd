@@ -8,7 +8,7 @@ output: md_document
 knitr::opts_chunk$set(
   fig.width = 4,
   fig.height = 4,
-  fig.path = "README_files/figure-markdown_strict/"
+  fig.path = "/week-05-visualisation/README_files/figure-markdown_strict/"
 )
 ```
 

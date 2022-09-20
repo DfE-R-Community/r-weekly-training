@@ -134,7 +134,7 @@ attempting these problems.
           ggplot(aes(manufacturer)) +
           geom_bar()
 
-    ![](README_files/figure-markdown_strict/unnamed-chunk-2-1.png)
+    ![](/week-05-visualisation/README_files/figure-markdown_strict/unnamed-chunk-2-1.png)
 
 ## Q4: Using extensions
 
@@ -154,7 +154,7 @@ extensions can be found
 
         #> Warning: Removed 45 rows containing non-finite values (stat_density).
 
-    ![](README_files/figure-markdown_strict/unnamed-chunk-3-1.png)
+    ![](/week-05-visualisation/README_files/figure-markdown_strict/unnamed-chunk-3-1.png)
 
 2.  Use `{ggpointdensity}` to improve the following plot:
 
@@ -164,7 +164,7 @@ extensions can be found
 
         #> Warning: Removed 1426 rows containing missing values (geom_point).
 
-    ![](README_files/figure-markdown_strict/unnamed-chunk-4-1.png)
+    ![](/week-05-visualisation/README_files/figure-markdown_strict/unnamed-chunk-4-1.png)
 
 3.  Use `{ggthemes}` to change the appearances of the previous two
     plots. Try to find a theme that’s reasonable nice :)
@@ -181,7 +181,7 @@ extensions can be found
         ggplot(diamonds, aes(carat, price, colour = "blue")) +
           geom_point()
 
-    ![](README_files/figure-markdown_strict/unnamed-chunk-5-1.png)
+    ![](/week-05-visualisation/README_files/figure-markdown_strict/unnamed-chunk-5-1.png)
 
     Try the following three methods of fixing it:
 
@@ -220,4 +220,4 @@ extensions can be found
           facet_grid(cyl ~ class) +
           theme(legend.position = "bottom")
 
-    ![](README_files/figure-markdown_strict/unnamed-chunk-8-1.png)
+    ![](/week-05-visualisation/README_files/figure-markdown_strict/unnamed-chunk-8-1.png)
