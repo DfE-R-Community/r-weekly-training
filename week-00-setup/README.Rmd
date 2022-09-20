@@ -3,9 +3,7 @@ output: md_document
 ---
 
 <!-- Please edit README.Rmd - not README.md -->
-```{r setup, include = FALSE}
-knitr::opts_knit$set(base.url = "week-00-setup/")
-```
+
 # Week 00: Getting Started
 
 This is a preliminary week to guide you through the steps needed to get going
@@ -39,7 +37,7 @@ how to make the most of RStudio see the
 
 ## RStudio Layout
 When opening RStudio for the first time, you should see something like this:
-![RStudio Window](rstudio-layout.png)
+![RStudio Window](week-00-setup/rstudio-layout.png)
 
 **TOP LEFT**
 
@@ -77,7 +75,7 @@ different chunks of code under 'Run Region' under 'Code':
 * Run code section - R runs the section your cursor is currently within (CTRL + ALT + T).
 * Run All - Runs the whole document (CTRL + ALT + R).
 Code that is run appears in the 'Console' pane and any variables created in the 'Environment' pane.
-![RStudio Console](rstudio-console-environment.png)
+![RStudio Console](week-00-setup/rstudio-console-environment.png)
 
 # Changing the Theme
 The default RStudio theme is very white and a bit blinding, but there are lots
