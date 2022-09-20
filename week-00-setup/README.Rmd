@@ -3,7 +3,9 @@ output: md_document
 ---
 
 <!-- Please edit README.Rmd - not README.md -->
-
+```{r setup, include = FALSE}
+knitr::opts_knit$set(base.url = "week-00-setup/")
+```
 # Week 00: Getting Started
 
 This is a preliminary week to guide you through the steps needed to get going
