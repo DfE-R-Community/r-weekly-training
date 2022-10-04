@@ -1,7 +1,7 @@
 # R Weekly Training
 
-**NOTE** This repo is currently undergoing a rewrite. Please wait
-until this note disappears before using the materials herein.
+> **Warning** This repo is currently undergoing a rewrite. Please wait
+until this warning disappears before using the materials herein.
 
 Welcome to the DfE R Community's R Weekly Training! This programme
 should get you up-to-speed with the basics of R. This programme is run
