@@ -1,5 +1,8 @@
 # R Weekly Training
 
+**NOTE** This repo is currently undergoing a rewrite. Please wait
+until this note disappears before using the materials herein.
+
 Welcome to the DfE R Community's R Weekly Training! This programme
 should get you up-to-speed with the basics of R. This programme is run
 annually over a 3(ish)-month period, so if you're interested in
