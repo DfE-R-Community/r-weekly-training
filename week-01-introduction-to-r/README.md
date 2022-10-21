@@ -5,8 +5,10 @@ Introduction to R
 
 ## Workspace
 
-Tools \> Global Options \> General Under Workspace: 1. Untick restore
-RData 2. Never Ask about saving
+Tools \> Global Options \> General Under Workspace:
+
+1.  Untick restore RData
+2.  Never Ask about saving
 
 ## Code Diagnostics
 
@@ -20,7 +22,7 @@ install.packages("lintr")
 ## Syntax Highlighting Console Output
 
 -   Tools \> Global Options \> Console
--   Tick top box \[Show syntax highlighting…\]
+-   Tick top box (Show syntax highlighting…)
 
 ## Colours and Display
 
@@ -30,9 +32,10 @@ install.packages("lintr")
 
 ## Set up R Project
 
-Setup up an R projects for these sessions: \* File \> New Project \> New
-Directory \> New Project \* Give it a name and a location (NOT in
-OneDrive)
+Setup up an R projects for these sessions:
+
+-   File \> New Project \> New Directory \> New Project
+-   Give it a name and a location (NOT in OneDrive)
 
 You can access Projects in the top right drop-down.
 
@@ -59,7 +62,7 @@ rnorm(n = 100, mean = 0, sd = 1) |>
   hist()
 ```
 
-## RStudio Projects ——————–
+## RStudio Projects
 
 -   Keep files together
 -   Sort out working directory
@@ -123,7 +126,12 @@ T & F # & = AND
 ## Variables
 
 -   Assignment is with `<-` or `=`.
--   Prefer \<- x \<- 5 y = 4
+-   Prefer `<-`
+
+``` r
+x <- 5
+y = 4
+```
 
 ## Briefly on names….
 
@@ -153,7 +161,11 @@ rnorm(100, 0 ,1 )
 ```
 
 -   Give names to non-obvious arguments.
--   The above is clear but this isn’t: rnorm(100, 100, 100)
+-   The above is clear but this isn’t:
+
+``` r
+rnorm(100, 100, 100)
+```
 
 ## You’ll learn over time what’s obvious and what isn’t.
 
@@ -163,7 +175,12 @@ rnorm(100, 0 ,1 )
 
 -   Functions are indicated by () after the name.
 
--   Not all functions have arguments ls() ls
+-   Not all functions have arguments
+
+``` r
+ls()
+ls
+```
 
 # Types
 
@@ -242,8 +259,11 @@ F
 
 # Coercion
 
-TRUE + TRUE \# Implicit as.numeric(TRUE) \# Explicit as.numeric(FALSE)
-\# Explicit
+``` r
+TRUE + TRUE # Implicit
+as.numeric(TRUE) # Explicit
+as.numeric(FALSE) # Explicit
+```
 
 ``` r
 "5" + "8"
@@ -258,7 +278,7 @@ as.
 
 # Vectors
 
-# Everything is a vector
+-   Everything is a vector
 
 ``` r
 1 == c(1)
@@ -270,46 +290,53 @@ as.
 
 # R recycles vectors
 
-economic_data \<- c(1:3) \# same as c(1,2,3)
+``` r
+economic_data <- c(1:3) # same as c(1,2,3)
 
-economic_data \* inflation_uplift \# inflation_uplift was a vector of
-length 1
+economic_data * inflation_uplift # inflation_uplift was a vector of length 1
 
-length(economic_data) length(inflation_uplift)
+length(economic_data)
+length(inflation_uplift)
 
-yearly_inflation_uplift \<- c(1.02, 1.07, 1.20)
+yearly_inflation_uplift <- c(1.02, 1.07, 1.20)
 
-economic_data \* yearly_inflation_uplift
+economic_data * yearly_inflation_uplift
+```
 
-# You want to always use vectors of the same length,
+-   You want to always use vectors of the same length, or vectors of
+    length 1.
 
-# or vectors of length 1.
+-   This works but don’t do it
 
-# This works but don’t do it
+``` r
+economic_data * c(1.02, 1000) # Will work but gives warning message
 
-economic_data \* c(1.02, 1000) \# Will work but gives warning message
+c(1:10) + c(10, 100) # Will works but you should never use it
 
-c(1:10) + c(10, 100) \# Will works but you should never use it
+length(c(1:10))
+length(c(10, 100))
+```
 
-length(c(1:10)) length(c(10, 100))
+# Data Frames
 
-# Data Frames —————————–
+-   Rectangular data, made up of atomic elements
+-   Think columns and rows.
 
-# Rectangular data, made up of atomic elements
-
-# Think columns and rows.
-
+``` r
 data(iris); force(iris)
+```
 
 # “Explore your data” functions
 
-class(iris) \# Type of object
+``` r
+class(iris) # Type of object
 
-names(iris) \# Names of data.frame
+names(iris) # Names of data.frame
 
-str(iris) \# Structure
+str(iris) # Structure
 
 summary(iris)
+```
 
 # Packages
 

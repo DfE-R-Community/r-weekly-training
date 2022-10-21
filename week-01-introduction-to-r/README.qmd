@@ -12,6 +12,7 @@ knitr:
 
 Tools > Global Options > General
 Under Workspace:
+
 1. Untick restore RData
 2. Never Ask about saving
 
@@ -26,7 +27,7 @@ install.packages("lintr")
 
 ## Syntax Highlighting Console Output
 * Tools > Global Options > Console
-* Tick top box [Show syntax highlighting...]
+* Tick top box (Show syntax highlighting...)
 
 ## Colours and Display
 * Tools > Global Options > Appearance
@@ -34,6 +35,7 @@ install.packages("lintr")
 
 ## Set up R Project
 Setup up an R projects for these sessions:
+
 * File > New Project > New Directory > New Project
 * Give it a name and a location (NOT in OneDrive)
 
@@ -44,6 +46,7 @@ New Project > Version Control > Git > paste in the link from the repo.
 
 
 # RStudio
+
 * NOT R. RStudio is an Integrated Development Environment (IDE) for coding.
 * You can write R code using notepad if you want to.
 * But RStudio is recommended because it makes life easier
@@ -60,7 +63,8 @@ rnorm(n = 100, mean = 0, sd = 1) |>
   hist()
 ```
 
-## RStudio Projects --------------------
+## RStudio Projects
+
 * Keep files together
 * Sort out working directory
 
@@ -112,9 +116,12 @@ T & F # & = AND
 
 ## Variables
 * Assignment is with `<-` or `=`.
-* Prefer <-
+* Prefer `<-`
+
+```{r}
 x <- 5
 y = 4
+```
 
 ## Briefly on names....
 * Use snake_case or camelCase and stick with it.
@@ -140,15 +147,21 @@ rnorm(100, 0 ,1 )
 
 * Give names to non-obvious arguments.
 * The above is clear but this isn't:
+
+```{r}
 rnorm(100, 100, 100)
+```
 
 ## You'll learn over time what's obvious and what isn't.
 * In this example mean and sd aren't obvious, but in all dplyr function data is the first argument, so you don't have to write "data = iris", every time.
 
 * Functions are indicated by () after the name.
 * Not all functions have arguments
+
+```{r}
 ls()
 ls
+```
 
 # Types
 
@@ -163,27 +176,32 @@ There's many others (Date/time, complex etc) but the 4 core ones are:
 * Boolean/Logical (True False)
 
 ## Numerics
+
 ```{r}
 class(5L)
 class(5.0)
 ```
 ## Strings/Characters
+
 ```{r}
 class("5")
 class("foo")
 ```
 
 ## Maths makes sense with numerics
+
 ```{r}
 5/3
 ```
 
 ## some maths works but doesn't make sense with characters
+
 ```{r}
 "10" > "2"
 ```
 
 # Factors
+
 * Integers and Characters put together
 * Useful for 'multiple choice' like:
 
@@ -197,7 +215,6 @@ school_status <- factor(school_status)
 # This uses an ordered factor:
 
 ```{r}
-
 teachers <- c("M1", "M4", "M2")
 
 teachers_factor <- ordered(teachers,
@@ -206,7 +223,6 @@ teachers_factor <- ordered(teachers,
 teachers_factor[3] > teachers_factor[2]
 ```
 
-
 * Square brackets can be used to select elements
 
 ```{r}
@@ -214,6 +230,7 @@ c(10, 20, 30)[3]
 ```
 
 # Boolean
+
 ```{r}
 TRUE
 T
@@ -222,9 +239,12 @@ F
 ```
 
 # Coercion
+
+```{r}
 TRUE + TRUE # Implicit
 as.numeric(TRUE) # Explicit
 as.numeric(FALSE) # Explicit
+```
 
 ```{r}
 "5" + "8"
@@ -239,7 +259,7 @@ as.
 
 # Vectors
 
-# Everything is a vector
+* Everything is a vector
 
 ```{r}
 1 == c(1)
@@ -250,6 +270,8 @@ as.
 * `c(1:100)` : makes a sequence
 
 # R recycles vectors
+
+```{r}
 economic_data <- c(1:3) # same as c(1,2,3)
 
 economic_data * inflation_uplift # inflation_uplift was a vector of length 1
@@ -260,26 +282,33 @@ length(inflation_uplift)
 yearly_inflation_uplift <- c(1.02, 1.07, 1.20)
 
 economic_data * yearly_inflation_uplift
+```
 
-# You want to always use vectors of the same length,
-# or vectors of length 1.
+* You want to always use vectors of the same length, or vectors of length 1.
 
-# This works but don't do it
+* This works but don't do it
+
+```{r}
 economic_data * c(1.02, 1000) # Will work but gives warning message
 
 c(1:10) + c(10, 100) # Will works but you should never use it
 
 length(c(1:10))
 length(c(10, 100))
+```
 
-# Data Frames -----------------------------
+# Data Frames
 
-# Rectangular data, made up of atomic elements
-# Think columns and rows.
+* Rectangular data, made up of atomic elements 
+* Think columns and rows.
 
+```{r}
 data(iris); force(iris)
+```
 
 # "Explore your data" functions
+
+```{r}
 
 class(iris) # Type of object
 
@@ -288,6 +317,7 @@ names(iris) # Names of data.frame
 str(iris) # Structure
 
 summary(iris)
+```
 
 # Packages
 
