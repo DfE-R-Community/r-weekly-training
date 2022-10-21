@@ -4,15 +4,14 @@ format: gfm
 ---
 
 1. Create a new R script and name it after your AD username (the same one you use to log in on your laptop)
+
 2. Load the packages `dplyr`, `tidyr` and `ggplot2` at the top of your script
+
 3. Run `mtcars` in the console and look at the output. You'll see the first
   column doesn't have a header - this is because it gives *row names* for the
   dataset. Create a new version of the dataset, `mtcars2`, which gives the car
   names in a new column named `car`. This should be a `tibble`.
-    ```{r}
-    # The mtcars dataset:
-    head(mtcars, 10)
-    ```
+
 4. 
     a) Add a new column which gives `TRUE`/`FALSE` depending on whether a car does
        more then 20 miles/gallon
