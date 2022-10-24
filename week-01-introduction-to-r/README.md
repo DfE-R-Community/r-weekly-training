@@ -445,4 +445,4 @@ library(tidyverse)
 
 # Resources
 
-[](https://r4ds.hadley.nz/)
+-   [R for Data Science](https://r4ds.hadley.nz/)
