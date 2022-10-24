@@ -101,6 +101,13 @@ rnorm(n = 100, mean = 0, sd = 1) |>
 -   Generally you should run each line as you write it, to make sure it
     works as you expect.
 
+## R Scripts
+
+-   This is your work - it should have everything
+    -   Downloading/importing data
+    -   Data cleaning
+    -   Outputs
+
 ## Maths ————————-
 
 Maths works similar to excel.
@@ -172,9 +179,7 @@ rnorm(100, 100, 100)
 -   In this example mean and sd aren’t obvious, but in all dplyr
     function data is the first argument, so you don’t have to write
     “data = iris”, every time.
-
 -   Functions are indicated by () after the name.
-
 -   Not all functions have arguments
 
 ``` r
@@ -188,9 +193,12 @@ ls
 
 -   Atomic because they make up all the other types
 
-There’s many others (Date/time, complex etc) but the 4 core ones are: \*
-Numeric (integer/double) \* Character \* Factor \* Boolean/Logical (True
-False)
+There’s many others (Date/time, complex etc) but the 4 core ones are:
+
+-   Numeric (integer/double)
+-   Character
+-   Factor
+-   Boolean/Logical (True False)
 
 ## Numerics
 
@@ -276,9 +284,42 @@ as.logical
 as.
 ```
 
+## NA’s
+
+``` r
+5 == 2 + 3
+```
+
+``` r
+NA == NA
+```
+
+``` r
+5 == NA
+```
+
+``` r
+wojtek_age <- NA
+sam_age <- NA
+wojtek_age == sam_age 
+```
+
+``` r
+mean(c(1,2,3))
+```
+
+``` r
+mean(c(1,2,3, NA))
+```
+
+``` r
+mean(c(1,2,3, NA), na.rm = TRUE)
+```
+
 # Vectors
 
 -   Everything is a vector
+-   A vector is just a column, but of the same type
 
 ``` r
 1 == c(1)
@@ -286,19 +327,20 @@ as.
 
 -   `c()` is used to make a vector with multiple elements
 
--   `c(1:100)` : makes a sequence
+-   `1:100` : makes a sequence
 
-# R recycles vectors
+## R recycles vectors
 
 ``` r
-economic_data <- c(1:3) # same as c(1,2,3)
+economic_data <- c(1:4) # same as c(1,2,3)
+inflation_uplift <- 1.02
 
-economic_data * inflation_uplift # inflation_uplift was a vector of length 1
+economic_data * inflation_uplift # inflation_uplift is a vector of length 1
 
 length(economic_data)
 length(inflation_uplift)
 
-yearly_inflation_uplift <- c(1.02, 1.07, 1.20)
+yearly_inflation_uplift <- c(1.02, 1.07, 1.20, 1.50)
 
 economic_data * yearly_inflation_uplift
 ```
@@ -309,7 +351,7 @@ economic_data * yearly_inflation_uplift
 -   This works but don’t do it
 
 ``` r
-economic_data * c(1.02, 1000) # Will work but gives warning message
+economic_data * c(1.02, 1000, 2) # Will work but gives warning message
 
 c(1:10) + c(10, 100) # Will works but you should never use it
 
@@ -330,6 +372,8 @@ data(iris); force(iris)
 
 ``` r
 class(iris) # Type of object
+
+class(iris$Sepal.Length)
 
 names(iris) # Names of data.frame
 
