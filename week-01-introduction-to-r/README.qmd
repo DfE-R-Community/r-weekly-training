@@ -1,6 +1,8 @@
 ---
 title: "Introduction to R"
-format: gfm
+format: 
+  gfm:
+    toc: true
 knitr:
   opts_chunk:
     eval: false
@@ -101,7 +103,10 @@ rnorm(n = 100, mean = 0, sd = 1) |>
   * Data cleaning 
   * Outputs
 
-## Maths -------------------------
+
+
+
+## Maths
 
 Maths works similar to excel.
 
@@ -109,6 +114,17 @@ Maths works similar to excel.
 5 + 5
 3 / 5
 ```
+
+
+## Comments
+
+* Use them to explain **why** your code is doing something.
+
+```{r}
+# Everything after `#` is a comment
+5 + 5
+```
+
 
 ## Logic
 
@@ -222,7 +238,7 @@ school_status <- factor(school_status)
 
 * Useful in other scenarios, like plotting a chart or running a  regression with dummy variables. 
 
-# This uses an ordered factor:
+## This uses an ordered factor:
 
 ```{r}
 teachers <- c("M1", "M4", "M2")
@@ -290,17 +306,16 @@ wojtek_age == sam_age
 
 
 ```{r}
-mean(c(1,2,3))
+mean(c(1, 2, 3))
 ```
 
 ```{r}
-mean(c(1,2,3, NA))
+mean(c(1, 2, 3, NA))
 ```
 
 ```{r}
-mean(c(1,2,3, NA), na.rm = TRUE)
+mean(c(1, 2, 3, NA), na.rm = TRUE)
 ```
-
 
 
 # Vectors
@@ -309,7 +324,7 @@ mean(c(1,2,3, NA), na.rm = TRUE)
 * A vector is just a column, but of the same type
 
 ```{r}
-1 == c(1)
+identical(1, c(1))
 ```
 
 * `c()` is used to make a vector with multiple elements
@@ -348,25 +363,25 @@ length(c(10, 100))
 # Data Frames
 
 * Rectangular data, made up of atomic elements 
-* Think columns and rows.
+* Think columns and rows (sheet).
 
 ```{r}
-data(iris); force(iris)
+penguins <- palmerpenguins::penguins
 ```
 
 # "Explore your data" functions
 
 ```{r}
 
-class(iris) # Type of object
+class(penguins) # Type of object
 
-class(iris$Sepal.Length)
+class(penguins$bill_length_mm)
 
-names(iris) # Names of data.frame
+names(penguins) # Names of data.frame
 
-str(iris) # Structure
+str(penguins) # Structure
 
-summary(iris)
+summary(penguins)
 ```
 
 # Packages
@@ -384,3 +399,7 @@ install.packages("tidyverse")
 ```{r}
 library(tidyverse)
 ```
+
+# Resources
+
+[](https://r4ds.hadley.nz/)

@@ -1,6 +1,65 @@
 Introduction to R
 ================
 
+-   <a href="#initial-setup" id="toc-initial-setup">Initial Setup</a>
+    -   <a href="#workspace" id="toc-workspace">Workspace</a>
+    -   <a href="#code-diagnostics" id="toc-code-diagnostics">Code
+        Diagnostics</a>
+    -   <a href="#syntax-highlighting-console-output"
+        id="toc-syntax-highlighting-console-output">Syntax Highlighting Console
+        Output</a>
+    -   <a href="#colours-and-display" id="toc-colours-and-display">Colours and
+        Display</a>
+    -   <a href="#set-up-r-project" id="toc-set-up-r-project">Set up R
+        Project</a>
+-   <a href="#rstudio" id="toc-rstudio">RStudio</a>
+    -   <a href="#rstudio-layout" id="toc-rstudio-layout">RStudio Layout</a>
+    -   <a href="#rstudio-projects" id="toc-rstudio-projects">RStudio
+        Projects</a>
+    -   <a href="#keyboard-shortcuts" id="toc-keyboard-shortcuts">Keyboard
+        Shortcuts</a>
+    -   <a href="#tab-complete." id="toc-tab-complete.">Tab-Complete.</a>
+    -   <a href="#most-importantly---google-google-google"
+        id="toc-most-importantly---google-google-google">Most importantly -
+        Google Google Google</a>
+-   <a href="#r-basics" id="toc-r-basics">R Basics</a>
+    -   <a href="#r-scripts" id="toc-r-scripts">R Scripts</a>
+    -   <a href="#maths" id="toc-maths">Maths</a>
+    -   <a href="#comments" id="toc-comments">Comments</a>
+    -   <a href="#logic" id="toc-logic">Logic</a>
+    -   <a href="#variables" id="toc-variables">Variables</a>
+    -   <a href="#briefly-on-names." id="toc-briefly-on-names.">Briefly on
+        names….</a>
+    -   <a href="#functions" id="toc-functions">Functions</a>
+    -   <a href="#youll-learn-over-time-whats-obvious-and-what-isnt."
+        id="toc-youll-learn-over-time-whats-obvious-and-what-isnt.">You’ll learn
+        over time what’s obvious and what isn’t.</a>
+-   <a href="#types" id="toc-types">Types</a>
+    -   <a href="#atomic-types" id="toc-atomic-types">Atomic Types</a>
+    -   <a href="#numerics" id="toc-numerics">Numerics</a>
+    -   <a href="#stringscharacters"
+        id="toc-stringscharacters">Strings/Characters</a>
+    -   <a href="#maths-makes-sense-with-numerics"
+        id="toc-maths-makes-sense-with-numerics">Maths makes sense with
+        numerics</a>
+    -   <a href="#some-maths-works-but-doesnt-make-sense-with-characters"
+        id="toc-some-maths-works-but-doesnt-make-sense-with-characters">some
+        maths works but doesn’t make sense with characters</a>
+-   <a href="#factors" id="toc-factors">Factors</a>
+    -   <a href="#this-uses-an-ordered-factor"
+        id="toc-this-uses-an-ordered-factor">This uses an ordered factor:</a>
+-   <a href="#boolean" id="toc-boolean">Boolean</a>
+-   <a href="#coercion" id="toc-coercion">Coercion</a>
+    -   <a href="#nas" id="toc-nas">NA’s</a>
+-   <a href="#vectors" id="toc-vectors">Vectors</a>
+    -   <a href="#r-recycles-vectors" id="toc-r-recycles-vectors">R recycles
+        vectors</a>
+-   <a href="#data-frames" id="toc-data-frames">Data Frames</a>
+-   <a href="#explore-your-data-functions"
+    id="toc-explore-your-data-functions">“Explore your data” functions</a>
+-   <a href="#packages" id="toc-packages">Packages</a>
+-   <a href="#resources" id="toc-resources">Resources</a>
+
 # Initial Setup
 
 ## Workspace
@@ -108,13 +167,22 @@ rnorm(n = 100, mean = 0, sd = 1) |>
     -   Data cleaning
     -   Outputs
 
-## Maths ————————-
+## Maths
 
 Maths works similar to excel.
 
 ``` r
 5 + 5
 3 / 5
+```
+
+## Comments
+
+-   Use them to explain **why** your code is doing something.
+
+``` r
+# Everything after `#` is a comment
+5 + 5
 ```
 
 ## Logic
@@ -239,7 +307,7 @@ school_status <- factor(school_status)
 -   Useful in other scenarios, like plotting a chart or running a
     regression with dummy variables.
 
-# This uses an ordered factor:
+## This uses an ordered factor:
 
 ``` r
 teachers <- c("M1", "M4", "M2")
@@ -305,15 +373,15 @@ wojtek_age == sam_age
 ```
 
 ``` r
-mean(c(1,2,3))
+mean(c(1, 2, 3))
 ```
 
 ``` r
-mean(c(1,2,3, NA))
+mean(c(1, 2, 3, NA))
 ```
 
 ``` r
-mean(c(1,2,3, NA), na.rm = TRUE)
+mean(c(1, 2, 3, NA), na.rm = TRUE)
 ```
 
 # Vectors
@@ -322,7 +390,7 @@ mean(c(1,2,3, NA), na.rm = TRUE)
 -   A vector is just a column, but of the same type
 
 ``` r
-1 == c(1)
+identical(1, c(1))
 ```
 
 -   `c()` is used to make a vector with multiple elements
@@ -362,24 +430,24 @@ length(c(10, 100))
 # Data Frames
 
 -   Rectangular data, made up of atomic elements
--   Think columns and rows.
+-   Think columns and rows (sheet).
 
 ``` r
-data(iris); force(iris)
+penguins <- palmerpenguins::penguins
 ```
 
 # “Explore your data” functions
 
 ``` r
-class(iris) # Type of object
+class(penguins) # Type of object
 
-class(iris$Sepal.Length)
+class(penguins$bill_length_mm)
 
-names(iris) # Names of data.frame
+names(penguins) # Names of data.frame
 
-str(iris) # Structure
+str(penguins) # Structure
 
-summary(iris)
+summary(penguins)
 ```
 
 # Packages
@@ -397,3 +465,7 @@ install.packages("tidyverse")
 ``` r
 library(tidyverse)
 ```
+
+# Resources
+
+[](https://r4ds.hadley.nz/)
