@@ -3,6 +3,7 @@ title: "Introduction to R"
 format: 
   gfm:
     toc: true
+    toc-depth: 2
 knitr:
   opts_chunk:
     eval: false
@@ -88,7 +89,10 @@ rnorm(n = 100, mean = 0, sd = 1) |>
 * If you can't find what you need, or don't know what it's called, ask me.
 
 
-# R Basics
+# R
+
+
+## R Basics
 
 * If RStudio asks you whether to install packages, click yes.
 
@@ -96,7 +100,7 @@ rnorm(n = 100, mean = 0, sd = 1) |>
 * Generally you should run each line as you write it, to make sure it works as you expect.
 
 
-## R Scripts
+### R Scripts
 
 * This is your work - it should have everything
   * Downloading/importing data
@@ -106,7 +110,7 @@ rnorm(n = 100, mean = 0, sd = 1) |>
 
 
 
-## Maths
+### Maths
 
 Maths works similar to excel.
 
@@ -116,7 +120,7 @@ Maths works similar to excel.
 ```
 
 
-## Comments
+### Comments
 
 * Use them to explain **why** your code is doing something.
 
@@ -126,7 +130,7 @@ Maths works similar to excel.
 ```
 
 
-## Logic
+### Logic
 
 ```{r}
 5 == 5 # is equal
@@ -139,7 +143,7 @@ T & F # & = AND
 5 <= 10
 ```
 
-## Variables
+### Variables
 * Assignment is with `<-` or `=`.
 * Prefer `<-`
 
@@ -148,7 +152,7 @@ x <- 5
 y = 4
 ```
 
-## Briefly on names....
+### Briefly on names....
 * Use snake_case or camelCase and stick with it.
 * GIVE YOUR VARIABLES INFORMATIVE NAMES
 
@@ -177,7 +181,7 @@ rnorm(100, 0 ,1 )
 rnorm(100, 100, 100)
 ```
 
-## You'll learn over time what's obvious and what isn't.
+### You'll learn over time what's obvious and what isn't.
 
 * In this example mean and sd aren't obvious, but in all dplyr function data is the first argument, so you don't have to write "data = iris", every time.
 * Functions are indicated by () after the name.
@@ -188,9 +192,9 @@ ls()
 ls
 ```
 
-# Types
+## Types
 
-## Atomic Types
+### Atomic Types
 
 * Atomic because they make up all the other types
 
@@ -201,32 +205,32 @@ There's many others (Date/time, complex etc) but the 4 core ones are:
 * Factor
 * Boolean/Logical (True False)
 
-## Numerics
+### Numerics
 
 ```{r}
 class(5L)
 class(5.0)
 ```
-## Strings/Characters
+### Strings/Characters
 
 ```{r}
 class("5")
 class("foo")
 ```
 
-## Maths makes sense with numerics
+* Maths makes sense with numerics
 
 ```{r}
 5/3
 ```
 
-## some maths works but doesn't make sense with characters
+* Some maths works but doesn't make sense with characters
 
 ```{r}
 "10" > "2"
 ```
 
-# Factors
+## Factors
 
 * Integers and Characters put together
 * Useful for 'multiple choice' like:
@@ -238,7 +242,7 @@ school_status <- factor(school_status)
 
 * Useful in other scenarios, like plotting a chart or running a  regression with dummy variables. 
 
-## This uses an ordered factor:
+## Ordered factors
 
 ```{r}
 teachers <- c("M1", "M4", "M2")
@@ -255,7 +259,7 @@ teachers_factor[3] > teachers_factor[2]
 c(10, 20, 30)[3]
 ```
 
-# Boolean
+## Boolean
 
 ```{r}
 TRUE
@@ -264,7 +268,7 @@ FALSE
 F
 ```
 
-# Coercion
+## Coercion
 
 ```{r}
 TRUE + TRUE # Implicit
@@ -283,7 +287,7 @@ as.logical
 as.
 ```
 
-## NA's
+### NA's
 
 ```{r}
 5 == 2 + 3
@@ -318,7 +322,7 @@ mean(c(1, 2, 3, NA), na.rm = TRUE)
 ```
 
 
-# Vectors
+## Vectors
 
 * Everything is a vector
 * A vector is just a column, but of the same type
@@ -331,7 +335,7 @@ identical(1, c(1))
 
 * `1:100` : makes a sequence
 
-## R recycles vectors
+### R recycles vectors
 
 ```{r}
 economic_data <- c(1:4) # same as c(1,2,3)
@@ -360,7 +364,7 @@ length(c(1:10))
 length(c(10, 100))
 ```
 
-# Data Frames
+## Data Frames
 
 * Rectangular data, made up of atomic elements 
 * Think columns and rows (sheet).
@@ -369,7 +373,7 @@ length(c(10, 100))
 penguins <- palmerpenguins::penguins
 ```
 
-# "Explore your data" functions
+### "Explore your data" functions
 
 ```{r}
 
@@ -384,7 +388,7 @@ str(penguins) # Structure
 summary(penguins)
 ```
 
-# Packages
+## Packages
 
 * Very important element of R - it's how you add extra functionality
 

@@ -22,42 +22,17 @@ Introduction to R
     -   <a href="#most-importantly---google-google-google"
         id="toc-most-importantly---google-google-google">Most importantly -
         Google Google Google</a>
--   <a href="#r-basics" id="toc-r-basics">R Basics</a>
-    -   <a href="#r-scripts" id="toc-r-scripts">R Scripts</a>
-    -   <a href="#maths" id="toc-maths">Maths</a>
-    -   <a href="#comments" id="toc-comments">Comments</a>
-    -   <a href="#logic" id="toc-logic">Logic</a>
-    -   <a href="#variables" id="toc-variables">Variables</a>
-    -   <a href="#briefly-on-names." id="toc-briefly-on-names.">Briefly on
-        names….</a>
+-   <a href="#r" id="toc-r">R</a>
+    -   <a href="#r-basics" id="toc-r-basics">R Basics</a>
     -   <a href="#functions" id="toc-functions">Functions</a>
-    -   <a href="#youll-learn-over-time-whats-obvious-and-what-isnt."
-        id="toc-youll-learn-over-time-whats-obvious-and-what-isnt.">You’ll learn
-        over time what’s obvious and what isn’t.</a>
--   <a href="#types" id="toc-types">Types</a>
-    -   <a href="#atomic-types" id="toc-atomic-types">Atomic Types</a>
-    -   <a href="#numerics" id="toc-numerics">Numerics</a>
-    -   <a href="#stringscharacters"
-        id="toc-stringscharacters">Strings/Characters</a>
-    -   <a href="#maths-makes-sense-with-numerics"
-        id="toc-maths-makes-sense-with-numerics">Maths makes sense with
-        numerics</a>
-    -   <a href="#some-maths-works-but-doesnt-make-sense-with-characters"
-        id="toc-some-maths-works-but-doesnt-make-sense-with-characters">some
-        maths works but doesn’t make sense with characters</a>
--   <a href="#factors" id="toc-factors">Factors</a>
-    -   <a href="#this-uses-an-ordered-factor"
-        id="toc-this-uses-an-ordered-factor">This uses an ordered factor:</a>
--   <a href="#boolean" id="toc-boolean">Boolean</a>
--   <a href="#coercion" id="toc-coercion">Coercion</a>
-    -   <a href="#nas" id="toc-nas">NA’s</a>
--   <a href="#vectors" id="toc-vectors">Vectors</a>
-    -   <a href="#r-recycles-vectors" id="toc-r-recycles-vectors">R recycles
-        vectors</a>
--   <a href="#data-frames" id="toc-data-frames">Data Frames</a>
--   <a href="#explore-your-data-functions"
-    id="toc-explore-your-data-functions">“Explore your data” functions</a>
--   <a href="#packages" id="toc-packages">Packages</a>
+    -   <a href="#types" id="toc-types">Types</a>
+    -   <a href="#factors" id="toc-factors">Factors</a>
+    -   <a href="#ordered-factors" id="toc-ordered-factors">Ordered factors</a>
+    -   <a href="#boolean" id="toc-boolean">Boolean</a>
+    -   <a href="#coercion" id="toc-coercion">Coercion</a>
+    -   <a href="#vectors" id="toc-vectors">Vectors</a>
+    -   <a href="#data-frames" id="toc-data-frames">Data Frames</a>
+    -   <a href="#packages" id="toc-packages">Packages</a>
 -   <a href="#resources" id="toc-resources">Resources</a>
 
 # Initial Setup
@@ -151,7 +126,9 @@ rnorm(n = 100, mean = 0, sd = 1) |>
 -   If you can’t find what you need, or don’t know what it’s called, ask
     me.
 
-# R Basics
+# R
+
+## R Basics
 
 -   If RStudio asks you whether to install packages, click yes.
 
@@ -160,14 +137,14 @@ rnorm(n = 100, mean = 0, sd = 1) |>
 -   Generally you should run each line as you write it, to make sure it
     works as you expect.
 
-## R Scripts
+### R Scripts
 
 -   This is your work - it should have everything
     -   Downloading/importing data
     -   Data cleaning
     -   Outputs
 
-## Maths
+### Maths
 
 Maths works similar to excel.
 
@@ -176,7 +153,7 @@ Maths works similar to excel.
 3 / 5
 ```
 
-## Comments
+### Comments
 
 -   Use them to explain **why** your code is doing something.
 
@@ -185,7 +162,7 @@ Maths works similar to excel.
 5 + 5
 ```
 
-## Logic
+### Logic
 
 ``` r
 5 == 5 # is equal
@@ -198,7 +175,7 @@ T & F # & = AND
 5 <= 10
 ```
 
-## Variables
+### Variables
 
 -   Assignment is with `<-` or `=`.
 -   Prefer `<-`
@@ -208,7 +185,7 @@ x <- 5
 y = 4
 ```
 
-## Briefly on names….
+### Briefly on names….
 
 -   Use snake_case or camelCase and stick with it.
 
@@ -242,7 +219,7 @@ rnorm(100, 0 ,1 )
 rnorm(100, 100, 100)
 ```
 
-## You’ll learn over time what’s obvious and what isn’t.
+### You’ll learn over time what’s obvious and what isn’t.
 
 -   In this example mean and sd aren’t obvious, but in all dplyr
     function data is the first argument, so you don’t have to write
@@ -255,9 +232,9 @@ ls()
 ls
 ```
 
-# Types
+## Types
 
-## Atomic Types
+### Atomic Types
 
 -   Atomic because they make up all the other types
 
@@ -268,33 +245,33 @@ There’s many others (Date/time, complex etc) but the 4 core ones are:
 -   Factor
 -   Boolean/Logical (True False)
 
-## Numerics
+### Numerics
 
 ``` r
 class(5L)
 class(5.0)
 ```
 
-## Strings/Characters
+### Strings/Characters
 
 ``` r
 class("5")
 class("foo")
 ```
 
-## Maths makes sense with numerics
+-   Maths makes sense with numerics
 
 ``` r
 5/3
 ```
 
-## some maths works but doesn’t make sense with characters
+-   Some maths works but doesn’t make sense with characters
 
 ``` r
 "10" > "2"
 ```
 
-# Factors
+## Factors
 
 -   Integers and Characters put together
 -   Useful for ‘multiple choice’ like:
@@ -307,7 +284,7 @@ school_status <- factor(school_status)
 -   Useful in other scenarios, like plotting a chart or running a
     regression with dummy variables.
 
-## This uses an ordered factor:
+## Ordered factors
 
 ``` r
 teachers <- c("M1", "M4", "M2")
@@ -324,7 +301,7 @@ teachers_factor[3] > teachers_factor[2]
 c(10, 20, 30)[3]
 ```
 
-# Boolean
+## Boolean
 
 ``` r
 TRUE
@@ -333,7 +310,7 @@ FALSE
 F
 ```
 
-# Coercion
+## Coercion
 
 ``` r
 TRUE + TRUE # Implicit
@@ -352,7 +329,7 @@ as.logical
 as.
 ```
 
-## NA’s
+### NA’s
 
 ``` r
 5 == 2 + 3
@@ -384,7 +361,7 @@ mean(c(1, 2, 3, NA))
 mean(c(1, 2, 3, NA), na.rm = TRUE)
 ```
 
-# Vectors
+## Vectors
 
 -   Everything is a vector
 -   A vector is just a column, but of the same type
@@ -397,7 +374,7 @@ identical(1, c(1))
 
 -   `1:100` : makes a sequence
 
-## R recycles vectors
+### R recycles vectors
 
 ``` r
 economic_data <- c(1:4) # same as c(1,2,3)
@@ -427,7 +404,7 @@ length(c(1:10))
 length(c(10, 100))
 ```
 
-# Data Frames
+## Data Frames
 
 -   Rectangular data, made up of atomic elements
 -   Think columns and rows (sheet).
@@ -436,7 +413,7 @@ length(c(10, 100))
 penguins <- palmerpenguins::penguins
 ```
 
-# “Explore your data” functions
+### “Explore your data” functions
 
 ``` r
 class(penguins) # Type of object
@@ -450,7 +427,7 @@ str(penguins) # Structure
 summary(penguins)
 ```
 
-# Packages
+## Packages
 
 -   Very important element of R - it’s how you add extra functionality
 
