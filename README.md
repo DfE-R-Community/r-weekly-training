@@ -1,34 +1,16 @@
 # R Weekly Training
 
-> **Warning** This repo is currently undergoing a rewrite. Please wait
-until this warning disappears before using the materials herein.
-
 Welcome to the DfE R Community's R Weekly Training! This programme
-should get you up-to-speed with the basics of R. This programme is run
-annually over a 3(ish)-month period, so if you're interested in
-participating but aren't sure when the next round will be, [get in
-touch](mailto:jacob.scott@education.gov.uk) 🙂
-
-# Scope
-
-The primary goal of this programme is simply to enable inexperienced R
-users to get feedback on their code, whilst also providing something of
-a learning-pathway to a well-rounded knowledge of the language. For this
-reason we have generally only provided exercises for a given topic,
-along with external resources that users should refer to when attempting
-them. This helps keep the programme focussed while also introducing some
-of the habits of self-directed learning which are essential for any R
-user.
+should get you up-to-speed with the basics of R.
 
 # Get Started
 
 Each week has its own subdirectory in this repo. The exercises for each
 week are given in the `README.md` file for that week, meaning they
-should be nicely rendered when viewed online in GitHub (or Azure
-DevOps). These folders may also contain other resources, e.g. datasets,
+should be nicely rendered when viewed online in GitHub. 
+These folders may also contain other resources, e.g. datasets,
 to make use of when completing the exercises. To get started, go to
-[Week
-01](https://dfe-gov-uk.visualstudio.com/Training-Repositories/_git/R-Weekly-Training?path=/week-01-getting-started&version=GBmain&_a=contents).
+[Week 01](https://dfe-gov-uk.visualstudio.com/Training-Repositories/_git/R-Weekly-Training?path=/week-01-getting-started&version=GBmain&_a=contents).
 
 # Some things we'll cover
 
@@ -40,10 +22,8 @@ to make use of when completing the exercises. To get started, go to
 -   Functional programming using [`purrr`](https://purrr.tidyverse.org/)
 -   App/dashboard development using
     [`shiny`](https://shiny.rstudio.com/)
--   The basics report generation using [R
-    Markdown](https://rmarkdown.rstudio.com/)
--   Good coding practice using the [tidyverse style
-    guide](https://style.tidyverse.org/)
+-   The basics report generation using [R Markdown](https://rmarkdown.rstudio.com/)
+-   Good coding practice using the [tidyverse style guide](https://style.tidyverse.org/)
 -   The basics of version control using Git and GitHub
 
 # Resources
@@ -58,8 +38,3 @@ to make use of when completing the exercises. To get started, go to
 -   [RStudio
     Cheatsheets](https://www.rstudio.com/resources/cheatsheets/#) are a
     great way to quickly brush-up on specific R packages
-
-# Contact
-
-These materials are maintained and updated by [Jacob
-Scott](https://github.com/wurli).
