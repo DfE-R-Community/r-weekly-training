@@ -94,8 +94,6 @@ rnorm(n = 100, mean = 0, sd = 1) |>
 
 ## R Basics
 
-* If RStudio asks you whether to install packages, click yes.
-
 * R is scripting language - much more interactive than SQL
 * Generally you should run each line as you write it, to make sure it works as you expect.
 
@@ -135,12 +133,16 @@ Maths works similar to excel.
 ```{r}
 5 == 5 # is equal
 5 != 5 # is not equal
-TRUE | FALSE # | = OR
-T & F # & = AND
+TRUE | FALSE # OR
+T & F # AND
 # TRUE and FALSE can be abbreviated to T and F but not recommended.
-!TRUE # ! = NOT
+!TRUE # NOT
 2 > 5
 5 <= 10
+```
+
+```{r}
+(T & F) | (T & T)
 ```
 
 ### Variables
@@ -171,7 +173,7 @@ inflation_uplift <- 1.02
 
 ```{r}
 rnorm(n = 100, mean = 0, sd = 1)
-rnorm(100, 0 ,1 )
+rnorm(100, 0, 1)
 ```
 
 * Give names to non-obvious arguments.
@@ -185,7 +187,7 @@ rnorm(100, 100, 100)
 
 * In this example mean and sd aren't obvious, but in all dplyr function data is the first argument, so you don't have to write "data = iris", every time.
 * Functions are indicated by () after the name.
-* Not all functions have arguments
+* Not all functions require arguments
 
 ```{r}
 ls()
@@ -198,12 +200,14 @@ ls
 
 * Atomic because they make up all the other types
 
-There's many others (Date/time, complex etc) but the 4 core ones are:
+* The 4 core ones are:
 
 * Numeric (integer/double)
 * Character
 * Factor
 * Boolean/Logical (True False)
+
+But there's many others (Date/time, complex etc)
 
 ### Numerics
 
@@ -214,7 +218,7 @@ class(5.0)
 ### Strings/Characters
 
 ```{r}
-class("5")
+class('5')
 class("foo")
 ```
 
@@ -227,7 +231,7 @@ class("foo")
 * Some maths works but doesn't make sense with characters
 
 ```{r}
-"10" > "2"
+"100" > 20
 ```
 
 ## Factors
@@ -249,6 +253,8 @@ teachers <- c("M1", "M4", "M2")
 
 teachers_factor <- ordered(teachers,
                            levels = c("M1", "M2", "M3", "M4"))
+
+teachers_factor
 
 teachers_factor[3] > teachers_factor[2]
 ```
@@ -277,8 +283,8 @@ as.numeric(FALSE) # Explicit
 ```
 
 ```{r}
-"5" + "8"
-as.numeric("5") + as.numeric("3")
+"5" + "8" # Doesn't always happen implicitly
+as.numeric("5") + as.numeric("8")
 
 as.numeric
 as.character
@@ -321,6 +327,19 @@ mean(c(1, 2, 3, NA))
 mean(c(1, 2, 3, NA), na.rm = TRUE)
 ```
 
+Be careful coming from SPSS, where NA's are coded as negative values.
+
+```{r}
+x <- c(-8, -9, 1, 2)
+mean(x)
+
+x <- dplyr::na_if(x, -8)
+x <- dplyr::na_if(x, -9)
+
+x
+mean(x, na.rm = TRUE)
+
+```
 
 ## Vectors
 
@@ -341,7 +360,7 @@ identical(1, c(1))
 economic_data <- c(1:4) # same as c(1,2,3)
 inflation_uplift <- 1.02
 
-economic_data * inflation_uplift # inflation_uplift is a vector of length 1
+economic_data * inflation_uplift
 
 length(economic_data)
 length(inflation_uplift)
