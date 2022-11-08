@@ -1,0 +1,219 @@
+---
+title: "Data wrangling part 2"
+author: "Samuel Pilling"
+format: 
+  revealjs:
+    smaller: true
+    scrollable: true
+editor: visual
+knitr: 
+  opts_chunk: 
+    echo: true
+    output-location: column-fragment
+---
+
+## Data wrangling part 2
+
+Today we will aim to cover and mainly focus on:
+
+`select()`, `mutate()`,`group_by()`,`summarise()`,`count()`,`rename()`
+`if_else()`, and `case_when()`
+
+If we have time / those who want can delve a bit deeper and look at
+
+`left_join()`, `pivot_wider()` and `pivot_longer()`
+
+We will answer the following questions using the **`nycflights13`**
+data-set.
+
+```{r include=FALSE}
+
+library(tidyverse)
+library(nycflights13)
+
+```
+
+## `select()` {}
+
+It's not uncommon to get datasets with hundreds or even thousands of
+variables. In this case, the first challenge is often narrowing in on
+the variables you're actually interested in.
+
+`select()` allows you to rapidly zoom in on a useful subset using
+operations based on the names of the variables.
+
+. . .
+
+```{r} 
+flights %>% select(carrier,origin)
+```
+. . .
+```{r }
+flights %>% select(contains("dep"))
+```
+
+## `mutate()` {.smaller}
+
+If you want to add new columns that are functions of existing columns.
+That's the job of `mutate()`.
+
+`mutate()` always adds new columns at the end of your dataset.
+
+`mutate()` can be used with operations (\*, +, etc) and is often used
+with `if_else()` or `case_when()`
+
+`transmute()` - only keep the new mutated columns 
+
+`rename()` - rename a column 
+
+. . .
+
+```{r }
+
+flight_delay <- flights %>%
+  mutate(air_time_delay = arr_delay - dep_delay) %>%
+  select(air_time_delay,everything())
+
+flight_delay
+```
+
+. . .
+
+```{r }
+
+flight_delay %>%
+  mutate(refund = if_else(arr_delay > 30, 1, 0)) %>%
+  select(refund,everything())
+```
+
+. . .
+
+```{r }
+
+flight_delay %>%
+  mutate(refund_groups = case_when (arr_delay > 60 ~ 1,
+                                                   arr_delay > 30 ~ 2,
+                                                   arr_delay > 0 ~ 3,
+                                                   TRUE ~ 0)) %>%
+  select(refund_groups, everything())
+
+```
+
+
+. . .
+
+```{r}
+
+
+flights %>%
+  transmute(air_time_delay = arr_delay - dep_delay)
+
+```
+
+
+. . .
+
+```{r include= TRUE}
+
+
+flights %>%
+  rename(destination = dest) %>%
+  select(destination, everything())
+
+
+
+```
+
+## `group_by()` and `summarise()`
+
+`group_by()` is a very useful function that can be used for data
+aggregation.
+
+It is often paired with `summarise()` or `mutate()`.
+
+`count()` is like `group_by()` and `summarise()` in one.
+
+`ungroup()` to remove a grouping.
+
+. . .
+
+```{r}
+
+flights %>%
+  summarise(delay = mean(dep_delay, na.rm = TRUE))
+
+```
+
+
+. . .
+
+```{r include= TRUE}
+
+flights %>%
+  group_by(dest) %>%
+  summarise(delay = mean(dep_delay, na.rm = TRUE))
+
+```
+
+. . .
+
+```{r}
+
+
+flights %>%
+  group_by(dest) %>%
+  summarise(delayed_flights = sum(if_else(dep_delay < 0,1,0), na.rm = T))
+
+```
+
+. . .
+
+```{r }
+
+flights %>%
+  group_by(dest,carrier) %>%
+  mutate(count_flights_dest = n()) %>%
+  select(count_flights_dest, everything())
+
+```
+
+. . .
+
+```{r }
+
+flights %>%
+  count(dest,carrier)
+
+
+```
+
+## `left-join()`
+
+There are a number of different joins see [R for Data Science:
+Relational
+data](https://r4ds.had.co.nz/relational-data.html?q=join#relational-data)
+
+I mainly use `left_join()`
+
+With `left_join()` you keep all variables in dataset `x` and join on 
+those in though `y` that match to `x`.
+
+You can join on one or more columns.
+
+. . .
+
+```{r}
+flights %>%
+  select(-origin, -dest) %>% 
+  left_join(airlines, by = "carrier") %>%
+  select(name,everything())
+```
+. . .
+```{r }
+flights %>%
+  left_join(airports %>% 
+              select(faa,name), by = c("dest" = "faa")) %>%
+  rename(dest_airport = name) %>%
+    select(dest_airport,everything())
+
+```
