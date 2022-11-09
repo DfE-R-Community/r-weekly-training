@@ -7,6 +7,12 @@ library(tidyverse)
 
 flights %>% select(dep_time,dep_delay,arr_time,arr_delay)
 
+flights %>%  select(1,2) 
+
+# or 
+
+flights %>% select(c(1:2))
+
 #3.2 What happens if you include the name of a variable multiple
 #times in a `select()` call?
 

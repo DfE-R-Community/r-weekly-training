@@ -9,7 +9,6 @@ editor: visual
 knitr: 
   opts_chunk: 
     echo: true
-    output-location: column-fragment
 ---
 
 ## Data wrangling part 2
@@ -33,7 +32,7 @@ library(nycflights13)
 
 ```
 
-## `select()` {}
+## `select()`
 
 It's not uncommon to get datasets with hundreds or even thousands of
 variables. In this case, the first challenge is often narrowing in on
@@ -42,13 +41,20 @@ the variables you're actually interested in.
 `select()` allows you to rapidly zoom in on a useful subset using
 operations based on the names of the variables.
 
+`starts_with()` and `select(c(1:4,5:6))`
+
 . . .
 
-```{r} 
+```{r}
+#| output-location: fragment
 flights %>% select(carrier,origin)
 ```
+
 . . .
+
 ```{r }
+#| output-location: fragment
+
 flights %>% select(contains("dep"))
 ```
 
@@ -62,13 +68,14 @@ That's the job of `mutate()`.
 `mutate()` can be used with operations (\*, +, etc) and is often used
 with `if_else()` or `case_when()`
 
-`transmute()` - only keep the new mutated columns 
+`transmute()` - only keep the new mutated columns
 
-`rename()` - rename a column 
+`rename()` - rename a column
 
 . . .
 
 ```{r }
+#| output-location: fragment
 
 flight_delay <- flights %>%
   mutate(air_time_delay = arr_delay - dep_delay) %>%
@@ -80,6 +87,7 @@ flight_delay
 . . .
 
 ```{r }
+#| output-location: fragment
 
 flight_delay %>%
   mutate(refund = if_else(arr_delay > 30, 1, 0)) %>%
@@ -89,6 +97,7 @@ flight_delay %>%
 . . .
 
 ```{r }
+#| output-location: fragment
 
 flight_delay %>%
   mutate(refund_groups = case_when (arr_delay > 60 ~ 1,
@@ -99,10 +108,10 @@ flight_delay %>%
 
 ```
 
-
 . . .
 
 ```{r}
+#| output-location: fragment
 
 
 flights %>%
@@ -110,10 +119,10 @@ flights %>%
 
 ```
 
-
 . . .
 
 ```{r include= TRUE}
+#| output-location: fragment
 
 
 flights %>%
@@ -138,16 +147,17 @@ It is often paired with `summarise()` or `mutate()`.
 . . .
 
 ```{r}
+#| output-location: fragment
 
 flights %>%
   summarise(delay = mean(dep_delay, na.rm = TRUE))
 
 ```
 
-
 . . .
 
 ```{r include= TRUE}
+#| output-location: fragment
 
 flights %>%
   group_by(dest) %>%
@@ -158,6 +168,7 @@ flights %>%
 . . .
 
 ```{r}
+#| output-location: fragment
 
 
 flights %>%
@@ -169,6 +180,7 @@ flights %>%
 . . .
 
 ```{r }
+#| output-location: fragment
 
 flights %>%
   group_by(dest,carrier) %>%
@@ -180,6 +192,7 @@ flights %>%
 . . .
 
 ```{r }
+#| output-location: fragment
 
 flights %>%
   count(dest,carrier)
@@ -195,7 +208,7 @@ data](https://r4ds.had.co.nz/relational-data.html?q=join#relational-data)
 
 I mainly use `left_join()`
 
-With `left_join()` you keep all variables in dataset `x` and join on 
+With `left_join()` you keep all variables in dataset `x` and join on
 those in though `y` that match to `x`.
 
 You can join on one or more columns.
@@ -203,13 +216,19 @@ You can join on one or more columns.
 . . .
 
 ```{r}
+#| output-location: fragment
+
 flights %>%
   select(-origin, -dest) %>% 
   left_join(airlines, by = "carrier") %>%
   select(name,everything())
 ```
+
 . . .
+
 ```{r }
+#| output-location: fragment
+
 flights %>%
   left_join(airports %>% 
               select(faa,name), by = c("dest" = "faa")) %>%

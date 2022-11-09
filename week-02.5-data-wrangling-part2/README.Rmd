@@ -30,10 +30,10 @@ Science](https://r4ds.had.co.nz/transform.html)
 
 2.  **Content**
 
-    Today we will aim cover and mainly focus on:
+    Today we will aim to cover and mainly focus on:
 
     `select()`,
-    `mutate()`,`group_by()`,`summarise()`,`count()`,`rename`if_else()`, and`case_when()\`
+    `mutate()`,`group_by()`,`summarise()`,`count()`,`rename()` `if_else()`, and`case_when()`
 
     If we have time / those who want can delve a bit deeper and look at
 

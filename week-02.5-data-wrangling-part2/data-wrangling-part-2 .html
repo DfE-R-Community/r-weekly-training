@@ -405,9 +405,12 @@
 <h2><code>select()</code></h2>
 <p>It’s not uncommon to get datasets with hundreds or even thousands of variables. In this case, the first challenge is often narrowing in on the variables you’re actually interested in.</p>
 <p><code>select()</code> allows you to rapidly zoom in on a useful subset using operations based on the names of the variables.</p>
+<p><code>starts_with()</code> and <code>select(c(1:4,5:6))</code></p>
 <div class="fragment">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>flights <span class="sc">%&gt;%</span> <span class="fu">select</span>(carrier,origin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 336,776 × 2
    carrier origin
@@ -429,6 +432,8 @@
 <div class="fragment">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>flights <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">"dep"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 336,776 × 3
    dep_time sched_dep_time dep_delay
@@ -462,6 +467,8 @@
 <span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">select</span>(air_time_delay,<span class="fu">everything</span>())</span>
 <span id="cb5-4"><a href="#cb5-4"></a></span>
 <span id="cb5-5"><a href="#cb5-5"></a>flight_delay</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 336,776 × 20
    air_time_…¹  year month   day dep_t…² sched…³ dep_d…⁴ arr_t…⁵ sched…⁶ arr_d…⁷
@@ -489,6 +496,8 @@
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>flight_delay <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">mutate</span>(<span class="at">refund =</span> <span class="fu">if_else</span>(arr_delay <span class="sc">&gt;</span> <span class="dv">30</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">select</span>(refund,<span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 336,776 × 21
    refund air_time_d…¹  year month   day dep_t…² sched…³ dep_d…⁴ arr_t…⁵ sched…⁶
@@ -519,6 +528,8 @@
 <span id="cb9-4"><a href="#cb9-4"></a>                                                   arr_delay <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="dv">3</span>,</span>
 <span id="cb9-5"><a href="#cb9-5"></a>                                                   <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">select</span>(refund_groups, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 336,776 × 21
    refund_gr…¹ air_t…²  year month   day dep_t…³ sched…⁴ dep_d…⁵ arr_t…⁶ sched…⁷
@@ -545,6 +556,8 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>flights <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">transmute</span>(<span class="at">air_time_delay =</span> arr_delay <span class="sc">-</span> dep_delay)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 336,776 × 1
    air_time_delay
@@ -568,6 +581,8 @@
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>flights <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">rename</span>(<span class="at">destination =</span> dest) <span class="sc">%&gt;%</span></span>
 <span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">select</span>(destination, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 336,776 × 19
    destination  year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵ arr_d…⁶
@@ -600,6 +615,8 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>flights <span class="sc">%&gt;%</span></span>
 <span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">summarise</span>(<span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   delay
@@ -613,6 +630,8 @@
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>flights <span class="sc">%&gt;%</span></span>
 <span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">group_by</span>(dest) <span class="sc">%&gt;%</span></span>
 <span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">summarise</span>(<span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 105 × 2
    dest  delay
@@ -636,6 +655,8 @@
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>flights <span class="sc">%&gt;%</span></span>
 <span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">group_by</span>(dest) <span class="sc">%&gt;%</span></span>
 <span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">summarise</span>(<span class="at">delayed_flights =</span> <span class="fu">sum</span>(<span class="fu">if_else</span>(dep_delay <span class="sc">&lt;</span> <span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>), <span class="at">na.rm =</span> T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 105 × 2
    dest  delayed_flights
@@ -660,6 +681,8 @@
 <span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">group_by</span>(dest,carrier) <span class="sc">%&gt;%</span></span>
 <span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">mutate</span>(<span class="at">count_flights_dest =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
 <span id="cb21-4"><a href="#cb21-4"></a>  <span class="fu">select</span>(count_flights_dest, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 336,776 × 20
 # Groups:   dest, carrier [314]
@@ -687,6 +710,8 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>flights <span class="sc">%&gt;%</span></span>
 <span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">count</span>(dest,carrier)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 314 × 3
    dest  carrier     n
@@ -718,6 +743,8 @@
 <span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>origin, <span class="sc">-</span>dest) <span class="sc">%&gt;%</span> </span>
 <span id="cb25-3"><a href="#cb25-3"></a>  <span class="fu">left_join</span>(airlines, <span class="at">by =</span> <span class="st">"carrier"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">select</span>(name,<span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 336,776 × 18
    name         year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵ arr_d…⁶
@@ -746,6 +773,8 @@
 <span id="cb27-3"><a href="#cb27-3"></a>              <span class="fu">select</span>(faa,name), <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"dest"</span> <span class="ot">=</span> <span class="st">"faa"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb27-4"><a href="#cb27-4"></a>  <span class="fu">rename</span>(<span class="at">dest_airport =</span> name) <span class="sc">%&gt;%</span></span>
 <span id="cb27-5"><a href="#cb27-5"></a>    <span class="fu">select</span>(dest_airport,<span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 336,776 × 20
    dest_airp…¹  year month   day dep_t…² sched…³ dep_d…⁴ arr_t…⁵ sched…⁶ arr_d…⁷
