@@ -1,0 +1,2176 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="tidy_data_and_data_vis_quarto_files/libs/clipboard/clipboard.min.js"></script>
+<script src="tidy_data_and_data_vis_quarto_files/libs/quarto-html/tabby.min.js"></script>
+<script src="tidy_data_and_data_vis_quarto_files/libs/quarto-html/popper.min.js"></script>
+<script src="tidy_data_and_data_vis_quarto_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="tidy_data_and_data_vis_quarto_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="tidy_data_and_data_vis_quarto_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="tidy_data_and_data_vis_quarto_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.1.189">
+
+  <meta name="author" content="Niall Ward-O’Brien">
+  <title>tidy data and visualisation with ggplot2</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="tidy_data_and_data_vis_quarto_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="tidy_data_and_data_vis_quarto_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="tidy_data_and_data_vis_quarto_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link href="tidy_data_and_data_vis_quarto_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="tidy_data_and_data_vis_quarto_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="tidy_data_and_data_vis_quarto_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="tidy_data_and_data_vis_quarto_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-captioned.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-captioned) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-captioned.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-captioned .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-captioned .callout-caption  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-captioned.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-captioned.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-caption {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-caption {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-caption {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-captioned .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-captioned .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-captioned) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-caption {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-caption {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-caption {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-caption {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-caption {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="center">
+  <h1 class="title"><span class="smallcaps">tidy</span> data and visualisation with ggplot2</h1>
+  <p class="author">Niall Ward-O’Brien</p>
+</section>
+
+<section id="key-materials" class="slide level2">
+<h2>Key materials:</h2>
+<ul>
+<li><p><a href="https://r4ds.had.co.nz/%5Btidy%5D%7B.smallcaps%7D-data.html">12 <span class="smallcaps">tidy</span> data | R for Data Science (had.co.nz)</a></p></li>
+<li><p><a href="https://r4ds.had.co.nz/data-visualisation.html">3 Data visualisation | R for Data Science (had.co.nz)</a></p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(nycflights13)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="what-is-tidy-data-1" class="slide level2">
+<h2>What is <span class="smallcaps">tidy</span> data? 1</h2>
+<p><span class="smallcaps">tidy</span> data is an approach for structuring data which makes it play nicely with the <span class="smallcaps"><strong>tidy</strong></span><strong>verse</strong>, which is a suite of packages which are very beginner-friendly in R. It is also a good idea in general!</p>
+<p><span class="smallcaps">tidy</span> data has:</p>
+<ul>
+<li><p>One variable per column</p></li>
+<li><p>One observation per row</p></li>
+<li><p>One value per cell</p></li>
+</ul>
+</section>
+<section id="what-is-tidy-data-2" class="slide level2">
+<h2>What is <span class="smallcaps">tidy</span> data? 2</h2>
+
+<img data-src="https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"><div class="fragment">
+<p><em>What is an observation?</em> It depends. In this data, it could be <em>country-year</em> combinations, but we could make it into a tidy dataset where each country is the observation, or each year.</p>
+</div>
+<div class="fragment">
+<p>Often it will be easy to tell what your observations and variables are, because it will be defined by your particular purpose.</p>
+<p>Want to look at teachers over time? TRN &amp; census year probably defines your observations.</p>
+<p>Want to look at schools in a particular year? Just need the URN or la_estab.</p>
+</div>
+<div class="fragment">
+<h3 id="exercise">Exercise</h3>
+<ol type="1">
+<li><p>What are the observations in <code>flights</code>?</p></li>
+<li><p>What columns define a unique row?</p></li>
+</ol>
+</div>
+</section>
+<section id="what-is-tidy-data-3" class="slide level2">
+<h2>What is <span class="smallcaps">tidy</span> data? 3</h2>
+<p><span class="smallcaps">tidy</span> data is almost always a <strong>good starting point</strong> - it’s very flexible.</p>
+<div class="fragment">
+<p>Also, R is very good at “vectorised operations” - which means taking some orders that have this kind of format:</p>
+</div>
+<div class="fragment">
+<p>We take some set of columns and follow the same set of instructions for every row in those columns. E.g on each row, we subtract <code>arr_delay</code> from <code>dep_delay</code>, divide by <code>distance</code>, etc.</p>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">mutate</span>(<span class="at">made_up_speed =</span> (dep_delay <span class="sc">-</span> arr_delay) <span class="sc">/</span> (distance <span class="sc">/</span> <span class="dv">1000</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">select</span>(dep_delay, arr_delay, distance, made_up_speed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 x 4
+   dep_delay arr_delay distance made_up_speed
+       &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;
+ 1         2        11     1400         -6.43
+ 2         4        20     1416        -11.3 
+ 3         2        33     1089        -28.5 
+ 4        -1       -18     1576         10.8 
+ 5        -6       -25      762         24.9 
+ 6        -4        12      719        -22.3 
+ 7        -5        19     1065        -22.5 
+ 8        -3       -14      229         48.0 
+ 9        -3        -8      944          5.30
+10        -2         8      733        -13.6 
+# ... with 336,766 more rows</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Normally when we’re manipulating data, we’re going to want to do operations that depend on the value of variables for each observation in our data:</p>
+</div>
+<div class="fragment">
+<ul>
+<li><p>For a dataset of <strong>schools</strong>, divide <strong>no. pupil premium pupils</strong> over the <strong>no. total pupils</strong> to get the <strong>proportion of pp pupils</strong></p></li>
+<li><p>For a dataset of <strong>teachers</strong>, if the teacher doesn’t have <strong>QTS</strong> and has more than <strong>5 years’ experience</strong> give them a ‘1’ in a flag column, or ‘0’ otherwise</p></li>
+</ul>
+</div>
+<div class="fragment">
+<p>If we didn’t have <strong>one row per observation:</strong> the data we need on a particular <em>e.g.</em> teacher/school might be spread across multiple rows, so a vectorised operation couldn’t access it all.</p>
+<p>If we didn’t have <strong>one column per variable</strong>: the data we need on a particular variable <em>e.g.</em> date of birth might be mixed in with other variables in one column, or split across multiple columns so we can’t access it easily.</p>
+<p><span class="smallcaps">tidy</span> data is the natural way to shape data for vectorised operations.</p>
+</div>
+</section>
+<section id="un-tidy-data-wide-vs-long" class="slide level2">
+<h2>Un-<span class="smallcaps">TIDY</span> data: Wide <em>vs</em> Long</h2>
+<p>Data can be wide or long - and often you’ll want to make data wider or longer in order to do certain jobs.</p>
+<p><em>Wide</em> data does not have any repeated values in its observation columns.</p>
+
+<img data-src="https://www.statology.org/wp-content/uploads/2021/12/wideLong1-1.png" width="848" class="r-stretch"></section>
+<section id="wide-data" class="slide level2">
+<h2>Wide data:</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>flights_wide <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">select</span>(carrier, origin, arr_delay) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> origin,</span>
+<span id="cb4-5"><a href="#cb4-5"></a>              <span class="at">values_from =</span> arr_delay,</span>
+<span id="cb4-6"><a href="#cb4-6"></a>              <span class="at">values_fn =</span> <span class="st">'mean'</span>)</span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a>flights_wide</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 13 x 4
+   carrier    JFK    LGA    EWR
+   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 HA       -0.2   NA     NA   
+ 2 B6       NA      4.73   3.48
+ 3 MQ       NA     NA     16   
+ 4 DL       -6.31  NA     -2.72
+ 5 AA        2.94  NA    -10.3 
+ 6 EV       -7.2   NA     NA   
+ 7 UA       11.8    9.86  NA   
+ 8 WN       NA     NA     NA   
+ 9 US       -0.5   NA      2.5 
+10 FL       NA     32.9   NA   
+11 9E       NA    -16     -5   
+12 VX      -17     NA    -11.3 
+13 AS       NA     NA     33.5 </code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Observations:</strong> carrier-origin combination</p>
+<p><strong>Variable:</strong> arrival delay</p>
+<p>Why is this data not <span class="smallcaps">tidy</span>?</p>
+</div>
+<div class="fragment">
+<p>Our variable is spread over multiple columns. What if we wanted to join some data on by <code>origin</code>? We can’t.</p>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="why-would-you-want-wider-data">Why would you want wider data?</h3>
+<p>Perhaps to make nice tables!</p>
+<div class="fragment">
+<table>
+<thead>
+<tr class="header">
+<th>Origin</th>
+<th>Late_flag</th>
+<th>Number of flights</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>JFK</td>
+<td>Early</td>
+<td>20</td>
+</tr>
+<tr class="even">
+<td>JFK</td>
+<td>Late</td>
+<td>45</td>
+</tr>
+<tr class="odd">
+<td>ABC</td>
+<td>Early</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td>ABC</td>
+<td>Late</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>DEF</td>
+<td>Early</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>DEF</td>
+<td>Late</td>
+<td>17</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<p>This is much more human-friendly (and compact):</p>
+<table>
+<thead>
+<tr class="header">
+<th>Origin</th>
+<th>Early</th>
+<th>Late</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>JFK</td>
+<td>20</td>
+<td>45</td>
+</tr>
+<tr class="even">
+<td>ABC</td>
+<td>14</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>DEF</td>
+<td>6</td>
+<td>17</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="how-do-you-make-your-data-wider">How do you make your data wider?</h3>
+<p>We make data wider using <code>pivot_wider</code>.</p>
+<p>When we pivoting wider, we’re normally making our data shorter (by getting rid of rows) but also making it wider (by creating new columns).</p>
+<div class="fragment">
+<p>To do this, we need to define:</p>
+<ul>
+<li><p>The column where the new column <strong>names</strong> are coming from (e.g. origin)</p></li>
+<li><p>The column where the new column <strong>values</strong> are coming from (e.g. departure delay)</p></li>
+</ul>
+</div>
+<div class="fragment">
+<p>The basic anatomy of <code>pivot_wider()</code> is this:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>flights <span class="sc">%&gt;%</span>   <span class="co"># pipe in your data </span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">pivot_wider</span>(<span class="co"># where will the values come from to fill your new cells?</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>              <span class="at">values_from =</span> <span class="sc">&lt;</span>select<span class="sc">-</span>statment<span class="sc">&gt;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>              <span class="co"># where will the names of the new columns come from?</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>              <span class="at">names_from =</span> <span class="sc">&lt;</span>select<span class="sc">-</span>statement<span class="sc">&gt;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>values_from</code> and <code>names_from</code> can be anything that you would put in a <code>select</code> statement - e.g.&nbsp;<code>contains('blah_blah_blah')</code> or <code>starts_with('abc_')</code> or <code>where(is.numeric)</code>.</p>
+</div>
+<div class="fragment">
+<p>Let’s imagine we want to know about departure delays from the three NYC airports.</p>
+<p>You can imagine R running through each row of your data and creating a bucket for each value in <code>names_from</code> - then splitting the contents of <code>values_from</code> between those buckets.</p>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">select</span>(flight, carrier, origin, dep_delay) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">pivot_wider</span>(<span class="at">values_from =</span> dep_delay,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>              <span class="at">names_from =</span> origin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Values from `dep_delay` are not uniquely identified; output will contain list-cols.
+* Use `values_fn = list` to suppress this warning.
+* Use `values_fn = {summary_fun}` to summarise duplicates.
+* Use the following dplyr code to identify duplicates.
+  {data} %&gt;%
+    dplyr::group_by(flight, carrier, origin) %&gt;%
+    dplyr::summarise(n = dplyr::n(), .groups = "drop") %&gt;%
+    dplyr::filter(n &gt; 1L)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,725 x 5
+   flight carrier EWR         LGA         JFK        
+    &lt;int&gt; &lt;chr&gt;   &lt;list&gt;      &lt;list&gt;      &lt;list&gt;     
+ 1   1545 UA      &lt;dbl [85]&gt;  &lt;NULL&gt;      &lt;NULL&gt;     
+ 2   1714 UA      &lt;dbl [1]&gt;   &lt;dbl [140]&gt; &lt;NULL&gt;     
+ 3   1141 AA      &lt;NULL&gt;      &lt;NULL&gt;      &lt;dbl [91]&gt; 
+ 4    725 B6      &lt;NULL&gt;      &lt;NULL&gt;      &lt;dbl [119]&gt;
+ 5    461 DL      &lt;NULL&gt;      &lt;dbl [268]&gt; &lt;NULL&gt;     
+ 6   1696 UA      &lt;dbl [9]&gt;   &lt;NULL&gt;      &lt;NULL&gt;     
+ 7    507 B6      &lt;dbl [168]&gt; &lt;NULL&gt;      &lt;NULL&gt;     
+ 8   5708 EV      &lt;NULL&gt;      &lt;dbl [14]&gt;  &lt;dbl [1]&gt;  
+ 9     79 B6      &lt;NULL&gt;      &lt;NULL&gt;      &lt;dbl [162]&gt;
+10    301 AA      &lt;NULL&gt;      &lt;dbl [285]&gt; &lt;NULL&gt;     
+# ... with 5,715 more rows</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>We get a warning because there are lots of rows in the data with the same flight and carrier - they’ve just happened on different days, which we haven’t included. So each of the new cells we’ve made has multiple bits of data that fit in it.</p>
+<p>If we also include <code>time_hour</code>, now all of our rows are unique!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">select</span>(flight, carrier, time_hour, origin, dep_delay) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">pivot_wider</span>(<span class="at">values_from =</span> dep_delay,</span>
+<span id="cb10-4"><a href="#cb10-4"></a>              <span class="at">names_from =</span> origin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 x 6
+   flight carrier time_hour             EWR   LGA   JFK
+    &lt;int&gt; &lt;chr&gt;   &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1   1545 UA      2013-01-01 05:00:00     2    NA    NA
+ 2   1714 UA      2013-01-01 05:00:00    NA     4    NA
+ 3   1141 AA      2013-01-01 05:00:00    NA    NA     2
+ 4    725 B6      2013-01-01 05:00:00    NA    NA    -1
+ 5    461 DL      2013-01-01 06:00:00    NA    -6    NA
+ 6   1696 UA      2013-01-01 05:00:00    -4    NA    NA
+ 7    507 B6      2013-01-01 06:00:00    -5    NA    NA
+ 8   5708 EV      2013-01-01 06:00:00    NA    -3    NA
+ 9     79 B6      2013-01-01 06:00:00    NA    NA    -3
+10    301 AA      2013-01-01 06:00:00    NA    -2    NA
+# ... with 336,766 more rows</code></pre>
+</div>
+</div>
+</div>
+<h3 id="exercise-1">Exercise</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>flights <span class="sc">%&gt;%</span>   <span class="co"># pipe in your data </span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">pivot_wider</span>(<span class="co"># where will the values come from to fill your new cells?</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>              <span class="at">values_from =</span> ,</span>
+<span id="cb12-4"><a href="#cb12-4"></a>              <span class="co"># where will the names of the new columns come from?</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a>              <span class="at">names_from =</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol type="1">
+<li><p>Using <code>flights</code>, pivot the data wider using any variable you like. <em>Hint:</em> for convenience <code>select(flight, carrier, time_hour, &lt;your variables of choice&gt;)</code></p></li>
+<li><p>Make the real version of this table:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Origin</th>
+<th>Early</th>
+<th>Late</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>JFK</td>
+<td>20</td>
+<td>45</td>
+</tr>
+<tr class="even">
+<td>ABC</td>
+<td>14</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>DEF</td>
+<td>6</td>
+<td>17</td>
+</tr>
+</tbody>
+</table>
+<p><em>HINT:</em> first use <code>mutate</code> to make an early/late flag - then use <code>count %&gt;%</code> or <code>group_by %&gt;% summarise</code> to count the number of flights in each category. Then pivot the table wider.</p></li>
+<li><p>Stretch: work out the median arrival delay for each carrier and destination airport. <em>Hint:</em> use the <code>values_fn</code> argument for <code>pivot_wider</code>.</p></li>
+</ol>
+</section>
+<section id="long-data" class="slide level2 smaller">
+<h2>Long data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>flights_long <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">select</span>(year, month, day, flight, carrier, origin, arr_delay, dep_delay) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(arr_delay, dep_delay),</span>
+<span id="cb13-5"><a href="#cb13-5"></a>               <span class="at">names_to =</span> <span class="st">'delay type'</span>,</span>
+<span id="cb13-6"><a href="#cb13-6"></a>               <span class="at">values_to =</span> <span class="st">'delay time'</span>)</span>
+<span id="cb13-7"><a href="#cb13-7"></a></span>
+<span id="cb13-8"><a href="#cb13-8"></a>flights_long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,000 x 8
+    year month   day flight carrier origin `delay type` `delay time`
+   &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;               &lt;dbl&gt;
+ 1  2013     8    17    677 B6      JFK    arr_delay              -1
+ 2  2013     8    17    677 B6      JFK    dep_delay              -3
+ 3  2013     6    27   1935 DL      LGA    arr_delay              -8
+ 4  2013     6    27   1935 DL      LGA    dep_delay               0
+ 5  2013    10    20    553 B6      JFK    arr_delay               4
+ 6  2013    10    20    553 B6      JFK    dep_delay              -2
+ 7  2013     5    19   1687 UA      EWR    arr_delay              39
+ 8  2013     5    19   1687 UA      EWR    dep_delay              58
+ 9  2013     8    26   2502 B6      JFK    arr_delay              -5
+10  2013     8    26   2502 B6      JFK    dep_delay              -4
+# ... with 1,990 more rows</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Observations:</strong> flights which left on a particular day</p>
+<p><strong>Variables:</strong> arrival delay, departure delay</p>
+<p>Why is this data not <span class="smallcaps">tidy</span>?</p>
+</div>
+<div class="fragment">
+<p>It has two variables (arrival delay and departure delay) in the same column. Note that this means we also have more than one row per observation.</p>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="why-would-you-want-longer-data">Why would you want longer data?</h3>
+<p>Imagine you have the following dataset:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>flights_new_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="at">flight =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>),</span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="at">measured.proportion_smooth_jazz_lovers =</span> <span class="fu">c</span>(<span class="fl">0.03</span>, <span class="fl">0.99</span>),</span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="at">measured.crackers_consumed_during_flight =</span> <span class="fu">c</span>(<span class="dv">1509</span>, <span class="dv">130</span>),</span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="at">measured.median_imaginary_friends_per_flyer =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">17</span>),</span>
+<span id="cb15-6"><a href="#cb15-6"></a>  <span class="at">measured.n_emotional_support_chameleons =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">666</span>),</span>
+<span id="cb15-7"><a href="#cb15-7"></a>  </span>
+<span id="cb15-8"><a href="#cb15-8"></a>  <span class="at">predicted.proportion_smooth_jazz_lovers =</span> <span class="fu">c</span>(<span class="fl">0.23</span>, <span class="fl">0.69</span>),</span>
+<span id="cb15-9"><a href="#cb15-9"></a>  <span class="at">predicted.crackers_consumed_during_flight =</span> <span class="fu">c</span>(<span class="dv">1309</span>, <span class="dv">170</span>),</span>
+<span id="cb15-10"><a href="#cb15-10"></a>  <span class="at">predicted.median_imaginary_friends_per_flyer =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">43</span>),</span>
+<span id="cb15-11"><a href="#cb15-11"></a>  <span class="at">predicted.n_emotional_support_chameleons =</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">24</span>) </span>
+<span id="cb15-12"><a href="#cb15-12"></a>)</span>
+<span id="cb15-13"><a href="#cb15-13"></a></span>
+<span id="cb15-14"><a href="#cb15-14"></a>flights_new_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 x 9
+  flight measured.proportion~ measured.cracke~ measured.median~ measured.n_emot~
+   &lt;dbl&gt;                &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1    100                 0.03             1509                3                1
+2    200                 0.99              130               17              666
+# ... with 4 more variables: predicted.proportion_smooth_jazz_lovers &lt;dbl&gt;,
+#   predicted.crackers_consumed_during_flight &lt;dbl&gt;,
+#   predicted.median_imaginary_friends_per_flyer &lt;dbl&gt;,
+#   predicted.n_emotional_support_chameleons &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>We want to know how good our predictions were! Does our model for predicting the proportion of smooth jazz lovers work?</p>
+<div class="fragment">
+<p>We can do this in a slightly cumbersome way like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>flights_new_data <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">mutate</span>(<span class="at">error.proportion_smooth_jazz_lovers =</span> measured.proportion_smooth_jazz_lovers <span class="sc">-</span> predicted.proportion_smooth_jazz_lovers,</span>
+<span id="cb17-3"><a href="#cb17-3"></a>         </span>
+<span id="cb17-4"><a href="#cb17-4"></a>         <span class="at">error.crackers_consumed_during_flight =</span> measured.crackers_consumed_during_flight <span class="sc">-</span> predicted.crackers_consumed_during_flight)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 x 11
+  flight measured.proportion~ measured.cracke~ measured.median~ measured.n_emot~
+   &lt;dbl&gt;                &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1    100                 0.03             1509                3                1
+2    200                 0.99              130               17              666
+# ... with 6 more variables: predicted.proportion_smooth_jazz_lovers &lt;dbl&gt;,
+#   predicted.crackers_consumed_during_flight &lt;dbl&gt;,
+#   predicted.median_imaginary_friends_per_flyer &lt;dbl&gt;,
+#   predicted.n_emotional_support_chameleons &lt;dbl&gt;,
+#   error.proportion_smooth_jazz_lovers &lt;dbl&gt;,
+#   error.crackers_consumed_during_flight &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p><em>etc</em> - but what if you had 20 columns to do this for? Or 50?</p>
+<p>If we turn this into long data, we can have one column to hold the real value and one column to hold each of our predictions:</p>
+</div>
+<div class="fragment">
+<p>Now we can do something like:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>flights_long_new_data <span class="ot">&lt;-</span> flights_new_data <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">"."</span>),</span>
+<span id="cb19-3"><a href="#cb19-3"></a>               <span class="at">values_to =</span> <span class="st">'value'</span>,</span>
+<span id="cb19-4"><a href="#cb19-4"></a>               <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">'type'</span>,</span>
+<span id="cb19-5"><a href="#cb19-5"></a>                            <span class="st">'stat'</span>),</span>
+<span id="cb19-6"><a href="#cb19-6"></a>               <span class="at">names_sep =</span> <span class="st">'</span><span class="sc">\\</span><span class="st">.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>flights_long_new_data <span class="ot">&lt;-</span> flights_new_data <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">"."</span>),</span>
+<span id="cb20-3"><a href="#cb20-3"></a>               <span class="at">values_to =</span> <span class="st">'value'</span>,</span>
+<span id="cb20-4"><a href="#cb20-4"></a>               <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">'type'</span>,</span>
+<span id="cb20-5"><a href="#cb20-5"></a>                            <span class="st">'stat'</span>),</span>
+<span id="cb20-6"><a href="#cb20-6"></a>               <span class="at">names_sep =</span> <span class="st">'</span><span class="sc">\\</span><span class="st">.'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-7"><a href="#cb20-7"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">'type'</span>,</span>
+<span id="cb20-8"><a href="#cb20-8"></a>              <span class="at">values_from =</span> <span class="st">'value'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p>I could work out the average % error for each variable, and collapse it into one easy table:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>flights_long_new_data <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">mutate</span>(<span class="at">relative_error =</span> measured <span class="sc">/</span> predicted <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 x 5
+  flight stat                               measured predicted relative_error
+   &lt;dbl&gt; &lt;chr&gt;                                 &lt;dbl&gt;     &lt;dbl&gt;          &lt;dbl&gt;
+1    100 proportion_smooth_jazz_lovers          0.03      0.23         -0.870
+2    100 crackers_consumed_during_flight     1509      1309             0.153
+3    100 median_imaginary_friends_per_flyer     3        20            -0.85 
+4    100 n_emotional_support_chameleons         1        23            -0.957
+5    200 proportion_smooth_jazz_lovers          0.99      0.69          0.435
+6    200 crackers_consumed_during_flight      130       170            -0.235
+7    200 median_imaginary_friends_per_flyer    17        43            -0.605
+8    200 n_emotional_support_chameleons       666        24            26.8  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>flights_long_new_data <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">mutate</span>(<span class="at">relative_error =</span> measured <span class="sc">/</span> predicted <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">group_by</span>(stat) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a>  <span class="fu">summarise</span>(<span class="at">mean_error =</span> <span class="fu">mean</span>(relative_error))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 x 2
+  stat                               mean_error
+  &lt;chr&gt;                                   &lt;dbl&gt;
+1 crackers_consumed_during_flight       -0.0413
+2 median_imaginary_friends_per_flyer    -0.727 
+3 n_emotional_support_chameleons        12.9   
+4 proportion_smooth_jazz_lovers         -0.217 </code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>If you find yourself doing the same job over and over again with different sets of columns - you might be able to save a lot of time by making it longer first.</p>
+</div>
+<h3 id="how-do-you-make-your-data-longer">How do you make your data longer?</h3>
+<p><code>pivot_longer</code> is the reverse of <code>pivot_wider</code>. Rather than taking rows from an existing column and spreading them into new columns, we’re going to squash multiple columns together to make a smaller number of columns with more rows.</p>
+<ul>
+<li><p>Pick the <code>cols</code> you want to squash together</p></li>
+<li><p>Write the name of the new column you want to create to hold the <em>names</em> of the columns you’re squashing together</p></li>
+<li><p>Write the name of the new column you want to create to hold the <em>values</em> of the columns you’re squashing together</p></li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb25-3"><a href="#cb25-3"></a>    <span class="co"># what columns are we going to squash together?</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a>    <span class="at">cols =</span> <span class="sc">&lt;</span>select statement<span class="sc">&gt;</span>,</span>
+<span id="cb25-5"><a href="#cb25-5"></a>    <span class="co"># what is going to be the name of our new column, </span></span>
+<span id="cb25-6"><a href="#cb25-6"></a>    <span class="co"># holding the names of the columns we destroyed? </span></span>
+<span id="cb25-7"><a href="#cb25-7"></a>    <span class="at">names_to =</span> <span class="st">""</span>,</span>
+<span id="cb25-8"><a href="#cb25-8"></a>    <span class="co"># what is going to be the name of our new column</span></span>
+<span id="cb25-9"><a href="#cb25-9"></a>    <span class="co"># which will hold the values from the column we </span></span>
+<span id="cb25-10"><a href="#cb25-10"></a>    <span class="co"># destroyed?</span></span>
+<span id="cb25-11"><a href="#cb25-11"></a>    <span class="at">values_to =</span> <span class="st">""</span></span>
+<span id="cb25-12"><a href="#cb25-12"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p>Let’s take our wide data from before:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>flights_wide</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 13 x 4
+   carrier    JFK    LGA    EWR
+   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 HA       -0.2   NA     NA   
+ 2 B6       NA      4.73   3.48
+ 3 MQ       NA     NA     16   
+ 4 DL       -6.31  NA     -2.72
+ 5 AA        2.94  NA    -10.3 
+ 6 EV       -7.2   NA     NA   
+ 7 UA       11.8    9.86  NA   
+ 8 WN       NA     NA     NA   
+ 9 US       -0.5   NA      2.5 
+10 FL       NA     32.9   NA   
+11 9E       NA    -16     -5   
+12 VX      -17     NA    -11.3 
+13 AS       NA     NA     33.5 </code></pre>
+</div>
+</div>
+<p>And make it <span class="smallcaps">tidy</span>:</p>
+<p>We want to merge together the origin airports into a single column, and put the delay in a new column next to it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>flights_wide <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(JFK, LGA, EWR),</span>
+<span id="cb28-3"><a href="#cb28-3"></a>               <span class="at">names_to =</span> <span class="st">"origin"</span>,</span>
+<span id="cb28-4"><a href="#cb28-4"></a>               <span class="at">values_to =</span> <span class="st">"mean_arrival_delay"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 39 x 3
+   carrier origin mean_arrival_delay
+   &lt;chr&gt;   &lt;chr&gt;               &lt;dbl&gt;
+ 1 HA      JFK                 -0.2 
+ 2 HA      LGA                 NA   
+ 3 HA      EWR                 NA   
+ 4 B6      JFK                 NA   
+ 5 B6      LGA                  4.73
+ 6 B6      EWR                  3.48
+ 7 MQ      JFK                 NA   
+ 8 MQ      LGA                 NA   
+ 9 MQ      EWR                 16   
+10 DL      JFK                 -6.31
+# ... with 29 more rows</code></pre>
+</div>
+</div>
+<p>All <span class="smallcaps">tidy</span>.</p>
+<p>Note that because the new columns don’t exist yet, we need to give their names as <em>strings</em>.</p>
+</div>
+<h3 id="exercise-2">Exercise</h3>
+<ol type="1">
+<li>Take the flights data and make it longer by squashing some numeric columns together. Note that you will have problems if they aren’t of the same type! <em>HINT: use</em> <code>select</code> <em>to drop some other columns to make life easier.</em></li>
+<li>Pivot all the time-related variables (<code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>minute</code>) into a pair of columns called <code>time_type</code> and <code>time_value</code>.</li>
+<li><strong>Stretch</strong>: create a data table with the following structure: <em>HINT: you’ll need to create some of these variables.</em></li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th>Flight</th>
+<th>Month</th>
+<th>Day</th>
+<th>time_type</th>
+<th>time_value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;flight-number&gt;</td>
+<td>1</td>
+<td>10</td>
+<td>scheduled_departure</td>
+<td>A</td>
+</tr>
+<tr class="even">
+<td>&lt;flight-number&gt;</td>
+<td>1</td>
+<td>10</td>
+<td>dep_time</td>
+<td>B</td>
+</tr>
+<tr class="odd">
+<td>&lt;flight-number&gt;</td>
+<td>1</td>
+<td>10</td>
+<td>scheduled_arrival</td>
+<td>C</td>
+</tr>
+<tr class="even">
+<td>&lt;flight-number&gt;</td>
+<td>1</td>
+<td>10</td>
+<td>arr_time</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section>
+<section id="data-visualisation-with-ggplot2" class="title-slide slide level1 center">
+<h1>Data visualisation with <code>ggplot2</code></h1>
+
+</section>
+<section id="how-does-ggplot2-work" class="slide level2">
+<h2>How does ggplot2 work?</h2>
+<p>An example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">filter</span>(arr_delay <span class="sc">&lt;</span> <span class="dv">300</span>,</span>
+<span id="cb30-3"><a href="#cb30-3"></a>         dep_delay <span class="sc">&lt;</span> <span class="dv">300</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="#cb30-4"></a>  <span class="fu">slice_sample</span>(<span class="at">prop =</span> <span class="fl">0.1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-5"><a href="#cb30-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> dep_delay,</span>
+<span id="cb30-6"><a href="#cb30-6"></a>        <span class="at">y =</span> arr_delay,</span>
+<span id="cb30-7"><a href="#cb30-7"></a>        <span class="at">colour =</span> origin)) <span class="sc">+</span></span>
+<span id="cb30-8"><a href="#cb30-8"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>,</span>
+<span id="cb30-9"><a href="#cb30-9"></a>             <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="tidy_data_and_data_vis_quarto_files/figure-revealjs/unnamed-chunk-28-1.png" width="960" class="r-stretch"><div class="fragment">
+<p>Key parts:</p>
+<ul>
+<li><p><code>aes()</code> defines <em>aesthetics -</em> these are things that we want to vary depending on things in our data. For a scatter graph, we want the x and y values to depend on data in our table. We also want to colour the dots depending on the origin airport in our data.</p></li>
+<li><p>Then we add <code>geoms</code>, which will actually be drawn on our graph. <code>geom_point()</code> draws a dot for each row of our data.</p></li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>How is this different to excel?</strong></p>
+</div>
+<div class="fragment">
+<p>Not that different. The main difference is in what excel calls ‘series’.</p>
+<p>If I wanted to make this kind of scatter graph in excel, I would need a new column for each origin airport. In ggplot, we just tell the software that we want it to colour all the points based on the rows in the input data.</p>
+</div>
+<div class="fragment">
+<p><strong>Your turn!</strong></p>
+<p>Pick two variables - any two - and make a scatter plot. Post a screenshot in the chat when you’ve made one - you can use the ‘export &gt; copy to clipboard’ option in R studio for convenience. Bonus points for the weirdest relationship that you can find.</p>
+</div>
+</section>
+<section id="the-value-of-google" class="slide level2">
+<h2>The value of Google</h2>
+<p><code>ggplot2</code> is probably the <strong>most used package</strong> in R - almost any question you can imagine has been asked somewhere on the internet, and there are a lot of nice articles too. For that reason, I’m going to try to hit some highlights rather than lots of (useful) details - I have to google it every time I need to change the title of a legend, for example.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a>    <span class="fu">slice_sample</span>(<span class="at">prop =</span> <span class="fl">0.05</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="#cb31-3"></a>    <span class="fu">filter</span>(arr_delay <span class="sc">&lt;</span> <span class="dv">300</span>,</span>
+<span id="cb31-4"><a href="#cb31-4"></a>         dep_delay <span class="sc">&lt;</span> <span class="dv">300</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-5"><a href="#cb31-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> arr_delay <span class="sc">/</span> <span class="dv">60</span>,</span>
+<span id="cb31-6"><a href="#cb31-6"></a>        <span class="at">y =</span> dep_delay <span class="sc">/</span> <span class="dv">60</span>,</span>
+<span id="cb31-7"><a href="#cb31-7"></a>        <span class="at">size =</span> distance <span class="sc">/</span> <span class="dv">20</span>,</span>
+<span id="cb31-8"><a href="#cb31-8"></a>        <span class="at">colour =</span> origin)) <span class="sc">+</span></span>
+<span id="cb31-9"><a href="#cb31-9"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb31-10"><a href="#cb31-10"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Relationship between departure delay and arrival delay'</span>,</span>
+<span id="cb31-11"><a href="#cb31-11"></a>       <span class="at">subtitle =</span> <span class="st">'A really informative subtitle'</span>,</span>
+<span id="cb31-12"><a href="#cb31-12"></a>       <span class="at">caption =</span> <span class="st">'Source: NYC Flights'</span>) <span class="sc">+</span></span>
+<span id="cb31-13"><a href="#cb31-13"></a>  <span class="fu">xlab</span>(<span class="st">'Departure delay (hours)'</span>) <span class="sc">+</span></span>
+<span id="cb31-14"><a href="#cb31-14"></a>  <span class="fu">ylab</span>(<span class="st">'Arrival delay (hours)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="tidy_data_and_data_vis_quarto_files/figure-revealjs/unnamed-chunk-30-1.png" width="960" class="r-stretch"></section>
+<section id="line-graphs" class="slide level2">
+<h2>Line graphs</h2>
+<p>Are there seasonal patterns to the departure delay at the different NY airports?</p>
+<p>We’ll use <code>group_by</code> and <code>summarise</code> to calculate an average delay time for each airport and each month. Then we’ll use geom_point and geom_line to draw a dot-and-line graph.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">group_by</span>(origin, month) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_delay_time =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb32-4"><a href="#cb32-4"></a>            <span class="at">standard_error =</span> <span class="fu">sd</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> month,</span>
+<span id="cb32-6"><a href="#cb32-6"></a>             <span class="at">y =</span> mean_delay_time)) <span class="sc">+</span></span>
+<span id="cb32-7"><a href="#cb32-7"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb32-8"><a href="#cb32-8"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="tidy_data_and_data_vis_quarto_files/figure-revealjs/unnamed-chunk-32-1.png" width="960"></p>
+</div>
+</div>
+<div class="fragment">
+<p>But wait, this looks like a mess!</p>
+<p>We have three data points for each month and <strong>ggplot doesn’t know how to join them up</strong>. We can tell it how using the ‘group’ aesthetic. While we’re at it, let’s fix the x axis and add some colour to distinguish the three origins.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">group_by</span>(origin, month) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_delay_time =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb33-4"><a href="#cb33-4"></a>            <span class="at">standard_error =</span> <span class="fu">sd</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb33-5"><a href="#cb33-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> month,</span>
+<span id="cb33-6"><a href="#cb33-6"></a>             <span class="at">y =</span> mean_delay_time,</span>
+<span id="cb33-7"><a href="#cb33-7"></a>             <span class="at">group =</span> origin,</span>
+<span id="cb33-8"><a href="#cb33-8"></a>             <span class="at">colour =</span> origin)) <span class="sc">+</span></span>
+<span id="cb33-9"><a href="#cb33-9"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb33-10"><a href="#cb33-10"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb33-11"><a href="#cb33-11"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="tidy_data_and_data_vis_quarto_files/figure-revealjs/unnamed-chunk-34-1.png" width="960"></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Note: if you want to group or colour by multiple variables, you can use <code>interaction()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>  <span class="fu">filter</span>(carrier <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'UA'</span>, <span class="st">'B6'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a>  <span class="fu">group_by</span>(origin, carrier, month) <span class="sc">%&gt;%</span></span>
+<span id="cb34-4"><a href="#cb34-4"></a>  <span class="fu">summarise</span>(<span class="at">mean_delay_time =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb34-5"><a href="#cb34-5"></a>            <span class="at">standard_error =</span> <span class="fu">sd</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb34-6"><a href="#cb34-6"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> month,</span>
+<span id="cb34-7"><a href="#cb34-7"></a>             <span class="at">y =</span> mean_delay_time,</span>
+<span id="cb34-8"><a href="#cb34-8"></a>             <span class="at">group =</span> <span class="fu">interaction</span>(origin, carrier),</span>
+<span id="cb34-9"><a href="#cb34-9"></a>             <span class="at">colour =</span> <span class="fu">interaction</span>(origin, carrier))) <span class="sc">+</span></span>
+<span id="cb34-10"><a href="#cb34-10"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb34-11"><a href="#cb34-11"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb34-12"><a href="#cb34-12"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="tidy_data_and_data_vis_quarto_files/figure-revealjs/unnamed-chunk-36-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="bar-graphs-and-histograms" class="slide level2">
+<h2>Bar graphs and histograms</h2>
+<p><strong>Most geoms</strong> will draw one object per row of your data. One row = one scatter point, one row = one bar in a column chart, etc.</p>
+<div class="fragment">
+<p><strong>BUT</strong></p>
+<p>Confusingly, ggplot has two ways of making graphs. <em>Normally,</em> you have to do some work to get your data into the shape you want it.</p>
+</div>
+<div class="fragment">
+<p>For example, if we want to graph how many flights each carrier has had, we first make a table that has one row per carrier, and then call <code>geom_col</code> to plot it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">count</span>(carrier)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 x 2
+   carrier     n
+   &lt;chr&gt;   &lt;int&gt;
+ 1 9E      18460
+ 2 AA      32729
+ 3 AS        714
+ 4 B6      54635
+ 5 DL      48110
+ 6 EV      54173
+ 7 F9        685
+ 8 FL       3260
+ 9 HA        342
+10 MQ      26397
+11 OO         32
+12 UA      58665
+13 US      20536
+14 VX       5162
+15 WN      12275
+16 YV        601</code></pre>
+</div>
+</div>
+<p><em>Remember ‘count’ is just a quick way of doing group_by %&gt;% summarise</em></p>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">count</span>(carrier) <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="#cb37-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> carrier,</span>
+<span id="cb37-4"><a href="#cb37-4"></a>             <span class="at">y =</span> n,</span>
+<span id="cb37-5"><a href="#cb37-5"></a>             <span class="at">fill =</span> carrier)) <span class="sc">+</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a>  <span class="fu">geom_col</span>(<span class="at">colour =</span> <span class="st">'black'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="tidy_data_and_data_vis_quarto_files/figure-revealjs/unnamed-chunk-40-1.png" width="960"></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>But some geoms do this for you:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> carrier,</span>
+<span id="cb38-3"><a href="#cb38-3"></a>             <span class="at">fill =</span> carrier)) <span class="sc">+</span></span>
+<span id="cb38-4"><a href="#cb38-4"></a>  <span class="fu">geom_bar</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="tidy_data_and_data_vis_quarto_files/figure-revealjs/unnamed-chunk-42-1.png" width="960"></p>
+</div>
+</div>
+<p><code>geom_bar</code> does the counting so you don’t have to.</p>
+<p>Also note that <code>fill</code> changes the fill of an object and <code>colour</code> changes the edge (or the whole of a line or point).</p>
+</div>
+<div class="fragment">
+<p>I tend to avoid using <code>geom_bar</code> personally, but <code>geom_histogram</code> and <code>geom_boxplot</code> are very useful, and they do something similar. Let’s go back to the question of delay times over the year. We’re going to filter out lots of values, just so we can see something interesting.</p>
+<p>If I wanted to do a boxplot for each month to look at the distribution, I don’t need to calculate the quantiles beforehand!</p>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">filter</span>(dep_delay <span class="sc">&lt;</span> <span class="dv">15</span>, dep_delay <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">15</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">as.factor</span>(month)) <span class="sc">%&gt;%</span></span>
+<span id="cb39-4"><a href="#cb39-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> month,</span>
+<span id="cb39-5"><a href="#cb39-5"></a>             <span class="at">x =</span> dep_delay,</span>
+<span id="cb39-6"><a href="#cb39-6"></a>             <span class="at">fill =</span> month)) <span class="sc">+</span></span>
+<span id="cb39-7"><a href="#cb39-7"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb39-8"><a href="#cb39-8"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="tidy_data_and_data_vis_quarto_files/figure-revealjs/unnamed-chunk-44-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="position" class="slide level2">
+<h2>Position</h2>
+<p>We can make clustered and stacked column charts:</p>
+<div class="fragment">
+<p>We can tell ggplot to dodge bars</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">count</span>(carrier, origin) <span class="sc">%&gt;%</span></span>
+<span id="cb40-3"><a href="#cb40-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> carrier,</span>
+<span id="cb40-4"><a href="#cb40-4"></a>             <span class="at">y =</span> n,</span>
+<span id="cb40-5"><a href="#cb40-5"></a>             <span class="at">fill =</span> origin)) <span class="sc">+</span></span>
+<span id="cb40-6"><a href="#cb40-6"></a>  <span class="fu">geom_col</span>(<span class="at">colour =</span> <span class="st">'black'</span>,</span>
+<span id="cb40-7"><a href="#cb40-7"></a>           <span class="at">position =</span> <span class="st">'dodge'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="tidy_data_and_data_vis_quarto_files/figure-revealjs/unnamed-chunk-46-1.png" width="960"></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>…or stack them using ‘position’:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">count</span>(carrier, origin) <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> carrier,</span>
+<span id="cb41-4"><a href="#cb41-4"></a>             <span class="at">y =</span> n,</span>
+<span id="cb41-5"><a href="#cb41-5"></a>             <span class="at">fill =</span> origin)) <span class="sc">+</span></span>
+<span id="cb41-6"><a href="#cb41-6"></a>  <span class="fu">geom_col</span>(<span class="at">colour =</span> <span class="st">'black'</span>,</span>
+<span id="cb41-7"><a href="#cb41-7"></a>           <span class="at">position =</span> <span class="st">'stack'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="tidy_data_and_data_vis_quarto_files/figure-revealjs/unnamed-chunk-48-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="faceting" class="slide level2">
+<h2>Faceting</h2>
+<p>A way of jamming more information into your graph! <em>Note: may not make your graph more useful.</em></p>
+<p>Your graph might look a little busy and therefore be hard to read:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a>  <span class="fu">group_by</span>(dest, month) <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="#cb42-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_delay_time =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb42-4"><a href="#cb42-4"></a>            <span class="at">standard_error =</span> <span class="fu">sd</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb42-5"><a href="#cb42-5"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"R"</span>, dest)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-6"><a href="#cb42-6"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> month,</span>
+<span id="cb42-7"><a href="#cb42-7"></a>             <span class="at">y =</span> mean_delay_time,</span>
+<span id="cb42-8"><a href="#cb42-8"></a>             <span class="at">ymin =</span> mean_delay_time <span class="sc">-</span> standard_error <span class="sc">*</span> <span class="dv">3</span>,</span>
+<span id="cb42-9"><a href="#cb42-9"></a>             <span class="at">ymax =</span> mean_delay_time <span class="sc">+</span> standard_error <span class="sc">*</span> <span class="dv">3</span>,</span>
+<span id="cb42-10"><a href="#cb42-10"></a>             <span class="at">group =</span> dest,</span>
+<span id="cb42-11"><a href="#cb42-11"></a>             <span class="at">colour =</span> dest,</span>
+<span id="cb42-12"><a href="#cb42-12"></a>             <span class="at">fill =</span> dest)) <span class="sc">+</span></span>
+<span id="cb42-13"><a href="#cb42-13"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb42-14"><a href="#cb42-14"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb42-15"><a href="#cb42-15"></a>  <span class="fu">geom_ribbon</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>,</span>
+<span id="cb42-16"><a href="#cb42-16"></a>              <span class="at">linetype =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb42-17"><a href="#cb42-17"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="tidy_data_and_data_vis_quarto_files/figure-revealjs/unnamed-chunk-50-1.png" width="960"></p>
+</div>
+</div>
+<div class="fragment">
+<p>One way to solve this is to split your graph into a number of smaller graphs:</p>
+<p>We add <code>facet_wrap</code> and tell it to split our panel by <code>origin</code>. Note that we have to put origin in the function <code>vars()</code> to please <code>ggplot2</code>’s capricious ways.</p>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a>  <span class="fu">group_by</span>(dest, month) <span class="sc">%&gt;%</span></span>
+<span id="cb43-3"><a href="#cb43-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_delay_time =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb43-4"><a href="#cb43-4"></a>            <span class="at">standard_error =</span> <span class="fu">sd</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb43-5"><a href="#cb43-5"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"R"</span>, dest)) <span class="sc">%&gt;%</span></span>
+<span id="cb43-6"><a href="#cb43-6"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> month,</span>
+<span id="cb43-7"><a href="#cb43-7"></a>             <span class="at">y =</span> mean_delay_time,</span>
+<span id="cb43-8"><a href="#cb43-8"></a>             <span class="at">ymin =</span> mean_delay_time <span class="sc">-</span> standard_error <span class="sc">*</span> <span class="dv">3</span>,</span>
+<span id="cb43-9"><a href="#cb43-9"></a>             <span class="at">ymax =</span> mean_delay_time <span class="sc">+</span> standard_error <span class="sc">*</span> <span class="dv">3</span>,</span>
+<span id="cb43-10"><a href="#cb43-10"></a>             <span class="at">group =</span> dest,</span>
+<span id="cb43-11"><a href="#cb43-11"></a>             <span class="at">colour =</span> dest,</span>
+<span id="cb43-12"><a href="#cb43-12"></a>             <span class="at">fill =</span> dest)) <span class="sc">+</span></span>
+<span id="cb43-13"><a href="#cb43-13"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb43-14"><a href="#cb43-14"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb43-15"><a href="#cb43-15"></a>  <span class="fu">geom_ribbon</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>,</span>
+<span id="cb43-16"><a href="#cb43-16"></a>              <span class="at">linetype =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb43-17"><a href="#cb43-17"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb43-18"><a href="#cb43-18"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(dest)) <span class="sc">+</span></span>
+<span id="cb43-19"><a href="#cb43-19"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="tidy_data_and_data_vis_quarto_files/figure-revealjs/unnamed-chunk-52-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="combining-pivots-and-faceting-for-quick-qa" class="slide level2">
+<h2>Combining pivots and faceting for quick QA</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">%&gt;%</span></span>
+<span id="cb44-3"><a href="#cb44-3"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>flight,</span>
+<span id="cb44-4"><a href="#cb44-4"></a>               <span class="at">names_to =</span> <span class="st">'stat'</span>,</span>
+<span id="cb44-5"><a href="#cb44-5"></a>               <span class="at">values_to =</span> <span class="st">'value'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-6"><a href="#cb44-6"></a>  <span class="fu">filter</span>(stat <span class="sc">!=</span> <span class="st">'year'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-7"><a href="#cb44-7"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value,</span>
+<span id="cb44-8"><a href="#cb44-8"></a>             <span class="at">fill =</span> stat)) <span class="sc">+</span></span>
+<span id="cb44-9"><a href="#cb44-9"></a>  <span class="fu">geom_histogram</span>(<span class="at">colour =</span> <span class="st">'black'</span>) <span class="sc">+</span></span>
+<span id="cb44-10"><a href="#cb44-10"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(stat),</span>
+<span id="cb44-11"><a href="#cb44-11"></a>             <span class="at">scales =</span> <span class="st">'free'</span>) <span class="sc">+</span></span>
+<span id="cb44-12"><a href="#cb44-12"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="tidy_data_and_data_vis_quarto_files/figure-revealjs/unnamed-chunk-54-1.png" width="960" class="r-stretch"></section>
+<section id="saving-graphs" class="slide level2">
+<h2>Saving graphs</h2>
+<p>To save graphs, call <code>ggsave</code> after you’ve created your graph and printed it to the plot window. For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2"></a>  <span class="fu">group_by</span>(dest, month) <span class="sc">%&gt;%</span></span>
+<span id="cb45-3"><a href="#cb45-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_delay_time =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb45-4"><a href="#cb45-4"></a>            <span class="at">standard_error =</span> <span class="fu">sd</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb45-5"><a href="#cb45-5"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"R"</span>, dest)) <span class="sc">%&gt;%</span></span>
+<span id="cb45-6"><a href="#cb45-6"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> month,</span>
+<span id="cb45-7"><a href="#cb45-7"></a>             <span class="at">y =</span> mean_delay_time,</span>
+<span id="cb45-8"><a href="#cb45-8"></a>             <span class="at">ymin =</span> mean_delay_time <span class="sc">-</span> standard_error <span class="sc">*</span> <span class="dv">3</span>,</span>
+<span id="cb45-9"><a href="#cb45-9"></a>             <span class="at">ymax =</span> mean_delay_time <span class="sc">+</span> standard_error <span class="sc">*</span> <span class="dv">3</span>,</span>
+<span id="cb45-10"><a href="#cb45-10"></a>             <span class="at">group =</span> dest,</span>
+<span id="cb45-11"><a href="#cb45-11"></a>             <span class="at">colour =</span> dest,</span>
+<span id="cb45-12"><a href="#cb45-12"></a>             <span class="at">fill =</span> dest)) <span class="sc">+</span></span>
+<span id="cb45-13"><a href="#cb45-13"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb45-14"><a href="#cb45-14"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb45-15"><a href="#cb45-15"></a>  <span class="fu">geom_ribbon</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>,</span>
+<span id="cb45-16"><a href="#cb45-16"></a>              <span class="at">linetype =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb45-17"><a href="#cb45-17"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb45-18"><a href="#cb45-18"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(dest)) <span class="sc">+</span></span>
+<span id="cb45-19"><a href="#cb45-19"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="co"># ggsave('outputs/my_cool_plot.svg', width = 8, height = 6)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<img data-src="tidy_data_and_data_vis_quarto_files/figure-revealjs/unnamed-chunk-56-1.png" width="960" class="r-stretch"><p>Saving as an .svg is generally advisable - you can scale .svg images as much as you like without them becoming pixelated.</p>
+</section>
+<section id="an-exercise-to-test-your-data-wrangling-skills" class="slide level2">
+<h2>An exercise to test your data wrangling skills</h2>
+<p>I’ve included some data in this repository which relates to a scientific question of great importance:</p>
+<p>What is the best brand of bacon-flavoured crisp?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>crisp_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'bacon_flavoured_crisps_final.csv'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="#cb47-2"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<span id="cb47-3"><a href="#cb47-3"></a></span>
+<span id="cb47-4"><a href="#cb47-4"></a>crisp_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      x                             brand            shop  taster
+1     1                     Bacon Tasties Service Station    Jack
+2     2                     Bacon Tasties Service Station    Jack
+3     3                     Bacon Tasties Service Station    Jack
+4     4                     Bacon Tasties Service Station    Jack
+5     5                     Bacon Tasties Service Station     Ben
+6     6                     Bacon Tasties Service Station     Ben
+7     7                     Bacon Tasties Service Station     Ben
+8     8                     Bacon Tasties Service Station     Ben
+9     9                     Bacon Tasties Service Station Rihanna
+10   10                     Bacon Tasties Service Station Rihanna
+11   11                     Bacon Tasties Service Station Rihanna
+12   12                     Bacon Tasties Service Station Rihanna
+13   13                     Bacon Tasties Service Station   James
+14   14                     Bacon Tasties Service Station   James
+15   15                     Bacon Tasties Service Station   James
+16   16                     Bacon Tasties Service Station   James
+17   17                     Bacon Tasties Service Station   Molly
+18   18                     Bacon Tasties Service Station   Molly
+19   19                     Bacon Tasties Service Station   Molly
+20   20                     Bacon Tasties Service Station   Molly
+21   21                     Bacon Tasties Service Station  Rowena
+22   22                     Bacon Tasties Service Station  Rowena
+23   23                     Bacon Tasties Service Station  Rowena
+24   24                     Bacon Tasties Service Station  Rowena
+25   25                     Bacon Tasties Service Station     Sam
+26   26                     Bacon Tasties Service Station     Sam
+27   27                     Bacon Tasties Service Station     Sam
+28   28                     Bacon Tasties Service Station     Sam
+29   29                 M&amp;S Bacon Rashers             M&amp;S    Jack
+30   30                 M&amp;S Bacon Rashers             M&amp;S    Jack
+31   31                 M&amp;S Bacon Rashers             M&amp;S    Jack
+32   32                 M&amp;S Bacon Rashers             M&amp;S    Jack
+33   33                 M&amp;S Bacon Rashers             M&amp;S     Ben
+34   34                 M&amp;S Bacon Rashers             M&amp;S     Ben
+35   35                 M&amp;S Bacon Rashers             M&amp;S     Ben
+36   36                 M&amp;S Bacon Rashers             M&amp;S     Ben
+37   37                 M&amp;S Bacon Rashers             M&amp;S Rihanna
+38   38                 M&amp;S Bacon Rashers             M&amp;S Rihanna
+39   39                 M&amp;S Bacon Rashers             M&amp;S Rihanna
+40   40                 M&amp;S Bacon Rashers             M&amp;S Rihanna
+41   41                 M&amp;S Bacon Rashers             M&amp;S   James
+42   42                 M&amp;S Bacon Rashers             M&amp;S   James
+43   43                 M&amp;S Bacon Rashers             M&amp;S   James
+44   44                 M&amp;S Bacon Rashers             M&amp;S   James
+45   45                 M&amp;S Bacon Rashers             M&amp;S   Molly
+46   46                 M&amp;S Bacon Rashers             M&amp;S   Molly
+47   47                 M&amp;S Bacon Rashers             M&amp;S   Molly
+48   48                 M&amp;S Bacon Rashers             M&amp;S   Molly
+49   49                 M&amp;S Bacon Rashers             M&amp;S  Rowena
+50   50                 M&amp;S Bacon Rashers             M&amp;S  Rowena
+51   51                 M&amp;S Bacon Rashers             M&amp;S  Rowena
+52   52                 M&amp;S Bacon Rashers             M&amp;S  Rowena
+53   53                 M&amp;S Bacon Rashers             M&amp;S     Sam
+54   54                 M&amp;S Bacon Rashers             M&amp;S     Sam
+55   55                 M&amp;S Bacon Rashers             M&amp;S     Sam
+56   56                 M&amp;S Bacon Rashers             M&amp;S     Sam
+57   57                  Asda Bacon Bites            Asda    Jack
+58   58                  Asda Bacon Bites            Asda    Jack
+59   59                  Asda Bacon Bites            Asda    Jack
+60   60                  Asda Bacon Bites            Asda    Jack
+61   61                  Asda Bacon Bites            Asda     Ben
+62   62                  Asda Bacon Bites            Asda     Ben
+63   63                  Asda Bacon Bites            Asda     Ben
+64   64                  Asda Bacon Bites            Asda     Ben
+65   65                  Asda Bacon Bites            Asda Rihanna
+66   66                  Asda Bacon Bites            Asda Rihanna
+67   67                  Asda Bacon Bites            Asda Rihanna
+68   68                  Asda Bacon Bites            Asda Rihanna
+69   69                  Asda Bacon Bites            Asda   James
+70   70                  Asda Bacon Bites            Asda   James
+71   71                  Asda Bacon Bites            Asda   James
+72   72                  Asda Bacon Bites            Asda   James
+73   73                  Asda Bacon Bites            Asda   Molly
+74   74                  Asda Bacon Bites            Asda   Molly
+75   75                  Asda Bacon Bites            Asda   Molly
+76   76                  Asda Bacon Bites            Asda   Molly
+77   77                  Asda Bacon Bites            Asda  Rowena
+78   78                  Asda Bacon Bites            Asda  Rowena
+79   79                  Asda Bacon Bites            Asda  Rowena
+80   80                  Asda Bacon Bites            Asda  Rowena
+81   81                  Asda Bacon Bites            Asda     Sam
+82   82                  Asda Bacon Bites            Asda     Sam
+83   83                  Asda Bacon Bites            Asda     Sam
+84   84                  Asda Bacon Bites            Asda     Sam
+85   85               Tesco Bacon Rashers           Tesco    Jack
+86   86               Tesco Bacon Rashers           Tesco    Jack
+87   87               Tesco Bacon Rashers           Tesco    Jack
+88   88               Tesco Bacon Rashers           Tesco    Jack
+89   89               Tesco Bacon Rashers           Tesco     Ben
+90   90               Tesco Bacon Rashers           Tesco     Ben
+91   91               Tesco Bacon Rashers           Tesco     Ben
+92   92               Tesco Bacon Rashers           Tesco     Ben
+93   93               Tesco Bacon Rashers           Tesco Rihanna
+94   94               Tesco Bacon Rashers           Tesco Rihanna
+95   95               Tesco Bacon Rashers           Tesco Rihanna
+96   96               Tesco Bacon Rashers           Tesco Rihanna
+97   97               Tesco Bacon Rashers           Tesco   James
+98   98               Tesco Bacon Rashers           Tesco   James
+99   99               Tesco Bacon Rashers           Tesco   James
+100 100               Tesco Bacon Rashers           Tesco   James
+101 101               Tesco Bacon Rashers           Tesco   Molly
+102 102               Tesco Bacon Rashers           Tesco   Molly
+103 103               Tesco Bacon Rashers           Tesco   Molly
+104 104               Tesco Bacon Rashers           Tesco   Molly
+105 105               Tesco Bacon Rashers           Tesco  Rowena
+106 106               Tesco Bacon Rashers           Tesco  Rowena
+107 107               Tesco Bacon Rashers           Tesco  Rowena
+108 108               Tesco Bacon Rashers           Tesco  Rowena
+109 109               Tesco Bacon Rashers           Tesco     Sam
+110 110               Tesco Bacon Rashers           Tesco     Sam
+111 111               Tesco Bacon Rashers           Tesco     Sam
+112 112               Tesco Bacon Rashers           Tesco     Sam
+113 113               Co-op Bacon Rashers           Co-Op    Jack
+114 114               Co-op Bacon Rashers           Co-Op    Jack
+115 115               Co-op Bacon Rashers           Co-Op    Jack
+116 116               Co-op Bacon Rashers           Co-Op    Jack
+117 117               Co-op Bacon Rashers           Co-Op     Ben
+118 118               Co-op Bacon Rashers           Co-Op     Ben
+119 119               Co-op Bacon Rashers           Co-Op     Ben
+120 120               Co-op Bacon Rashers           Co-Op     Ben
+121 121               Co-op Bacon Rashers           Co-Op Rihanna
+122 122               Co-op Bacon Rashers           Co-Op Rihanna
+123 123               Co-op Bacon Rashers           Co-Op Rihanna
+124 124               Co-op Bacon Rashers           Co-Op Rihanna
+125 125               Co-op Bacon Rashers           Co-Op   James
+126 126               Co-op Bacon Rashers           Co-Op   James
+127 127               Co-op Bacon Rashers           Co-Op   James
+128 128               Co-op Bacon Rashers           Co-Op   James
+129 129               Co-op Bacon Rashers           Co-Op   Molly
+130 130               Co-op Bacon Rashers           Co-Op   Molly
+131 131               Co-op Bacon Rashers           Co-Op   Molly
+132 132               Co-op Bacon Rashers           Co-Op   Molly
+133 133               Co-op Bacon Rashers           Co-Op  Rowena
+134 134               Co-op Bacon Rashers           Co-Op  Rowena
+135 135               Co-op Bacon Rashers           Co-Op  Rowena
+136 136               Co-op Bacon Rashers           Co-Op  Rowena
+137 137               Co-op Bacon Rashers           Co-Op     Sam
+138 138               Co-op Bacon Rashers           Co-Op     Sam
+139 139               Co-op Bacon Rashers           Co-Op     Sam
+140 140               Co-op Bacon Rashers           Co-Op     Sam
+141 141        Sainsbury's Bacon Cripsies     Sainsbury's    Jack
+142 142        Sainsbury's Bacon Cripsies     Sainsbury's    Jack
+143 143        Sainsbury's Bacon Cripsies     Sainsbury's    Jack
+144 144        Sainsbury's Bacon Cripsies     Sainsbury's    Jack
+145 145        Sainsbury's Bacon Cripsies     Sainsbury's     Ben
+146 146        Sainsbury's Bacon Cripsies     Sainsbury's     Ben
+147 147        Sainsbury's Bacon Cripsies     Sainsbury's     Ben
+148 148        Sainsbury's Bacon Cripsies     Sainsbury's     Ben
+149 149        Sainsbury's Bacon Cripsies     Sainsbury's Rihanna
+150 150        Sainsbury's Bacon Cripsies     Sainsbury's Rihanna
+151 151        Sainsbury's Bacon Cripsies     Sainsbury's Rihanna
+152 152        Sainsbury's Bacon Cripsies     Sainsbury's Rihanna
+153 153        Sainsbury's Bacon Cripsies     Sainsbury's   James
+154 154        Sainsbury's Bacon Cripsies     Sainsbury's   James
+155 155        Sainsbury's Bacon Cripsies     Sainsbury's   James
+156 156        Sainsbury's Bacon Cripsies     Sainsbury's   James
+157 157        Sainsbury's Bacon Cripsies     Sainsbury's   Molly
+158 158        Sainsbury's Bacon Cripsies     Sainsbury's   Molly
+159 159        Sainsbury's Bacon Cripsies     Sainsbury's   Molly
+160 160        Sainsbury's Bacon Cripsies     Sainsbury's   Molly
+161 161        Sainsbury's Bacon Cripsies     Sainsbury's  Rowena
+162 162        Sainsbury's Bacon Cripsies     Sainsbury's  Rowena
+163 163        Sainsbury's Bacon Cripsies     Sainsbury's  Rowena
+164 164        Sainsbury's Bacon Cripsies     Sainsbury's  Rowena
+165 165        Sainsbury's Bacon Cripsies     Sainsbury's     Sam
+166 166        Sainsbury's Bacon Cripsies     Sainsbury's     Sam
+167 167        Sainsbury's Bacon Cripsies     Sainsbury's     Sam
+168 168        Sainsbury's Bacon Cripsies     Sainsbury's     Sam
+169 169 Morrisons Bacon Flavoured Rashers       Morrisons    Jack
+170 170 Morrisons Bacon Flavoured Rashers       Morrisons    Jack
+171 171 Morrisons Bacon Flavoured Rashers       Morrisons    Jack
+172 172 Morrisons Bacon Flavoured Rashers       Morrisons    Jack
+173 173 Morrisons Bacon Flavoured Rashers       Morrisons     Ben
+174 174 Morrisons Bacon Flavoured Rashers       Morrisons     Ben
+175 175 Morrisons Bacon Flavoured Rashers       Morrisons     Ben
+176 176 Morrisons Bacon Flavoured Rashers       Morrisons     Ben
+177 177 Morrisons Bacon Flavoured Rashers       Morrisons Rihanna
+178 178 Morrisons Bacon Flavoured Rashers       Morrisons Rihanna
+179 179 Morrisons Bacon Flavoured Rashers       Morrisons Rihanna
+180 180 Morrisons Bacon Flavoured Rashers       Morrisons Rihanna
+181 181 Morrisons Bacon Flavoured Rashers       Morrisons   James
+182 182 Morrisons Bacon Flavoured Rashers       Morrisons   James
+183 183 Morrisons Bacon Flavoured Rashers       Morrisons   James
+184 184 Morrisons Bacon Flavoured Rashers       Morrisons   James
+185 185 Morrisons Bacon Flavoured Rashers       Morrisons   Molly
+186 186 Morrisons Bacon Flavoured Rashers       Morrisons   Molly
+187 187 Morrisons Bacon Flavoured Rashers       Morrisons   Molly
+188 188 Morrisons Bacon Flavoured Rashers       Morrisons   Molly
+189 189 Morrisons Bacon Flavoured Rashers       Morrisons  Rowena
+190 190 Morrisons Bacon Flavoured Rashers       Morrisons  Rowena
+191 191 Morrisons Bacon Flavoured Rashers       Morrisons  Rowena
+192 192 Morrisons Bacon Flavoured Rashers       Morrisons  Rowena
+193 193 Morrisons Bacon Flavoured Rashers       Morrisons     Sam
+194 194 Morrisons Bacon Flavoured Rashers       Morrisons     Sam
+195 195 Morrisons Bacon Flavoured Rashers       Morrisons     Sam
+196 196 Morrisons Bacon Flavoured Rashers       Morrisons     Sam
+197 197                Lidl Bacon Rashers            Lidl    Jack
+198 198                Lidl Bacon Rashers            Lidl    Jack
+199 199                Lidl Bacon Rashers            Lidl    Jack
+200 200                Lidl Bacon Rashers            Lidl    Jack
+201 201                Lidl Bacon Rashers            Lidl     Ben
+202 202                Lidl Bacon Rashers            Lidl     Ben
+203 203                Lidl Bacon Rashers            Lidl     Ben
+204 204                Lidl Bacon Rashers            Lidl     Ben
+205 205                Lidl Bacon Rashers            Lidl Rihanna
+206 206                Lidl Bacon Rashers            Lidl Rihanna
+207 207                Lidl Bacon Rashers            Lidl Rihanna
+208 208                Lidl Bacon Rashers            Lidl Rihanna
+209 209                Lidl Bacon Rashers            Lidl   James
+210 210                Lidl Bacon Rashers            Lidl   James
+211 211                Lidl Bacon Rashers            Lidl   James
+212 212                Lidl Bacon Rashers            Lidl   James
+213 213                Lidl Bacon Rashers            Lidl   Molly
+214 214                Lidl Bacon Rashers            Lidl   Molly
+215 215                Lidl Bacon Rashers            Lidl   Molly
+216 216                Lidl Bacon Rashers            Lidl   Molly
+217 217                Lidl Bacon Rashers            Lidl  Rowena
+218 218                Lidl Bacon Rashers            Lidl  Rowena
+219 219                Lidl Bacon Rashers            Lidl  Rowena
+220 220                Lidl Bacon Rashers            Lidl  Rowena
+221 221                Lidl Bacon Rashers            Lidl     Sam
+222 222                Lidl Bacon Rashers            Lidl     Sam
+223 223                Lidl Bacon Rashers            Lidl     Sam
+224 224                Lidl Bacon Rashers            Lidl     Sam
+             category rating
+1   packet_appearance      2
+2    crisp_appearance      4
+3               taste      8
+4             texture      2
+5   packet_appearance      1
+6    crisp_appearance      4
+7               taste      2
+8             texture      3
+9   packet_appearance      3
+10   crisp_appearance      6
+11              taste      5
+12            texture      7
+13  packet_appearance      3
+14   crisp_appearance      5
+15              taste      7
+16            texture      3
+17  packet_appearance      3
+18   crisp_appearance      6
+19              taste      6
+20            texture      2
+21  packet_appearance      3
+22   crisp_appearance      5
+23              taste      4
+24            texture      4
+25  packet_appearance      6
+26   crisp_appearance      3
+27              taste      3
+28            texture      2
+29  packet_appearance      6
+30   crisp_appearance      4
+31              taste      1
+32            texture      7
+33  packet_appearance      0
+34   crisp_appearance      3
+35              taste      3
+36            texture      6
+37  packet_appearance      9
+38   crisp_appearance      5
+39              taste      6
+40            texture      4
+41  packet_appearance      5
+42   crisp_appearance      4
+43              taste      1
+44            texture      7
+45  packet_appearance      6
+46   crisp_appearance      2
+47              taste      1
+48            texture      7
+49  packet_appearance      7
+50   crisp_appearance      5
+51              taste      3
+52            texture      6
+53  packet_appearance      6
+54   crisp_appearance      2
+55              taste      1
+56            texture      1
+57  packet_appearance      7
+58   crisp_appearance      5
+59              taste      1
+60            texture      1
+61  packet_appearance      5
+62   crisp_appearance      7
+63              taste      7
+64            texture      9
+65  packet_appearance      5
+66   crisp_appearance      8
+67              taste      8
+68            texture     10
+69  packet_appearance      6
+70   crisp_appearance      1
+71              taste      4
+72            texture      4
+73  packet_appearance      6
+74   crisp_appearance      7
+75              taste      9
+76            texture      7
+77  packet_appearance      8
+78   crisp_appearance      8
+79              taste      8
+80            texture      8
+81  packet_appearance      7
+82   crisp_appearance      9
+83              taste      6
+84            texture      6
+85  packet_appearance      5
+86   crisp_appearance      5
+87              taste      7
+88            texture      7
+89  packet_appearance      5
+90   crisp_appearance      7
+91              taste      5
+92            texture      6
+93  packet_appearance      6
+94   crisp_appearance      8
+95              taste     10
+96            texture     10
+97  packet_appearance      4
+98   crisp_appearance      7
+99              taste      7
+100           texture      8
+101 packet_appearance      4
+102  crisp_appearance      5
+103             taste      4
+104           texture      5
+105 packet_appearance      3
+106  crisp_appearance      6
+107             taste      2
+108           texture      7
+109 packet_appearance      5
+110  crisp_appearance      9
+111             taste      4
+112           texture      5
+113 packet_appearance      7
+114  crisp_appearance      1
+115             taste      4
+116           texture      4
+117 packet_appearance     10
+118  crisp_appearance      5
+119             taste      7
+120           texture      6
+121 packet_appearance      9
+122  crisp_appearance      6
+123             taste      7
+124           texture      8
+125 packet_appearance      8
+126  crisp_appearance      4
+127             taste      9
+128           texture      6
+129 packet_appearance      8
+130  crisp_appearance      3
+131             taste      5
+132           texture      5
+133 packet_appearance      8
+134  crisp_appearance      5
+135             taste      9
+136           texture      7
+137 packet_appearance      8
+138  crisp_appearance      5
+139             taste      8
+140           texture      6
+141 packet_appearance      1
+142  crisp_appearance      6
+143             taste      8
+144           texture      8
+145 packet_appearance      6
+146  crisp_appearance      9
+147             taste     10
+148           texture      7
+149 packet_appearance      8
+150  crisp_appearance     10
+151             taste     10
+152           texture     10
+153 packet_appearance      5
+154  crisp_appearance      9
+155             taste      9
+156           texture      6
+157 packet_appearance      4
+158  crisp_appearance     10
+159             taste     10
+160           texture     10
+161 packet_appearance      7
+162  crisp_appearance     10
+163             taste      8
+164           texture      8
+165 packet_appearance      8
+166  crisp_appearance     10
+167             taste      9
+168           texture      7
+169 packet_appearance      5
+170  crisp_appearance      5
+171             taste      4
+172           texture      6
+173 packet_appearance      1
+174  crisp_appearance      6
+175             taste      2
+176           texture      2
+177 packet_appearance      3
+178  crisp_appearance      6
+179             taste      8
+180           texture      8
+181 packet_appearance      7
+182  crisp_appearance      4
+183             taste      2
+184           texture      2
+185 packet_appearance      1
+186  crisp_appearance      4
+187             taste      2
+188           texture      5
+189 packet_appearance      2
+190  crisp_appearance      6
+191             taste      3
+192           texture      3
+193 packet_appearance      3
+194  crisp_appearance      8
+195             taste      2
+196           texture      7
+197 packet_appearance      2
+198  crisp_appearance      5
+199             taste      7
+200           texture      3
+201 packet_appearance      4
+202  crisp_appearance      6
+203             taste      8
+204           texture      7
+205 packet_appearance      5
+206  crisp_appearance      5
+207             taste      7
+208           texture      9
+209 packet_appearance      4
+210  crisp_appearance      4
+211             taste      8
+212           texture      8
+213 packet_appearance      8
+214  crisp_appearance      3
+215             taste      7
+216           texture      7
+217 packet_appearance      8
+218  crisp_appearance      8
+219             taste      9
+220           texture      8
+221 packet_appearance      9
+222  crisp_appearance      9
+223             taste      9
+224           texture      7</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>crisp_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'crisp_data.csv'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() </span>
+<span id="cb49-3"><a href="#cb49-3"></a></span>
+<span id="cb49-4"><a href="#cb49-4"></a>crisp_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                              brand cost_per_packet packet_mass_g
+1                     Bacon Tasties            1.00            20
+2                 M&amp;S Bacon Rashers            0.75            25
+3                  Asda Bacon Bites            0.50            30
+4               Tesco Bacon Rashers            0.65            25
+5               Co-op Bacon Rashers            0.60            30
+6        Sainsbury's Bacon Cripsies            0.85            25
+7 Morrisons Bacon Flavoured Rashers            0.40            35
+8                Lidl Bacon Rashers            0.35            30</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Your mission, should you choose to accept it, is to make a convincing argument about <strong>the best brand of bacon-flavoured crisps</strong>, using this data. Ideally, use data visualisation to evidence your case.</p>
+</div>
+</section></section>
+<section id="thanks-get-in-touch-if-you-have-any-questions" class="title-slide slide level1 center">
+<h1>Thanks! Get in touch if you have any questions!</h1>
+<div class="footer footer-default">
+
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="tidy_data_and_data_vis_quarto_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="tidy_data_and_data_vis_quarto_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="tidy_data_and_data_vis_quarto_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="tidy_data_and_data_vis_quarto_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="tidy_data_and_data_vis_quarto_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="tidy_data_and_data_vis_quarto_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="tidy_data_and_data_vis_quarto_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="tidy_data_and_data_vis_quarto_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="tidy_data_and_data_vis_quarto_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="tidy_data_and_data_vis_quarto_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': true,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        target: function(trigger) {
+          return trigger.previousElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        setTimeout(function() {
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto-reveal',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+        tippyHover(ref, function() {
+          var popup = window.document.createElement('div');
+          cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    });
+    </script>
+    
+
+</body></html>

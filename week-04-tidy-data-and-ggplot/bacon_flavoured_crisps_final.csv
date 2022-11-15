@@ -1,0 +1,225 @@
+"","brand","shop","taster","category","rating"
+"1","Bacon Tasties","Service Station","Jack","packet_appearance",2
+"2","Bacon Tasties","Service Station","Jack","crisp_appearance",4
+"3","Bacon Tasties","Service Station","Jack","taste",8
+"4","Bacon Tasties","Service Station","Jack","texture",2
+"5","Bacon Tasties","Service Station","Ben","packet_appearance",1
+"6","Bacon Tasties","Service Station","Ben","crisp_appearance",4
+"7","Bacon Tasties","Service Station","Ben","taste",2
+"8","Bacon Tasties","Service Station","Ben","texture",3
+"9","Bacon Tasties","Service Station","Rihanna","packet_appearance",3
+"10","Bacon Tasties","Service Station","Rihanna","crisp_appearance",6
+"11","Bacon Tasties","Service Station","Rihanna","taste",5
+"12","Bacon Tasties","Service Station","Rihanna","texture",7
+"13","Bacon Tasties","Service Station","James","packet_appearance",3
+"14","Bacon Tasties","Service Station","James","crisp_appearance",5
+"15","Bacon Tasties","Service Station","James","taste",7
+"16","Bacon Tasties","Service Station","James","texture",3
+"17","Bacon Tasties","Service Station","Molly","packet_appearance",3
+"18","Bacon Tasties","Service Station","Molly","crisp_appearance",6
+"19","Bacon Tasties","Service Station","Molly","taste",6
+"20","Bacon Tasties","Service Station","Molly","texture",2
+"21","Bacon Tasties","Service Station","Rowena","packet_appearance",3
+"22","Bacon Tasties","Service Station","Rowena","crisp_appearance",5
+"23","Bacon Tasties","Service Station","Rowena","taste",4
+"24","Bacon Tasties","Service Station","Rowena","texture",4
+"25","Bacon Tasties","Service Station","Sam","packet_appearance",6
+"26","Bacon Tasties","Service Station","Sam","crisp_appearance",3
+"27","Bacon Tasties","Service Station","Sam","taste",3
+"28","Bacon Tasties","Service Station","Sam","texture",2
+"29","M&S Bacon Rashers","M&S","Jack","packet_appearance",6
+"30","M&S Bacon Rashers","M&S","Jack","crisp_appearance",4
+"31","M&S Bacon Rashers","M&S","Jack","taste",1
+"32","M&S Bacon Rashers","M&S","Jack","texture",7
+"33","M&S Bacon Rashers","M&S","Ben","packet_appearance",0
+"34","M&S Bacon Rashers","M&S","Ben","crisp_appearance",3
+"35","M&S Bacon Rashers","M&S","Ben","taste",3
+"36","M&S Bacon Rashers","M&S","Ben","texture",6
+"37","M&S Bacon Rashers","M&S","Rihanna","packet_appearance",9
+"38","M&S Bacon Rashers","M&S","Rihanna","crisp_appearance",5
+"39","M&S Bacon Rashers","M&S","Rihanna","taste",6
+"40","M&S Bacon Rashers","M&S","Rihanna","texture",4
+"41","M&S Bacon Rashers","M&S","James","packet_appearance",5
+"42","M&S Bacon Rashers","M&S","James","crisp_appearance",4
+"43","M&S Bacon Rashers","M&S","James","taste",1
+"44","M&S Bacon Rashers","M&S","James","texture",7
+"45","M&S Bacon Rashers","M&S","Molly","packet_appearance",6
+"46","M&S Bacon Rashers","M&S","Molly","crisp_appearance",2
+"47","M&S Bacon Rashers","M&S","Molly","taste",1
+"48","M&S Bacon Rashers","M&S","Molly","texture",7
+"49","M&S Bacon Rashers","M&S","Rowena","packet_appearance",7
+"50","M&S Bacon Rashers","M&S","Rowena","crisp_appearance",5
+"51","M&S Bacon Rashers","M&S","Rowena","taste",3
+"52","M&S Bacon Rashers","M&S","Rowena","texture",6
+"53","M&S Bacon Rashers","M&S","Sam","packet_appearance",6
+"54","M&S Bacon Rashers","M&S","Sam","crisp_appearance",2
+"55","M&S Bacon Rashers","M&S","Sam","taste",1
+"56","M&S Bacon Rashers","M&S","Sam","texture",1
+"57","Asda Bacon Bites","Asda","Jack","packet_appearance",7
+"58","Asda Bacon Bites","Asda","Jack","crisp_appearance",5
+"59","Asda Bacon Bites","Asda","Jack","taste",1
+"60","Asda Bacon Bites","Asda","Jack","texture",1
+"61","Asda Bacon Bites","Asda","Ben","packet_appearance",5
+"62","Asda Bacon Bites","Asda","Ben","crisp_appearance",7
+"63","Asda Bacon Bites","Asda","Ben","taste",7
+"64","Asda Bacon Bites","Asda","Ben","texture",9
+"65","Asda Bacon Bites","Asda","Rihanna","packet_appearance",5
+"66","Asda Bacon Bites","Asda","Rihanna","crisp_appearance",8
+"67","Asda Bacon Bites","Asda","Rihanna","taste",8
+"68","Asda Bacon Bites","Asda","Rihanna","texture",10
+"69","Asda Bacon Bites","Asda","James","packet_appearance",6
+"70","Asda Bacon Bites","Asda","James","crisp_appearance",1
+"71","Asda Bacon Bites","Asda","James","taste",4
+"72","Asda Bacon Bites","Asda","James","texture",4
+"73","Asda Bacon Bites","Asda","Molly","packet_appearance",6
+"74","Asda Bacon Bites","Asda","Molly","crisp_appearance",7
+"75","Asda Bacon Bites","Asda","Molly","taste",9
+"76","Asda Bacon Bites","Asda","Molly","texture",7
+"77","Asda Bacon Bites","Asda","Rowena","packet_appearance",8
+"78","Asda Bacon Bites","Asda","Rowena","crisp_appearance",8
+"79","Asda Bacon Bites","Asda","Rowena","taste",8
+"80","Asda Bacon Bites","Asda","Rowena","texture",8
+"81","Asda Bacon Bites","Asda","Sam","packet_appearance",7
+"82","Asda Bacon Bites","Asda","Sam","crisp_appearance",9
+"83","Asda Bacon Bites","Asda","Sam","taste",6
+"84","Asda Bacon Bites","Asda","Sam","texture",6
+"85","Tesco Bacon Rashers","Tesco","Jack","packet_appearance",5
+"86","Tesco Bacon Rashers","Tesco","Jack","crisp_appearance",5
+"87","Tesco Bacon Rashers","Tesco","Jack","taste",7
+"88","Tesco Bacon Rashers","Tesco","Jack","texture",7
+"89","Tesco Bacon Rashers","Tesco","Ben","packet_appearance",5
+"90","Tesco Bacon Rashers","Tesco","Ben","crisp_appearance",7
+"91","Tesco Bacon Rashers","Tesco","Ben","taste",5
+"92","Tesco Bacon Rashers","Tesco","Ben","texture",6
+"93","Tesco Bacon Rashers","Tesco","Rihanna","packet_appearance",6
+"94","Tesco Bacon Rashers","Tesco","Rihanna","crisp_appearance",8
+"95","Tesco Bacon Rashers","Tesco","Rihanna","taste",10
+"96","Tesco Bacon Rashers","Tesco","Rihanna","texture",10
+"97","Tesco Bacon Rashers","Tesco","James","packet_appearance",4
+"98","Tesco Bacon Rashers","Tesco","James","crisp_appearance",7
+"99","Tesco Bacon Rashers","Tesco","James","taste",7
+"100","Tesco Bacon Rashers","Tesco","James","texture",8
+"101","Tesco Bacon Rashers","Tesco","Molly","packet_appearance",4
+"102","Tesco Bacon Rashers","Tesco","Molly","crisp_appearance",5
+"103","Tesco Bacon Rashers","Tesco","Molly","taste",4
+"104","Tesco Bacon Rashers","Tesco","Molly","texture",5
+"105","Tesco Bacon Rashers","Tesco","Rowena","packet_appearance",3
+"106","Tesco Bacon Rashers","Tesco","Rowena","crisp_appearance",6
+"107","Tesco Bacon Rashers","Tesco","Rowena","taste",2
+"108","Tesco Bacon Rashers","Tesco","Rowena","texture",7
+"109","Tesco Bacon Rashers","Tesco","Sam","packet_appearance",5
+"110","Tesco Bacon Rashers","Tesco","Sam","crisp_appearance",9
+"111","Tesco Bacon Rashers","Tesco","Sam","taste",4
+"112","Tesco Bacon Rashers","Tesco","Sam","texture",5
+"113","Co-op Bacon Rashers","Co-Op","Jack","packet_appearance",7
+"114","Co-op Bacon Rashers","Co-Op","Jack","crisp_appearance",1
+"115","Co-op Bacon Rashers","Co-Op","Jack","taste",4
+"116","Co-op Bacon Rashers","Co-Op","Jack","texture",4
+"117","Co-op Bacon Rashers","Co-Op","Ben","packet_appearance",10
+"118","Co-op Bacon Rashers","Co-Op","Ben","crisp_appearance",5
+"119","Co-op Bacon Rashers","Co-Op","Ben","taste",7
+"120","Co-op Bacon Rashers","Co-Op","Ben","texture",6
+"121","Co-op Bacon Rashers","Co-Op","Rihanna","packet_appearance",9
+"122","Co-op Bacon Rashers","Co-Op","Rihanna","crisp_appearance",6
+"123","Co-op Bacon Rashers","Co-Op","Rihanna","taste",7
+"124","Co-op Bacon Rashers","Co-Op","Rihanna","texture",8
+"125","Co-op Bacon Rashers","Co-Op","James","packet_appearance",8
+"126","Co-op Bacon Rashers","Co-Op","James","crisp_appearance",4
+"127","Co-op Bacon Rashers","Co-Op","James","taste",9
+"128","Co-op Bacon Rashers","Co-Op","James","texture",6
+"129","Co-op Bacon Rashers","Co-Op","Molly","packet_appearance",8
+"130","Co-op Bacon Rashers","Co-Op","Molly","crisp_appearance",3
+"131","Co-op Bacon Rashers","Co-Op","Molly","taste",5
+"132","Co-op Bacon Rashers","Co-Op","Molly","texture",5
+"133","Co-op Bacon Rashers","Co-Op","Rowena","packet_appearance",8
+"134","Co-op Bacon Rashers","Co-Op","Rowena","crisp_appearance",5
+"135","Co-op Bacon Rashers","Co-Op","Rowena","taste",9
+"136","Co-op Bacon Rashers","Co-Op","Rowena","texture",7
+"137","Co-op Bacon Rashers","Co-Op","Sam","packet_appearance",8
+"138","Co-op Bacon Rashers","Co-Op","Sam","crisp_appearance",5
+"139","Co-op Bacon Rashers","Co-Op","Sam","taste",8
+"140","Co-op Bacon Rashers","Co-Op","Sam","texture",6
+"141","Sainsbury's Bacon Cripsies","Sainsbury's","Jack","packet_appearance",1
+"142","Sainsbury's Bacon Cripsies","Sainsbury's","Jack","crisp_appearance",6
+"143","Sainsbury's Bacon Cripsies","Sainsbury's","Jack","taste",8
+"144","Sainsbury's Bacon Cripsies","Sainsbury's","Jack","texture",8
+"145","Sainsbury's Bacon Cripsies","Sainsbury's","Ben","packet_appearance",6
+"146","Sainsbury's Bacon Cripsies","Sainsbury's","Ben","crisp_appearance",9
+"147","Sainsbury's Bacon Cripsies","Sainsbury's","Ben","taste",10
+"148","Sainsbury's Bacon Cripsies","Sainsbury's","Ben","texture",7
+"149","Sainsbury's Bacon Cripsies","Sainsbury's","Rihanna","packet_appearance",8
+"150","Sainsbury's Bacon Cripsies","Sainsbury's","Rihanna","crisp_appearance",10
+"151","Sainsbury's Bacon Cripsies","Sainsbury's","Rihanna","taste",10
+"152","Sainsbury's Bacon Cripsies","Sainsbury's","Rihanna","texture",10
+"153","Sainsbury's Bacon Cripsies","Sainsbury's","James","packet_appearance",5
+"154","Sainsbury's Bacon Cripsies","Sainsbury's","James","crisp_appearance",9
+"155","Sainsbury's Bacon Cripsies","Sainsbury's","James","taste",9
+"156","Sainsbury's Bacon Cripsies","Sainsbury's","James","texture",6
+"157","Sainsbury's Bacon Cripsies","Sainsbury's","Molly","packet_appearance",4
+"158","Sainsbury's Bacon Cripsies","Sainsbury's","Molly","crisp_appearance",10
+"159","Sainsbury's Bacon Cripsies","Sainsbury's","Molly","taste",10
+"160","Sainsbury's Bacon Cripsies","Sainsbury's","Molly","texture",10
+"161","Sainsbury's Bacon Cripsies","Sainsbury's","Rowena","packet_appearance",7
+"162","Sainsbury's Bacon Cripsies","Sainsbury's","Rowena","crisp_appearance",10
+"163","Sainsbury's Bacon Cripsies","Sainsbury's","Rowena","taste",8
+"164","Sainsbury's Bacon Cripsies","Sainsbury's","Rowena","texture",8
+"165","Sainsbury's Bacon Cripsies","Sainsbury's","Sam","packet_appearance",8
+"166","Sainsbury's Bacon Cripsies","Sainsbury's","Sam","crisp_appearance",10
+"167","Sainsbury's Bacon Cripsies","Sainsbury's","Sam","taste",9
+"168","Sainsbury's Bacon Cripsies","Sainsbury's","Sam","texture",7
+"169","Morrisons Bacon Flavoured Rashers","Morrisons","Jack","packet_appearance",5
+"170","Morrisons Bacon Flavoured Rashers","Morrisons","Jack","crisp_appearance",5
+"171","Morrisons Bacon Flavoured Rashers","Morrisons","Jack","taste",4
+"172","Morrisons Bacon Flavoured Rashers","Morrisons","Jack","texture",6
+"173","Morrisons Bacon Flavoured Rashers","Morrisons","Ben","packet_appearance",1
+"174","Morrisons Bacon Flavoured Rashers","Morrisons","Ben","crisp_appearance",6
+"175","Morrisons Bacon Flavoured Rashers","Morrisons","Ben","taste",2
+"176","Morrisons Bacon Flavoured Rashers","Morrisons","Ben","texture",2
+"177","Morrisons Bacon Flavoured Rashers","Morrisons","Rihanna","packet_appearance",3
+"178","Morrisons Bacon Flavoured Rashers","Morrisons","Rihanna","crisp_appearance",6
+"179","Morrisons Bacon Flavoured Rashers","Morrisons","Rihanna","taste",8
+"180","Morrisons Bacon Flavoured Rashers","Morrisons","Rihanna","texture",8
+"181","Morrisons Bacon Flavoured Rashers","Morrisons","James","packet_appearance",7
+"182","Morrisons Bacon Flavoured Rashers","Morrisons","James","crisp_appearance",4
+"183","Morrisons Bacon Flavoured Rashers","Morrisons","James","taste",2
+"184","Morrisons Bacon Flavoured Rashers","Morrisons","James","texture",2
+"185","Morrisons Bacon Flavoured Rashers","Morrisons","Molly","packet_appearance",1
+"186","Morrisons Bacon Flavoured Rashers","Morrisons","Molly","crisp_appearance",4
+"187","Morrisons Bacon Flavoured Rashers","Morrisons","Molly","taste",2
+"188","Morrisons Bacon Flavoured Rashers","Morrisons","Molly","texture",5
+"189","Morrisons Bacon Flavoured Rashers","Morrisons","Rowena","packet_appearance",2
+"190","Morrisons Bacon Flavoured Rashers","Morrisons","Rowena","crisp_appearance",6
+"191","Morrisons Bacon Flavoured Rashers","Morrisons","Rowena","taste",3
+"192","Morrisons Bacon Flavoured Rashers","Morrisons","Rowena","texture",3
+"193","Morrisons Bacon Flavoured Rashers","Morrisons","Sam","packet_appearance",3
+"194","Morrisons Bacon Flavoured Rashers","Morrisons","Sam","crisp_appearance",8
+"195","Morrisons Bacon Flavoured Rashers","Morrisons","Sam","taste",2
+"196","Morrisons Bacon Flavoured Rashers","Morrisons","Sam","texture",7
+"197","Lidl Bacon Rashers","Lidl","Jack","packet_appearance",2
+"198","Lidl Bacon Rashers","Lidl","Jack","crisp_appearance",5
+"199","Lidl Bacon Rashers","Lidl","Jack","taste",7
+"200","Lidl Bacon Rashers","Lidl","Jack","texture",3
+"201","Lidl Bacon Rashers","Lidl","Ben","packet_appearance",4
+"202","Lidl Bacon Rashers","Lidl","Ben","crisp_appearance",6
+"203","Lidl Bacon Rashers","Lidl","Ben","taste",8
+"204","Lidl Bacon Rashers","Lidl","Ben","texture",7
+"205","Lidl Bacon Rashers","Lidl","Rihanna","packet_appearance",5
+"206","Lidl Bacon Rashers","Lidl","Rihanna","crisp_appearance",5
+"207","Lidl Bacon Rashers","Lidl","Rihanna","taste",7
+"208","Lidl Bacon Rashers","Lidl","Rihanna","texture",9
+"209","Lidl Bacon Rashers","Lidl","James","packet_appearance",4
+"210","Lidl Bacon Rashers","Lidl","James","crisp_appearance",4
+"211","Lidl Bacon Rashers","Lidl","James","taste",8
+"212","Lidl Bacon Rashers","Lidl","James","texture",8
+"213","Lidl Bacon Rashers","Lidl","Molly","packet_appearance",8
+"214","Lidl Bacon Rashers","Lidl","Molly","crisp_appearance",3
+"215","Lidl Bacon Rashers","Lidl","Molly","taste",7
+"216","Lidl Bacon Rashers","Lidl","Molly","texture",7
+"217","Lidl Bacon Rashers","Lidl","Rowena","packet_appearance",8
+"218","Lidl Bacon Rashers","Lidl","Rowena","crisp_appearance",8
+"219","Lidl Bacon Rashers","Lidl","Rowena","taste",9
+"220","Lidl Bacon Rashers","Lidl","Rowena","texture",8
+"221","Lidl Bacon Rashers","Lidl","Sam","packet_appearance",9
+"222","Lidl Bacon Rashers","Lidl","Sam","crisp_appearance",9
+"223","Lidl Bacon Rashers","Lidl","Sam","taste",9
+"224","Lidl Bacon Rashers","Lidl","Sam","texture",7

@@ -1,0 +1,883 @@
+---
+title: "[tidy]{.smallcaps} data and visualisation with ggplot2"
+author: "Niall Ward-O'Brien"
+format: 
+  revealjs:
+    smaller: true
+    scrollable: true
+    fontsize: 10
+editor: visual
+knitr: 
+  opts_chunk: 
+    echo: true
+---
+
+## Key materials:
+
+-   [12 [tidy]{.smallcaps} data \| R for Data Science
+    (had.co.nz)](https://r4ds.had.co.nz/%5Btidy%5D%7B.smallcaps%7D-data.html)
+
+-   [3 Data visualisation \| R for Data Science
+    (had.co.nz)](https://r4ds.had.co.nz/data-visualisation.html)
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+
+```
+
+## What is [tidy]{.smallcaps} data? 1
+
+[tidy]{.smallcaps} data is an approach for structuring data which makes
+it play nicely with the [**tidy**]{.smallcaps}**verse**, which is a
+suite of packages which are very beginner-friendly in R. It is also a
+good idea in general!
+
+[tidy]{.smallcaps} data has:
+
+-   One variable per column
+
+-   One observation per row
+
+-   One value per cell
+
+## What is [tidy]{.smallcaps} data? 2
+
+![](https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png){fig-align="center"
+width="100%"}
+
+. . .
+
+*What is an observation?* It depends. In this data, it could be
+*country-year* combinations, but we could make it into a tidy dataset
+where each country is the observation, or each year.
+
+. . .
+
+Often it will be easy to tell what your observations and variables are,
+because it will be defined by your particular purpose.
+
+Want to look at teachers over time? TRN & census year probably defines
+your observations.
+
+Want to look at schools in a particular year? Just need the URN or
+la_estab.
+
+. . .
+
+### Exercise
+
+1.  What are the observations in `flights`?
+
+2.  What columns define a unique row?
+
+## What is [tidy]{.smallcaps} data? 3
+
+[tidy]{.smallcaps} data is almost always a **good starting point** -
+it's very flexible.
+
+. . .
+
+Also, R is very good at "vectorised operations" - which means taking
+some orders that have this kind of format:
+
+. . .
+
+We take some set of columns and follow the same set of instructions for
+every row in those columns. E.g on each row, we subtract `arr_delay`
+from `dep_delay`, divide by `distance`, etc.
+
+. . .
+
+```{r}
+#| echo: true
+
+flights %>%
+  mutate(made_up_speed = (dep_delay - arr_delay) / (distance / 1000)) %>%
+  select(dep_delay, arr_delay, distance, made_up_speed)
+```
+
+. . .
+
+Normally when we're manipulating data, we're going to want to do
+operations that depend on the value of variables for each observation in
+our data:
+
+. . .
+
+-   For a dataset of **schools**, divide **no. pupil premium pupils**
+    over the **no. total pupils** to get the **proportion of pp pupils**
+
+-   For a dataset of **teachers**, if the teacher doesn't have **QTS**
+    and has more than **5 years' experience** give them a '1' in a flag
+    column, or '0' otherwise
+
+. . .
+
+If we didn't have **one row per observation:** the data we need on a
+particular *e.g.* teacher/school might be spread across multiple rows,
+so a vectorised operation couldn't access it all.
+
+If we didn't have **one column per variable**: the data we need on a
+particular variable *e.g.* date of birth might be mixed in with other
+variables in one column, or split across multiple columns so we can't
+access it easily.
+
+[tidy]{.smallcaps} data is the natural way to shape data for vectorised
+operations.
+
+## Un-[TIDY]{.smallcaps} data: Wide *vs* Long
+
+Data can be wide or long - and often you'll want to make data wider or
+longer in order to do certain jobs.
+
+*Wide* data does not have any repeated values in its observation
+columns.
+
+![](https://www.statology.org/wp-content/uploads/2021/12/wideLong1-1.png){width="848"}
+
+. . .
+
+## Wide data:
+
+```{r}
+flights_wide <- flights %>%
+  slice_sample(n = 1000) %>%
+  select(carrier, origin, arr_delay) %>%
+  pivot_wider(names_from = origin,
+              values_from = arr_delay,
+              values_fn = 'mean')
+
+flights_wide
+```
+
+. . .
+
+**Observations:** carrier-origin combination
+
+**Variable:** arrival delay
+
+Why is this data not [tidy]{.smallcaps}?
+
+. . .
+
+Our variable is spread over multiple columns. What if we wanted to join
+some data on by `origin`? We can't.
+
+. . .
+
+------------------------------------------------------------------------
+
+### Why would you want wider data?
+
+Perhaps to make nice tables!
+
+. . .
+
+| Origin | Late_flag | Number of flights |
+|--------|-----------|-------------------|
+| JFK    | Early     | 20                |
+| JFK    | Late      | 45                |
+| ABC    | Early     | 14                |
+| ABC    | Late      | 3                 |
+| DEF    | Early     | 6                 |
+| DEF    | Late      | 17                |
+
+. . .
+
+This is much more human-friendly (and compact):
+
+| Origin | Early | Late |
+|--------|-------|------|
+| JFK    | 20    | 45   |
+| ABC    | 14    | 3    |
+| DEF    | 6     | 17   |
+
+. . .
+
+### How do you make your data wider?
+
+We make data wider using `pivot_wider`.
+
+When we pivoting wider, we're normally making our data shorter (by
+getting rid of rows) but also making it wider (by creating new columns).
+
+. . .
+
+To do this, we need to define:
+
+-   The column where the new column **names** are coming from (e.g.
+    origin)
+
+-   The column where the new column **values** are coming from (e.g.
+    departure delay)
+
+. . .
+
+The basic anatomy of `pivot_wider()` is this:
+
+``` r
+flights %>%   # pipe in your data 
+  pivot_wider(# where will the values come from to fill your new cells?
+              values_from = <select-statment>,
+              # where will the names of the new columns come from?
+              names_from = <select-statement>)
+```
+
+`values_from` and `names_from` can be anything that you would put in a
+`select` statement - e.g. `contains('blah_blah_blah')` or
+`starts_with('abc_')` or `where(is.numeric)`.
+
+. . .
+
+Let's imagine we want to know about departure delays from the three NYC
+airports.
+
+You can imagine R running through each row of your data and creating a
+bucket for each value in `names_from` - then splitting the contents of
+`values_from` between those buckets.
+
+. . .
+
+```{r}
+#| warning = TRUE
+flights %>%
+  select(flight, carrier, origin, dep_delay) %>%
+  pivot_wider(values_from = dep_delay,
+              names_from = origin)
+```
+
+. . .
+
+We get a warning because there are lots of rows in the data with the
+same flight and carrier - they've just happened on different days, which
+we haven't included. So each of the new cells we've made has multiple
+bits of data that fit in it.
+
+If we also include `time_hour`, now all of our rows are unique!
+
+```{r}
+#| warning = TRUE
+flights %>%
+  select(flight, carrier, time_hour, origin, dep_delay) %>%
+  pivot_wider(values_from = dep_delay,
+              names_from = origin)
+```
+
+. . .
+
+### Exercise
+
+``` r
+flights %>%   # pipe in your data 
+  pivot_wider(# where will the values come from to fill your new cells?
+              values_from = ,
+              # where will the names of the new columns come from?
+              names_from = )
+```
+
+1.  Using `flights`, pivot the data wider using any variable you like.
+    *Hint:* for convenience
+    `select(flight, carrier, time_hour, <your variables of choice>)`
+
+2.  Make the real version of this table:
+
+    | Origin | Early | Late |
+    |--------|-------|------|
+    | JFK    | 20    | 45   |
+    | ABC    | 14    | 3    |
+    | DEF    | 6     | 17   |
+
+    *HINT:* first use `mutate` to make an early/late flag - then use
+    `count %>%` or `group_by %>% summarise` to count the number of
+    flights in each category. Then pivot the table wider.
+
+3.  Stretch: work out the median arrival delay for each carrier and
+    destination airport. *Hint:* use the `values_fn` argument for
+    `pivot_wider`.
+
+## Long data {.smaller}
+
+```{r}
+flights_long <- flights %>%
+  slice_sample(n = 1000) %>%
+  select(year, month, day, flight, carrier, origin, arr_delay, dep_delay) %>%
+  pivot_longer(cols = c(arr_delay, dep_delay),
+               names_to = 'delay type',
+               values_to = 'delay time')
+
+flights_long
+```
+
+. . .
+
+**Observations:** flights which left on a particular day
+
+**Variables:** arrival delay, departure delay
+
+Why is this data not [tidy]{.smallcaps}?
+
+. . .
+
+It has two variables (arrival delay and departure delay) in the same
+column. Note that this means we also have more than one row per
+observation.
+
+. . .
+
+------------------------------------------------------------------------
+
+### Why would you want longer data?
+
+Imagine you have the following dataset:
+
+```{r}
+flights_new_data <- tibble(
+  flight = c(100, 200),
+  measured.proportion_smooth_jazz_lovers = c(0.03, 0.99),
+  measured.crackers_consumed_during_flight = c(1509, 130),
+  measured.median_imaginary_friends_per_flyer = c(3, 17),
+  measured.n_emotional_support_chameleons = c(1, 666),
+  
+  predicted.proportion_smooth_jazz_lovers = c(0.23, 0.69),
+  predicted.crackers_consumed_during_flight = c(1309, 170),
+  predicted.median_imaginary_friends_per_flyer = c(20, 43),
+  predicted.n_emotional_support_chameleons = c(23, 24) 
+)
+
+flights_new_data
+```
+
+We want to know how good our predictions were! Does our model for
+predicting the proportion of smooth jazz lovers work?
+
+. . .
+
+We can do this in a slightly cumbersome way like this:
+
+```{r}
+flights_new_data %>%
+  mutate(error.proportion_smooth_jazz_lovers = measured.proportion_smooth_jazz_lovers - predicted.proportion_smooth_jazz_lovers,
+         
+         error.crackers_consumed_during_flight = measured.crackers_consumed_during_flight - predicted.crackers_consumed_during_flight)
+```
+
+*etc* - but what if you had 20 columns to do this for? Or 50?
+
+If we turn this into long data, we can have one column to hold the real
+value and one column to hold each of our predictions:
+
+. . .
+
+Now we can do something like:
+
+```{r}
+flights_long_new_data <- flights_new_data %>%
+  pivot_longer(cols = contains("."),
+               values_to = 'value',
+               names_to = c('type',
+                            'stat'),
+               names_sep = '\\.')
+```
+
+. . .
+
+```{r}
+flights_long_new_data <- flights_new_data %>%
+  pivot_longer(cols = contains("."),
+               values_to = 'value',
+               names_to = c('type',
+                            'stat'),
+               names_sep = '\\.') %>%
+  pivot_wider(names_from = 'type',
+              values_from = 'value')
+```
+
+. . .
+
+I could work out the average % error for each variable, and collapse it
+into one easy table:
+
+```{r}
+flights_long_new_data %>%
+  mutate(relative_error = measured / predicted - 1)
+
+flights_long_new_data %>%
+  mutate(relative_error = measured / predicted - 1) %>%
+  group_by(stat) %>%
+  summarise(mean_error = mean(relative_error))
+```
+
+. . .
+
+If you find yourself doing the same job over and over again with
+different sets of columns - you might be able to save a lot of time by
+making it longer first.
+
+. . .
+
+### How do you make your data longer?
+
+`pivot_longer` is the reverse of `pivot_wider`. Rather than taking rows
+from an existing column and spreading them into new columns, we're going
+to squash multiple columns together to make a smaller number of columns
+with more rows.
+
+-   Pick the `cols` you want to squash together
+
+-   Write the name of the new column you want to create to hold the
+    *names* of the columns you're squashing together
+
+-   Write the name of the new column you want to create to hold the
+    *values* of the columns you're squashing together
+
+``` r
+flights %>%
+  pivot_longer(
+    # what columns are we going to squash together?
+    cols = <select statement>,
+    # what is going to be the name of our new column, 
+    # holding the names of the columns we destroyed? 
+    names_to = "",
+    # what is going to be the name of our new column
+    # which will hold the values from the column we 
+    # destroyed?
+    values_to = ""
+  )
+```
+
+. . .
+
+Let's take our wide data from before:
+
+```{r}
+flights_wide
+```
+
+And make it [tidy]{.smallcaps}:
+
+We want to merge together the origin airports into a single column, and
+put the delay in a new column next to it.
+
+```{r}
+flights_wide %>%
+  pivot_longer(cols = c(JFK, LGA, EWR),
+               names_to = "origin",
+               values_to = "mean_arrival_delay")
+```
+
+All [tidy]{.smallcaps}.
+
+Note that because the new columns don't exist yet, we need to give their
+names as *strings*.
+
+. . .
+
+### Exercise
+
+1.  Take the flights data and make it longer by squashing some numeric
+    columns together. Note that you will have problems if they aren't of
+    the same type! *HINT: use* `select` *to drop some other columns to
+    make life easier.*
+2.  Pivot all the time-related variables (`year`, `month`, `day`,
+    `hour`, `minute`) into a pair of columns called `time_type` and
+    `time_value`.
+3.  **Stretch**: create a data table with the following structure:
+    *HINT: you'll need to create some of these variables.*
+
+| Flight            | Month | Day | time_type           | time_value |
+|-------------------|-------|-----|---------------------|------------|
+| \<flight-number\> | 1     | 10  | scheduled_departure | A          |
+| \<flight-number\> | 1     | 10  | dep_time            | B          |
+| \<flight-number\> | 1     | 10  | scheduled_arrival   | C          |
+| \<flight-number\> | 1     | 10  | arr_time            | D          |
+
+# Data visualisation with `ggplot2`
+
+## How does ggplot2 work?
+
+An example:
+
+```{r}
+flights %>%
+  filter(arr_delay < 300,
+         dep_delay < 300) %>%
+  slice_sample(prop = 0.1) %>%
+  ggplot(aes(x = dep_delay,
+        y = arr_delay,
+        colour = origin)) +
+  geom_point(size = 0.5,
+             alpha = 0.5)
+
+```
+
+. . .
+
+Key parts:
+
+-   `aes()` defines *aesthetics -* these are things that we want to vary
+    depending on things in our data. For a scatter graph, we want the x
+    and y values to depend on data in our table. We also want to colour
+    the dots depending on the origin airport in our data.
+
+-   Then we add `geoms`, which will actually be drawn on our graph.
+    `geom_point()` draws a dot for each row of our data.
+
+. . .
+
+**How is this different to excel?**
+
+. . .
+
+Not that different. The main difference is in what excel calls 'series'.
+
+If I wanted to make this kind of scatter graph in excel, I would need a
+new column for each origin airport. In ggplot, we just tell the software
+that we want it to colour all the points based on the rows in the input
+data.
+
+. . .
+
+**Your turn!**
+
+Pick two variables - any two - and make a scatter plot. Post a
+screenshot in the chat when you've made one - you can use the 'export \>
+copy to clipboard' option in R studio for convenience. Bonus points for
+the weirdest relationship that you can find.
+
+## The value of Google
+
+`ggplot2` is probably the **most used package** in R - almost any
+question you can imagine has been asked somewhere on the internet, and
+there are a lot of nice articles too. For that reason, I'm going to try
+to hit some highlights rather than lots of (useful) details - I have to
+google it every time I need to change the title of a legend, for
+example.
+
+```{r}
+flights %>%
+    slice_sample(prop = 0.05) %>%
+    filter(arr_delay < 300,
+         dep_delay < 300) %>%
+  ggplot(aes(x = arr_delay / 60,
+        y = dep_delay / 60,
+        size = distance / 20,
+        colour = origin)) +
+  geom_point(alpha = 0.75) +
+  labs(title = 'Relationship between departure delay and arrival delay',
+       subtitle = 'A really informative subtitle',
+       caption = 'Source: NYC Flights') +
+  xlab('Departure delay (hours)') +
+  ylab('Arrival delay (hours)')
+```
+
+## Line graphs
+
+Are there seasonal patterns to the departure delay at the different NY
+airports?
+
+We'll use `group_by` and `summarise` to calculate an average delay time
+for each airport and each month. Then we'll use geom_point and geom_line
+to draw a dot-and-line graph.
+
+```{r}
+flights %>%
+  group_by(origin, month) %>%
+  summarise(mean_delay_time = mean(dep_delay, na.rm = TRUE),
+            standard_error = sd(dep_delay, na.rm = TRUE) / sqrt(n())) %>%
+  ggplot(aes(x = month,
+             y = mean_delay_time)) +
+  geom_line() +
+  geom_point()
+```
+
+. . .
+
+But wait, this looks like a mess!
+
+We have three data points for each month and **ggplot doesn't know how
+to join them up**. We can tell it how using the 'group' aesthetic. While
+we're at it, let's fix the x axis and add some colour to distinguish the
+three origins.
+
+```{r}
+flights %>%
+  group_by(origin, month) %>%
+  summarise(mean_delay_time = mean(dep_delay, na.rm = TRUE),
+            standard_error = sd(dep_delay, na.rm = TRUE) / sqrt(n())) %>%
+  ggplot(aes(x = month,
+             y = mean_delay_time,
+             group = origin,
+             colour = origin)) +
+  geom_line() +
+  geom_point() +
+  scale_x_continuous(breaks = 1:12)
+```
+
+. . .
+
+Note: if you want to group or colour by multiple variables, you can use
+`interaction()`.
+
+```{r}
+flights %>%
+  filter(carrier %in% c('UA', 'B6')) %>%
+  group_by(origin, carrier, month) %>%
+  summarise(mean_delay_time = mean(dep_delay, na.rm = TRUE),
+            standard_error = sd(dep_delay, na.rm = TRUE) / sqrt(n())) %>%
+  ggplot(aes(x = month,
+             y = mean_delay_time,
+             group = interaction(origin, carrier),
+             colour = interaction(origin, carrier))) +
+  geom_line() +
+  geom_point() +
+  scale_x_continuous(breaks = 1:12)
+```
+
+## Bar graphs and histograms
+
+**Most geoms** will draw one object per row of your data. One row = one
+scatter point, one row = one bar in a column chart, etc.
+
+. . .
+
+**BUT**
+
+Confusingly, ggplot has two ways of making graphs. *Normally,* you have
+to do some work to get your data into the shape you want it.
+
+. . .
+
+For example, if we want to graph how many flights each carrier has had,
+we first make a table that has one row per carrier, and then call
+`geom_col` to plot it:
+
+```{r}
+flights %>%
+  count(carrier)
+```
+
+*Remember 'count' is just a quick way of doing group_by %\>% summarise*
+
+. . .
+
+```{r}
+flights %>%
+  count(carrier) %>%
+  ggplot(aes(x = carrier,
+             y = n,
+             fill = carrier)) +
+  geom_col(colour = 'black')
+```
+
+. . .
+
+But some geoms do this for you:
+
+```{r}
+flights %>%
+  ggplot(aes(x = carrier,
+             fill = carrier)) +
+  geom_bar() 
+```
+
+`geom_bar` does the counting so you don't have to.
+
+Also note that `fill` changes the fill of an object and `colour` changes
+the edge (or the whole of a line or point).
+
+. . .
+
+I tend to avoid using `geom_bar` personally, but `geom_histogram` and
+`geom_boxplot` are very useful, and they do something similar. Let's go
+back to the question of delay times over the year. We're going to filter
+out lots of values, just so we can see something interesting.
+
+If I wanted to do a boxplot for each month to look at the distribution,
+I don't need to calculate the quantiles beforehand!
+
+. . .
+
+```{r}
+flights %>%
+  filter(dep_delay < 15, dep_delay > -15) %>%
+  mutate(month = as.factor(month)) %>%
+  ggplot(aes(y = month,
+             x = dep_delay,
+             fill = month)) +
+  geom_boxplot() +
+  theme(legend.position = 'none')
+```
+
+## Position
+
+We can make clustered and stacked column charts:
+
+. . .
+
+We can tell ggplot to dodge bars
+
+```{r}
+flights %>%
+  count(carrier, origin) %>%
+  ggplot(aes(x = carrier,
+             y = n,
+             fill = origin)) +
+  geom_col(colour = 'black',
+           position = 'dodge')
+```
+
+. . .
+
+...or stack them using 'position':
+
+```{r}
+flights %>%
+  count(carrier, origin) %>%
+  ggplot(aes(x = carrier,
+             y = n,
+             fill = origin)) +
+  geom_col(colour = 'black',
+           position = 'stack')
+```
+
+## Faceting
+
+A way of jamming more information into your graph! *Note: may not make
+your graph more useful.*
+
+Your graph might look a little busy and therefore be hard to read:
+
+```{r}
+flights %>%
+  group_by(dest, month) %>%
+  summarise(mean_delay_time = mean(dep_delay, na.rm = TRUE),
+            standard_error = sd(dep_delay, na.rm = TRUE) / sqrt(n())) %>%
+  filter(grepl("R", dest)) %>%
+  ggplot(aes(x = month,
+             y = mean_delay_time,
+             ymin = mean_delay_time - standard_error * 3,
+             ymax = mean_delay_time + standard_error * 3,
+             group = dest,
+             colour = dest,
+             fill = dest)) +
+  geom_line() +
+  geom_point() +
+  geom_ribbon(alpha = 0.1,
+              linetype = 0) +
+  scale_x_continuous(breaks = 1:12) 
+```
+
+. . .
+
+One way to solve this is to split your graph into a number of smaller
+graphs:
+
+We add `facet_wrap` and tell it to split our panel by `origin`. Note
+that we have to put origin in the function `vars()` to please
+`ggplot2`'s capricious ways.
+
+. . .
+
+```{r}
+flights %>%
+  group_by(dest, month) %>%
+  summarise(mean_delay_time = mean(dep_delay, na.rm = TRUE),
+            standard_error = sd(dep_delay, na.rm = TRUE) / sqrt(n())) %>%
+  filter(grepl("R", dest)) %>%
+  ggplot(aes(x = month,
+             y = mean_delay_time,
+             ymin = mean_delay_time - standard_error * 3,
+             ymax = mean_delay_time + standard_error * 3,
+             group = dest,
+             colour = dest,
+             fill = dest)) +
+  geom_line() +
+  geom_point() +
+  geom_ribbon(alpha = 0.1,
+              linetype = 0) +
+  scale_x_continuous(breaks = 1:12) +
+  facet_wrap(vars(dest)) +
+  theme(legend.position = 'none') 
+
+```
+
+## Combining pivots and faceting for quick QA
+
+```{r}
+flights %>%
+  select(where(is.numeric)) %>%
+  pivot_longer(cols = -flight,
+               names_to = 'stat',
+               values_to = 'value') %>%
+  filter(stat != 'year') %>%
+  ggplot(aes(x = value,
+             fill = stat)) +
+  geom_histogram(colour = 'black') +
+  facet_wrap(vars(stat),
+             scales = 'free') +
+  theme(legend.position = 'none')
+```
+
+## Saving graphs
+
+To save graphs, call `ggsave` after you've created your graph and
+printed it to the plot window. For example:
+
+```{r}
+flights %>%
+  group_by(dest, month) %>%
+  summarise(mean_delay_time = mean(dep_delay, na.rm = TRUE),
+            standard_error = sd(dep_delay, na.rm = TRUE) / sqrt(n())) %>%
+  filter(grepl("R", dest)) %>%
+  ggplot(aes(x = month,
+             y = mean_delay_time,
+             ymin = mean_delay_time - standard_error * 3,
+             ymax = mean_delay_time + standard_error * 3,
+             group = dest,
+             colour = dest,
+             fill = dest)) +
+  geom_line() +
+  geom_point() +
+  geom_ribbon(alpha = 0.1,
+              linetype = 0) +
+  scale_x_continuous(breaks = 1:12) +
+  facet_wrap(vars(dest)) +
+  theme(legend.position = 'none') 
+
+# ggsave('outputs/my_cool_plot.svg', width = 8, height = 6)
+```
+
+Saving as an .svg is generally advisable - you can scale .svg images as
+much as you like without them becoming pixelated.
+
+# Thanks! Get in touch if you have any questions!
+
+## An exercise to test your data wrangling skills
+
+I've included some data in this repository which relates to a scientific
+question of great importance:
+
+What is the best brand of bacon-flavoured crisp?
+
+```{r}
+crisp_data <- read.csv('bacon_flavoured_crisps_final.csv') %>%
+  janitor::clean_names()
+
+crisp_data
+```
+
+. . .
+
+```{r}
+crisp_data <- read.csv('crisp_data.csv') %>%
+  janitor::clean_names() 
+
+crisp_data
+```
+
+. . .
+
+Your mission, should you choose to accept it, is to make a convincing
+argument about **the best brand of bacon-flavoured crisps**, using this
+data. Ideally, use data visualisation to evidence your case.
