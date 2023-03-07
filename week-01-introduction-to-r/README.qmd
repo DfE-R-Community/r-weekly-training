@@ -2,10 +2,10 @@
 
 # Week 01: Introduction to R
 
-Welcome to the DfE R Community's weekly R training! This programme should
-get you up-to-speed with the basics of R, ready to use it effectively in
-your day-to-day work and continue to independently develop your R skills
-moving forward.
+Welcome to the DfE R Community's weekly R training! This programme
+should get you up-to-speed with the basics of R, ready to use it
+effectively in your day-to-day work and continue to independently
+develop your R skills moving forward.
 
 # Prerequisites
 
