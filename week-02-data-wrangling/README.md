@@ -28,9 +28,9 @@ December 2021.
     Difficulty: Not too bad (hopefully)
 
     The data for these exercises has been saved in this repo as three
-    tables: [course_details.csv](course_details.csv),
-    [ofsted.csv](ofsted.csv), and [starts.csv](starts.csv). Load these
-    into R using the following steps:
+    tables: [`course_details.csv`](course_details.csv),
+    [`ofsted.csv`](ofsted.csv), and [`starts.csv`](starts.csv). Load
+    these into R using the following steps:
 
     1.  Manually download the files from the repo
 
@@ -209,8 +209,8 @@ December 2021.
 
         ``` r
         breakdowns <- c(
-         "risk_category", "delivery_region", "std_fwk_flag", "provider_type", 
-         "provider_group", "route", "apps_level"
+          "risk_category", "delivery_region", "std_fwk_flag", "provider_type", 
+          "provider_group", "route", "apps_level"
         )
         ```
 
