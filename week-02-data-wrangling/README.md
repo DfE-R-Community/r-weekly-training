@@ -50,71 +50,13 @@ December 2021.
         ``` r
         # == 01. Load packages =========================================================
         library(tidyverse)
-        ```
 
-            ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-            ✔ dplyr     1.1.0     ✔ readr     2.1.4
-            ✔ forcats   1.0.0     ✔ stringr   1.5.0
-            ✔ ggplot2   3.4.1     ✔ tibble    3.1.8
-            ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-            ✔ purrr     1.0.1     
-            ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-            ✖ dplyr::filter() masks stats::filter()
-            ✖ dplyr::lag()    masks stats::lag()
-            ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-
-        ``` r
         # == 02. Load data =============================================================
         course_details <- read_csv("course_details.csv")
-        ```
-
-            Rows: 625 Columns: 14
-            ── Column specification ────────────────────────────────────────────────────────
-            Delimiter: ","
-            chr (11): std_fwk_flag, std_fwk_name, st_code, apps_level, ssa_t1_code, ssa_...
-            dbl  (3): std_fwk_code, apps_level_6p, apps_level_detailed
-
-            ℹ Use `spec()` to retrieve the full column specification for this data.
-            ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-
-        ``` r
         starts         <- read_csv("starts.csv")
-        ```
-
-            Rows: 51746 Columns: 6
-            ── Column specification ────────────────────────────────────────────────────────
-            Delimiter: ","
-            chr (3): provider_name, provider_type, delivery_region
-            dbl (3): ukprn, std_fwk_code, starts
-
-            ℹ Use `spec()` to retrieve the full column specification for this data.
-            ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-
-        ``` r
         ofsted         <- read_csv("ofsted.csv")
-        ```
-
-            Rows: 2053 Columns: 8
-            ── Column specification ────────────────────────────────────────────────────────
-            Delimiter: ","
-            chr (6): provider_name, provider_type, provider_group, inspection_number, in...
-            dbl (2): ukprn, inspection_length_in_days
-
-            ℹ Use `spec()` to retrieve the full column specification for this data.
-            ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-
-        ``` r
         ofsted_scores  <- read_csv("ofsted_scores.csv")
         ```
-
-            Rows: 4037 Columns: 4
-            ── Column specification ────────────────────────────────────────────────────────
-            Delimiter: ","
-            chr (3): inspection_id, inspection_category, score_description
-            dbl (1): score
-
-            ℹ Use `spec()` to retrieve the full column specification for this data.
-            ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 2.  **Basic wrangling**
 

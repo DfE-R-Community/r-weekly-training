@@ -48,6 +48,8 @@ December 2021.
         ..and your script should look something like this:
 
         ```{r load_data}
+        #| message: false
+
         # == 01. Load packages =========================================================
         library(tidyverse)
 
@@ -103,7 +105,7 @@ December 2021.
         **not** match these):
 
         | provider_group                                                | outstanding | good | requires_improvement | inadequate |
-        |:-----------------|-------------:|-------------:|-------------:|-------------:|
+        |:--------------------------------------------------------------|------------:|-----:|---------------------:|-----------:|
         | Independent learning providers (including employer providers) |        0.54 | 0.26 |                 0.95 |       0.40 |
         | Adult community education providers                           |        0.52 | 0.76 |                 0.83 |         NA |
         | Colleges                                                      |        0.25 | 0.80 |                 0.88 |       0.39 |
