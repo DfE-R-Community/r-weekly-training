@@ -12,5 +12,9 @@ Encoding: UTF-8
 RnwWeave: Sweave
 LaTeX: pdfLaTeX
 
+LineEndingConversion: Windows
+
+UseNativePipeOperator: Yes
+
 MarkdownWrap: Column
 MarkdownWrapAtColumn: 72

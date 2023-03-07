@@ -1,3 +1,4 @@
+
 <!-- Please edit README.Rmd - not README.md -->
 
 # Week 02: Data Wrangling
@@ -13,13 +14,12 @@ December 2021.
 
 # Resources
 
--   [R for Data Science](https://r4ds.had.co.nz/transform.html):
-    -   See chapter 5 for adding columns with `mutate()`, removing rows
-        with `filter()` and aggregating with `group_by()` and
-        `summarise()`
-    -   See chapter 12 for ‘pivoting’, dealing with missing values and
-        columns which have multiple observations per cell
-    -   See chapter 13 for joins (this chapter is especially relevant!)
+- [R for Data Science](https://r4ds.had.co.nz/transform.html):
+  - See chapter 5 for adding columns with `mutate()`, removing rows with
+    `filter()` and aggregating with `group_by()` and `summarise()`
+  - See chapter 12 for ‘pivoting’, dealing with missing values and
+    columns which have multiple observations per cell
+  - See chapter 13 for joins (this chapter is especially relevant!)
 
 # Exercises
 
@@ -28,7 +28,7 @@ December 2021.
     Difficulty: Not too bad (hopefully)
 
     The data for these exercises has been saved in this repo as three
-    tables: [course\_details.csv](course_details.csv),
+    tables: [course_details.csv](course_details.csv),
     [ofsted.csv](ofsted.csv), and [starts.csv](starts.csv). Load these
     into R using the following steps:
 
@@ -47,14 +47,74 @@ December 2021.
 
         ..and your script should look something like this:
 
-            # == 01. Load packages =========================================================
-            library(tidyverse)
+        ``` r
+        # == 01. Load packages =========================================================
+        library(tidyverse)
+        ```
 
-            # == 02. Load data =============================================================
-            course_details <- read_csv("course_details.csv")
-            starts         <- read_csv("starts.csv")
-            ofsted         <- read_csv("ofsted.csv")
-            ofsted_scores  <- read_csv("ofsted_scores.csv")
+            ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+            ✔ dplyr     1.1.0     ✔ readr     2.1.4
+            ✔ forcats   1.0.0     ✔ stringr   1.5.0
+            ✔ ggplot2   3.4.1     ✔ tibble    3.1.8
+            ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+            ✔ purrr     1.0.1     
+            ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+            ✖ dplyr::filter() masks stats::filter()
+            ✖ dplyr::lag()    masks stats::lag()
+            ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+
+        ``` r
+        # == 02. Load data =============================================================
+        course_details <- read_csv("course_details.csv")
+        ```
+
+            Rows: 625 Columns: 14
+            ── Column specification ────────────────────────────────────────────────────────
+            Delimiter: ","
+            chr (11): std_fwk_flag, std_fwk_name, st_code, apps_level, ssa_t1_code, ssa_...
+            dbl  (3): std_fwk_code, apps_level_6p, apps_level_detailed
+
+            ℹ Use `spec()` to retrieve the full column specification for this data.
+            ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+        ``` r
+        starts         <- read_csv("starts.csv")
+        ```
+
+            Rows: 51746 Columns: 6
+            ── Column specification ────────────────────────────────────────────────────────
+            Delimiter: ","
+            chr (3): provider_name, provider_type, delivery_region
+            dbl (3): ukprn, std_fwk_code, starts
+
+            ℹ Use `spec()` to retrieve the full column specification for this data.
+            ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+        ``` r
+        ofsted         <- read_csv("ofsted.csv")
+        ```
+
+            Rows: 2053 Columns: 8
+            ── Column specification ────────────────────────────────────────────────────────
+            Delimiter: ","
+            chr (6): provider_name, provider_type, provider_group, inspection_number, in...
+            dbl (2): ukprn, inspection_length_in_days
+
+            ℹ Use `spec()` to retrieve the full column specification for this data.
+            ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+        ``` r
+        ofsted_scores  <- read_csv("ofsted_scores.csv")
+        ```
+
+            Rows: 4037 Columns: 4
+            ── Column specification ────────────────────────────────────────────────────────
+            Delimiter: ","
+            chr (3): inspection_id, inspection_category, score_description
+            dbl (1): score
+
+            ℹ Use `spec()` to retrieve the full column specification for this data.
+            ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 2.  **Basic wrangling**
 
@@ -92,70 +152,21 @@ December 2021.
 
     1.  Using the `ofsted` and `ofsted_scores` datasets, work out which
         provider group has the highest proportion of ‘outstanding’
-        scores for apprenticeships. Do this in a generalised way,
-        e.g. so that your output is a data.frame/tibble which also
-        includes proportions of ‘inadequate’ scores by provider group.
+        scores for apprenticeships. Do this in a generalised way, e.g.
+        so that your output is a data.frame/tibble which also includes
+        proportions of ‘inadequate’ scores by provider group.
 
     2.  Create a lookup table using your answer to question 3.1. Your
         output should look something like this (your figures should
         **not** match these):
 
-        <table style="width:100%;">
-        <colgroup>
-        <col style="width: 53%" />
-        <col style="width: 10%" />
-        <col style="width: 8%" />
-        <col style="width: 18%" />
-        <col style="width: 9%" />
-        </colgroup>
-        <thead>
-        <tr class="header">
-        <th style="text-align: left;">provider_group</th>
-        <th style="text-align: right;">outstanding</th>
-        <th style="text-align: right;">good</th>
-        <th style="text-align: right;">requires_improvement</th>
-        <th style="text-align: right;">inadequate</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="odd">
-        <td style="text-align: left;">Independent learning providers (including
-        employer providers)</td>
-        <td style="text-align: right;">0.54</td>
-        <td style="text-align: right;">0.26</td>
-        <td style="text-align: right;">0.95</td>
-        <td style="text-align: right;">0.40</td>
-        </tr>
-        <tr class="even">
-        <td style="text-align: left;">Adult community education providers</td>
-        <td style="text-align: right;">0.52</td>
-        <td style="text-align: right;">0.76</td>
-        <td style="text-align: right;">0.83</td>
-        <td style="text-align: right;">NA</td>
-        </tr>
-        <tr class="odd">
-        <td style="text-align: left;">Colleges</td>
-        <td style="text-align: right;">0.25</td>
-        <td style="text-align: right;">0.80</td>
-        <td style="text-align: right;">0.88</td>
-        <td style="text-align: right;">0.39</td>
-        </tr>
-        <tr class="even">
-        <td style="text-align: left;">Higher education institutions</td>
-        <td style="text-align: right;">0.01</td>
-        <td style="text-align: right;">0.53</td>
-        <td style="text-align: right;">0.27</td>
-        <td style="text-align: right;">NA</td>
-        </tr>
-        <tr class="odd">
-        <td style="text-align: left;">Independent specialist colleges</td>
-        <td style="text-align: right;">NA</td>
-        <td style="text-align: right;">0.98</td>
-        <td style="text-align: right;">0.65</td>
-        <td style="text-align: right;">0.99</td>
-        </tr>
-        </tbody>
-        </table>
+        | provider_group                                                | outstanding | good | requires_improvement | inadequate |
+        |:--------------------------------------------------------------|------------:|-----:|---------------------:|-----------:|
+        | Independent learning providers (including employer providers) |        0.54 | 0.26 |                 0.95 |       0.40 |
+        | Adult community education providers                           |        0.52 | 0.76 |                 0.83 |         NA |
+        | Colleges                                                      |        0.25 | 0.80 |                 0.88 |       0.39 |
+        | Higher education institutions                                 |        0.01 | 0.53 |                 0.27 |         NA |
+        | Independent specialist colleges                               |          NA | 0.98 |                 0.65 |       0.99 |
 
         Hint: `janitor::clean_names()` may come in handy here.
 
@@ -196,10 +207,12 @@ December 2021.
     3.  Modify your answer to 4.2 to include several more ‘breakdown
         columns’. These should be the following:
 
-            breakdowns <- c(
-             "risk_category", "delivery_region", "std_fwk_flag", "provider_type", 
-             "provider_group", "route", "apps_level"
-            )
+        ``` r
+        breakdowns <- c(
+         "risk_category", "delivery_region", "std_fwk_flag", "provider_type", 
+         "provider_group", "route", "apps_level"
+        )
+        ```
 
     4.  Your dataset from 4.3 will include *implicit missing values*.
         Use `tidyr::complete()` to make these explicit. (Hint: read [R

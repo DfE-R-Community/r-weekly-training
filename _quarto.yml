@@ -1,1 +1,8 @@
+project: 
+  render: 
+    - "*.qmd"
+    - "!solutions/"
+
+editor: visual
+
 format: gfm
