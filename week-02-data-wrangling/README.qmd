@@ -25,7 +25,11 @@ December 2021.
 
 ## 1. Setup/Data import
 
-Difficulty: Not too bad (hopefully)
+::: callout-note
+## Difficulty
+
+Not too bad (hopefully)
+:::
 
 The data for these exercises has been saved in this repo as three
 tables: [`course_details.csv`](course_details.csv),
@@ -62,7 +66,12 @@ into R using the following steps:
 
 ## 2. Basic wrangling
 
-Difficulty: Not too bad (hopefully)
+::: callout-note
+## Difficulty
+
+Not too bad (hopefully)
+:::
+
 
 Answer the following questions using the **`ofsted`** dataset.
 
@@ -90,7 +99,12 @@ Answer the following questions using the **`ofsted`** dataset.
 
 ## 3. More complex wrangling
 
-Difficulty: Tricky
+::: callout-note
+## Difficulty
+
+Tricky
+:::
+
 
 1.  Using the `ofsted` and `ofsted_scores` datasets, work out which
     provider group has the highest proportion of 'outstanding' scores
@@ -103,7 +117,7 @@ Difficulty: Tricky
     these):
 
     | provider_group                                                | outstanding | good | requires_improvement | inadequate |
-    |:-----------------|-------------:|-------------:|-------------:|-------------:|
+    |:--------------|--------------:|--------------:|--------------:|--------------:|
     | Independent learning providers (including employer providers) |        0.54 | 0.26 |                 0.95 |       0.40 |
     | Adult community education providers                           |        0.52 | 0.76 |                 0.83 |         NA |
     | Colleges                                                      |        0.25 | 0.80 |                 0.88 |       0.39 |
@@ -124,7 +138,12 @@ Difficulty: Tricky
 
 ## 4. A recursive problem
 
-Difficulty: Challenging
+::: callout-note
+## Difficulty
+
+Challenging
+:::
+
 
 **Note**: These questions are intended to give you a real run for your
 money. If you get frustrated and aren't having fun, feel free to abandon
