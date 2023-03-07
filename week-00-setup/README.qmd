@@ -1,8 +1,8 @@
 ---
-output: md_document
+format: gfm
 ---
 
-<!-- Please edit README.Rmd - not README.md -->
+<!-- Please edit README.qmd - not README.md -->
 
 # Week 00: Getting Started
 

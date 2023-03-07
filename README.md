@@ -11,14 +11,29 @@ touch](mailto:jacob.scott@education.gov.uk) 🙂
 
 # Scope
 
-The primary goal of this programme is simply to enable inexperienced R
-users to get feedback on their code, whilst also providing something of
-a learning-pathway to a well-rounded knowledge of the language. For this
-reason we have generally only provided exercises for a given topic,
-along with external resources that users should refer to when attempting
-them. This helps keep the programme focussed while also introducing some
-of the habits of self-directed learning which are essential for any R
-user.
+What this programme *is*:
+
+-   A collection of questions, broken down by topic, with links to good
+    resources to help you complete them
+
+-   A way of learning by *doing*, with an emphasis on doing your own
+    research and getting review from other colleagues
+
+What this programme *isn't*:
+
+-   A detailed guide on how to use R, RStudio or R packages
+
+The programme has been designed this way because maintaining learning
+materials requires a sustained focus which most organisations don't have
+resource for. As a result, organisation-internal learning materials tend
+to become obsolete as the organisation moves on to new and better ways
+of doing things, or, if the organisation doesn't move on, they hold them
+back from adopting better ways of working. For this reason, this
+programme simply aims to point you to resources which are widely used
+and frequently updated, encouraging you to develop the habits you need
+to stay abreast of changes to technologies and best practice. In other
+words, while other programmes may give you a fish, this programme aims
+to give you a fishing pole, and to point you to the lake.
 
 # Get Started
 
@@ -48,10 +63,10 @@ to make use of when completing the exercises. To get started, go to
 
 # Resources
 
--   The DfE R Community [Training
+-   For DfE colleagues, the DfE R Community [Training
     Support](https://teams.microsoft.com/l/channel/19%3a1c926bdbecf94b8b8d7e303670f98bc2%40thread.skype/Training%2520Support?groupId=b95c605d-8fbc-4e4d-9a76-2f7d1c55e70a&tenantId=fad277c9-c60a-4da1-b5f3-b3b8b34a82f9)
-    channel is a good place to ask for help if you get stuck on a
-    problem
+    channel on Teams is a good place to ask for help if you get stuck on
+    a problem
 -   [R for Data Science](https://r4ds.had.co.nz/) is a great, free
     e-book by Hadley Wickham, from which this programme liberally
     borrows
