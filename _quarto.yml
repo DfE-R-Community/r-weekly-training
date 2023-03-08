@@ -1,0 +1,17 @@
+project: 
+  title: "r-weekly-training"
+  render: 
+    - "*.qmd"
+    - "!solutions/"
+    - "!week-01-version-control/week-03b-version-control-azure-devops/"
+
+output-file: "README"
+
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: "#> " 
+
+editor: visual
+
+format: gfm

@@ -46,3 +46,4 @@ po/*~
 
 # Participants tracking spreadsheet
 participants.xlsx
+/.quarto/
