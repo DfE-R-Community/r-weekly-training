@@ -36,7 +36,7 @@ website](https://www.rstudio.com/products/rstudio/).
 ## RStudio Layout
 
 When opening RStudio for the first time, you should see something like
-this: ![RStudio Window](/week-00-setup/rstudio-layout.PNG)
+this: ![RStudio Window](..\week-00-setup/rstudio-layout.PNG)
 
 ### Top Left
 
@@ -84,7 +84,7 @@ code under ‘Run Region’ under ‘Code’:
 - Run All - Runs the whole document - Ctrl + Alt + R (Mac ⌥⌘R). Code
   that is run appears in the ‘Console’ pane and any variables created in
   the ‘Environment’ pane. ![RStudio
-  Console](/week-00-setup/rstudio-console-environment.PNG)
+  Console](..\week-00-setup/rstudio-console-environment.PNG)
 
 # Changing the Theme
 
@@ -100,13 +100,17 @@ features they add available to others. Certain packages are extremely
 widely used, so it’s good to know how to download them. Try installing
 dplyr by running the following in your RStudio console
 
-    install.packages("dplyr")
+``` r
+install.packages("dplyr")
+```
 
 If this went okay you may want to install the whole tidyverse - this is
 a suite of packages that is very widely used, so installing it now will
 probably save you time later (though it takes a few minutes):
 
-    install.packages("tidyverse")
+``` r
+install.packages("tidyverse")
+```
 
 **Note:** As a general rule you should never include
 `install.packages()` in an R *script*. This is so that others (including

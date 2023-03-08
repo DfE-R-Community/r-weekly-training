@@ -1,7 +1,10 @@
 project: 
+  title: "r-weekly-training"
   render: 
     - "*.qmd"
     - "!solutions/"
+
+output-file: "README"
 
 knitr:
   opts_chunk: 
