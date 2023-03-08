@@ -94,7 +94,7 @@ characters.
 
     1.  Use `str_replace_all()` to replace all instances of the word 'berry' in the
         `fruits` dataset with `"\033[31mberry\033[39m"` (to see why you might want
-        to do this, try `your_result %>% cat(sep = "\n")`)
+        to do this, try `your_result |> cat(sep = "\n")`)
         
     2.  Now use `str_replace_all()` to apply the transformation from part 1 to 
         the first word in every sentence from the `sentences` dataset. 

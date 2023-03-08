@@ -10,8 +10,8 @@ prop_na <- function(x) sum(is.na(x))/length(x)
 # Calculates the coefficient of variation
 var_coeff <- function(x) sd(x,na.rm = TRUE)/mean(x,na.rm = TRUE)
 
-storms %>% 
-  group_by(status) %>% 
+storms |> 
+  group_by(status) |> 
   summarise(
     
     # Proportions of `NA` values for ts_diameter and hu_diameter
@@ -62,11 +62,11 @@ print_info <- function(df, quiet = FALSE, ...) {
 gsub2 <- function(x, pattern, replacement, ...){
   gsub(pattern, replacement, x, ...)
 }
-c("string 1", "string 2") %>%
+c("string 1", "string 2") |>
   gsub2("ing", "")
 
 # 3)
-c("string 1", "string 2") %>%
+c("string 1", "string 2") |>
   gsub("ing", "", .)
 
 # 3) Infix functions ------------------------------------------------------
@@ -169,7 +169,7 @@ as_text <- function(df, na = "", headers = TRUE, ...){
 }
 
 to_clipboard <- function(df, na = "", headers = TRUE, ...){
-  as_text(df, na, headers, ...) %>% writeClipboard()
+  as_text(df, na, headers, ...) |> writeClipboard()
   cat(
     "The formatted data frame (", nrow(df)," x ", ncol(df),
     ") has been copied to the clipboard ",
@@ -185,8 +185,8 @@ to_clipboard <- function(df, na = "", headers = TRUE, ...){
 # 1)
 
 aggregate <- function(df, .cols, ..., .fn = sum){
-  df %>% 
-  group_by(...) %>% 
+  df |> 
+  group_by(...) |> 
   summarise(
     across({{.cols}}, .fn), 
     .groups = "drop"
@@ -198,8 +198,8 @@ aggregate <- function(df, .cols, ..., .fn = sum){
 
 
 disaggregate <- function(df, .cols, ..., .fn = sum){
-  df %>% 
-    group_by(across(-c(.cols, ...))) %>% 
+  df |> 
+    group_by(across(-c(.cols, ...))) |> 
     summarise(
       across({{.cols}}, .fn), 
       .groups = "drop"
@@ -216,8 +216,8 @@ bar_plot <- function(data,
                      fn = mean,
                      facet = NULL,
                      position = "dodge"){
-  data %>%
-    aggregate(.cols = {{y}}, {{fill}}, {{x}}, .fn = fn) %>%
+  data |>
+    aggregate(.cols = {{y}}, {{fill}}, {{x}}, .fn = fn) |>
     ggplot(aes({{y}}, {{x}}, fill = {{fill}})) +
     geom_col(position = position) +
     facet_wrap(vars({{facet}}))

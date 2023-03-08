@@ -48,10 +48,10 @@ ofsted_raw <- read_csv(ofsted_url, lazy = FALSE)
 # == 3. Data cleaning ==========================================================
 
 ## `ofsted` ---- 
-ofsted_clean <- ofsted_raw %>% 
+ofsted_clean <- ofsted_raw |> 
   
   # 1. re-format column names
-  janitor::clean_names() %>% 
+  janitor::clean_names() |> 
   
   # 2. select/rename relevant columns
   select(
@@ -71,7 +71,7 @@ ofsted_clean <- ofsted_raw %>%
     score_leadership_and_management = leadership_and_management,
     score_apprenticeships           = apprenticeships,
     -providers_with_an_apprenticeship_judgement
-  ) %>% 
+  ) |> 
   
   # 3. re-format date and score columns
   mutate(
@@ -87,20 +87,20 @@ ofsted_clean <- ofsted_raw %>%
     
     across(starts_with("score"), ~suppressWarnings(as.numeric(.)))
   
-  ) %>% 
+  ) |> 
   
   # 4. transform inspection date back to (re-formatted) character
-  select(-last_day_of_inspection) %>% 
-  rename(inspection_date = first_day_of_inspection) %>% 
+  select(-last_day_of_inspection) |> 
+  rename(inspection_date = first_day_of_inspection) |> 
   mutate(inspection_date = format(inspection_date, "%Y.%m.%d")) 
   
-ofsted <- ofsted_clean %>% 
+ofsted <- ofsted_clean |> 
   select(-starts_with("score"))
 
-ofsted_scores <- ofsted_clean %>% 
+ofsted_scores <- ofsted_clean |> 
   
   # Select only id cols and cols giving scores
-  select(inspection_number, starts_with("score")) %>% 
+  select(inspection_number, starts_with("score")) |> 
 
   # Pivot the data into long format
   pivot_longer(
@@ -108,14 +108,14 @@ ofsted_scores <- ofsted_clean %>%
     names_to = "inspection_category", 
     values_to = "score", 
     names_prefix = "score_"
-  ) %>% 
+  ) |> 
   
   # Make `inspection_category` a bit nicer
   mutate(
-    inspection_category = inspection_category %>% 
-      str_replace_all("_", " ") %>% 
+    inspection_category = inspection_category |> 
+      str_replace_all("_", " ") |> 
       str_to_sentence()
-  ) %>% 
+  ) |> 
   
   # Add a score description based on google (https://www.gov.uk/guidance/glossary-of-terms-ofsted-statistics#FESglossary)
   mutate(score_description = case_when(
@@ -125,10 +125,10 @@ ofsted_scores <- ofsted_clean %>%
     score == 2 ~ "Good",
     score == 3 ~ "Requires improvement",
     score == 4 ~ "Inadequate"
-  ), .after = score) %>% 
+  ), .after = score) |> 
   
   # Remove useless rows
-  filter(!is.na(score)) %>% 
+  filter(!is.na(score)) |> 
   
   # Throw a curveball
   rename(inspection_id = inspection_number)
@@ -136,18 +136,18 @@ ofsted_scores <- ofsted_clean %>%
 
 
 ## `starts` ----
-starts <- apps_starts_raw %>% 
-  group_by(ukprn, provider_name, provider_type, delivery_region, std_fwk_code) %>% 
+starts <- apps_starts_raw |> 
+  group_by(ukprn, provider_name, provider_type, delivery_region, std_fwk_code) |> 
   summarise(starts = sum(starts), .groups = "drop")
 
 
 
 ## `course_details` ----
-course_details <- apps_starts_latest %>% 
+course_details <- apps_starts_latest |> 
   distinct(across(matches(c(
     "^(std?|fwk|std?_fwk)_(code|flag|name)$", 
     "^apps", "^ssa", "^stem$", "^route$", "^apps_degree$"
-  )))) %>% 
+  )))) |> 
   relocate(matches("^(std?|fwk|std?_fwk)_(code|flag|name)$"))
 
 
@@ -155,6 +155,6 @@ course_details <- apps_starts_latest %>%
 
 # == 4. Write data =============================================================
 
-mget(c("ofsted", "ofsted_scores", "starts", "course_details")) %>% 
-  set_names(~glue::glue("week-02-data-wrangling/{.}.csv")) %>% 
+mget(c("ofsted", "ofsted_scores", "starts", "course_details")) |> 
+  set_names(~glue::glue("week-02-data-wrangling/{.}.csv")) |> 
   iwalk(write_csv)

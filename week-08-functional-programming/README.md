@@ -13,7 +13,7 @@ to trip you up with subtle idiosyncrasies.
 
 ``` r
 # `{purrr}` is loaded as part of the tidyverse:
-suppressPackageStartupMessages(library(tidyverse))
+library(tidyverse)
 ```
 
 # Prerequisites
@@ -162,14 +162,14 @@ may wonder, why use `map()` if you can use a `for`-loop?
 
     samples
     #>  [[1]]
-    #>  [1] 1.1809033 0.1574767 0.9913947
+    #>  [1] -0.4087465 -0.1484659 -0.5278715
     #>  
     #>  [[2]]
-    #>  [1] -1.8247991  0.5887008 -0.4029456 -0.2532514  0.7186020
+    #>  [1]  0.3195231 -0.6845575 -0.7381100 -0.2672108 -0.8944646
     #>  
     #>  [[3]]
-    #>  [1]  0.64465955  0.45439963  1.98297340  0.04223694  0.17446165  0.05830679
-    #>  [7] -1.26708813
+    #>  [1]  0.57731632 -1.48740756  0.69335692  0.03461385  0.85082092  1.59636742
+    #>  [7]  0.46667880
     ```
 
 2.  Read the documentation for `purrr::map2()` and use it to simplify
@@ -186,13 +186,13 @@ may wonder, why use `map()` if you can use a `for`-loop?
 
     samples
     #>  [[1]]
-    #>  [1] -0.07772039  0.51115477 -2.36096641
+    #>  [1]  0.4642351 -0.4842937 -0.1661647
     #>  
     #>  [[2]]
-    #>  [1] 0.75793674 0.06964232 0.65335873 0.77623057 0.47870801
+    #>  [1] 0.6043895 0.2486737 0.3593655 0.2113965 0.3776367
     #>  
     #>  [[3]]
-    #>  [1] 0.3440652 0.3768702 0.7975015 0.5617177 0.9135089 1.3127025 1.2470042
+    #>  [1] 0.7442228 0.8058496 1.0523138 0.3013124 0.2493431 0.4824428 0.7851338
     ```
 
     Hint: try writing a function to do the work of the code inside the
@@ -268,14 +268,14 @@ to write and read. These questions outline a few ways of doing this.
 
     # 2. Define a function to compute R^2
     size_to_price_relationship_strength <- function(data) {
-      data %>% 
-        lm(price ~ x * y * z, data = .) %>% 
-        summary() %>% 
-        .$r.squared
+      data |> 
+        lm(price ~ x * y * z, data = _) |> 
+        summary() |> 
+        pluck("r.squared")
     }
 
     # 3. 
-    diamonds_split %>% 
+    diamonds_split |> 
       map(size_to_price_relationship_strength)
     #>  $Fair
     #>  [1] 0.7576571
@@ -301,16 +301,12 @@ to write and read. These questions outline a few ways of doing this.
     formula syntax. Hint: you may also find the documentation for
     `rlang::as_function()` helpful.
 
-3.  The pipe `%>%` can also be used to create compact anonymous
-    functions. Read the examples in `` ?`%>%` `` and use repeat part 1
-    using this syntax.
-
-4.  Comment on the relative strengths/weaknesses of each technique:
+3.  Comment on the relative strengths/weaknesses of each technique:
 
     - Creating named custom functions beforehand
-    - Defining anonymous function using R’s default `function` syntax
+    - Defining anonymous function using R’s default `function`/`\`
+      syntax
     - `{purrr}`’s formula syntax
-    - `{magrittr}`’s pipe syntax
 
 # 4. Other iterators from `{purrr}`
 

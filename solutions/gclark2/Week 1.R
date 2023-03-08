@@ -15,22 +15,22 @@ mtcars2 <- tibble::rownames_to_column(mtcars2, "car")
 ####TASK 4
 
 #adding column of true or false as to whether it can do 20mph
-mtcars3 <- mtcars2 %>%
+mtcars3 <- mtcars2 |>
   mutate(morethan_20_mpg = mpg > 20) 
 
 #average
-mtcars4 <- mtcars2 %>%
-  select(cyl, gear, mpg) %>%
-  group_by(cyl, gear) %>%
+mtcars4 <- mtcars2 |>
+  select(cyl, gear, mpg) |>
+  group_by(cyl, gear) |>
   summarise(meanMPG = mean(mpg, na.rm = TRUE), .groups = 'drop') 
 
 
 #also grouping by make
 mtcars5 = separate(mtcars3, col=car, into =c('make', 'type'), sep = ' ')
 
-mtcars6 =   mtcars5 %>%
-  select(cyl, gear, mpg, make) %>%
-  group_by(cyl, gear, make) %>%
+mtcars6 =   mtcars5 |>
+  select(cyl, gear, mpg, make) |>
+  group_by(cyl, gear, make) |>
   summarise(meanMPG = mean(mpg, na.rm = TRUE), .groups = 'drop')  
 
 

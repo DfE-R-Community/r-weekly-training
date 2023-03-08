@@ -14,18 +14,18 @@ mtcars2 <- tibble::rownames_to_column(mtcars, var='cars')
 mtcars2 <- transform(mtcars2, gt20mpg=ifelse(mpg>20, TRUE, FALSE))
 
 # Create a new dataset giving the average mpg for each cyl and gear
-mtcars3 <- mtcars2 %>% 
-            group_by(cyl, gear) %>%
+mtcars3 <- mtcars2 |> 
+            group_by(cyl, gear) |>
             summarise(avg_mpg = mean(mpg))
 
 # Now include each make of car in the output. Lets create a new dataset. 
 # First split the car name into (make, model). Omit model.
-mtcars4 <- mtcars2 %>% 
+mtcars4 <- mtcars2 |> 
             separate(cars, c("make", NA), sep=" ")
 
 # Repeat filter in last question now grouping by make as well
-mtcars4 <- mtcars4 %>% 
-            group_by(make, cyl, gear) %>%
+mtcars4 <- mtcars4 |> 
+            group_by(make, cyl, gear) |>
             summarise(avg_mpg = mean(mpg)) 
 
 

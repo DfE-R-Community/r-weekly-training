@@ -10,7 +10,7 @@ str_subset(fruit, "[^\\s] berry")
 
 # ---- 1.3 ---------------------------------------------------------------------
 # find fruit that start with a, b or c and end with x,y or z
-fruit %>%
+fruit |>
   str_subset("^[abc]\\w*[xyz]$")
 # ^[abc] start with abc
 # \\w matches any word character
@@ -18,9 +18,9 @@ fruit %>%
 # [xyz]$ ends with xyz
 
 # ---- 1.4 ---------------------------------------------------------------------
-fruit %>%
+fruit |>
   # find words that have 10 characters or more
-  str_subset("\\w{10}") %>%
+  str_subset("\\w{10}") |>
   # extract those words with 10 characters
   str_extract("\\w{10}")
 
@@ -28,31 +28,31 @@ fruit %>%
 #head(sentences)
 # \\b is boundary of words  -  start or end of word
 # need to find all of the words that start and end with a vowel
-sentences %>%
-  str_subset("\\b[aeiou]\\w*[aeiou]\\b") %>%
+sentences |>
+  str_subset("\\b[aeiou]\\w*[aeiou]\\b") |>
   str_extract_all("\\b[aeiou]\\w*[aeiou]\\b")
 
 
 # ---- 2.1.1 -------------------------------------------------------------------
-fruit %>%
-  str_replace_all("berry", "\033[31mberry\033[39m") %>%
+fruit |>
+  str_replace_all("berry", "\033[31mberry\033[39m") |>
   cat(sep = "\n")
 
 # ---- 2.1.2 -------------------------------------------------------------------
-sentences %>%
-  str_replace_all("(i)", "!\\1!") %>%
+sentences |>
+  str_replace_all("(i)", "!\\1!") |>
   head()
 head(sentences)
 # testing the hint: puts ! around all of the i's
 
-sentences %>%
+sentences |>
   # replace the first word of every sentence, with the red version of it
-  str_replace_all("^(\\w+)","\033[31m\\1\033[39m") %>%
-  cat(sep = "\n") #%>%
+  str_replace_all("^(\\w+)","\033[31m\\1\033[39m") |>
+  cat(sep = "\n") #|>
   #head()
 
 # ---- 2.1.3 -------------------------------------------------------------------
-sentences %>%
+sentences |>
   # change all of the first words to be upper case
   str_replace_all("^(\\w+)", toupper)
   
@@ -61,29 +61,29 @@ lazy_sentence <- paste(
   "Bush Sr. was born in Milton, MA. & Bush Jr. was born in New Haven, CT.",
   "They served respectively as 41st & 43rd presidents of the USA."
 )
-lazy_sentence %>%
-  str_replace_all("Sr.", "Senior") %>%
-  str_replace_all("Jr.", "Junior") %>%
-  str_replace_all("MA.", "Massachusetts") %>%
-  str_replace_all("&", "and") %>%
-  str_replace_all("CT.", "Connecticut.") %>%
+lazy_sentence |>
+  str_replace_all("Sr.", "Senior") |>
+  str_replace_all("Jr.", "Junior") |>
+  str_replace_all("MA.", "Massachusetts") |>
+  str_replace_all("&", "and") |>
+  str_replace_all("CT.", "Connecticut.") |>
   str_replace_all("USA", "United States of America")
 
 # ---- 2.2 ---------------------------------------------------------------------
 messy_sentence <- "  the  quick brown  FOx  jumps ovEr the Lazy  dog        "
-messy_sentence %>%
+messy_sentence |>
   # remove all the unnecessary white space
-  str_squish() %>%
+  str_squish() |>
   # convert to sentence-case
-  str_to_sentence() %>%
+  str_to_sentence() |>
   # wraps the sentence to be displayed in lines of 10 or less characters
-  str_wrap(10) %>%
+  str_wrap(10) |>
   # break the string up to give a character vector where breaks occur wherever there is a linebreak
-  str_split("\\n", simplify = TRUE) %>%
+  str_split("\\n", simplify = TRUE) |>
   # pad eahc line so that each line is exactly 10 characters
-  str_pad(10, side="both") %>%
+  str_pad(10, side="both") |>
   # collapse the vector back into single string, re-adding linebreaks in the process
-  str_c("\n")%>%
+  str_c("\n")|>
   cat("\n")
 
 # ---- 3.1 ---------------------------------------------------------------------
@@ -107,9 +107,9 @@ validate_password('Emily.Yau')
 # ---- 3.2 ---------------------------------------------------------------------
 
 str_to_snake <- function(string){
-  string%>% 
+  string|> 
     # replace all capital letters with a _ infront of it
-    str_replace_all("([A-Z])", "_\\1") %>%
+    str_replace_all("([A-Z])", "_\\1") |>
     # replace the all words to have lower case
     str_replace_all("^(\\w+)", str_to_lower)
 }

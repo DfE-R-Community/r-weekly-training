@@ -10,10 +10,10 @@ library(patchwork)
 #==== Q1.1 - Create a subset of txhousing which only includes counties =========
 # (hint: try looking at all the distinct values of city first)
 
-distinct_cities <- txhousing %>% 
+distinct_cities <- txhousing |> 
   distinct(city)
 
-txhousing_counties <- txhousing %>%
+txhousing_counties <- txhousing |>
   filter(grepl("County",city))
 
 
@@ -51,7 +51,7 @@ rescale01 <- function(x) {
   (x - rng[1]) / (rng[2] - rng[1])
 }
 
-rescaled_economics <- economics %>%
+rescaled_economics <- economics |>
   mutate(across(c(-1),rescale01)) # C can be names of columns
 
 #==== Q2.2 - Now, create a plot of your rescaled dataset where the rescaled columns are all represented as different coloured lines ====
@@ -69,10 +69,10 @@ ggplot(rescaled_economics,aes (x = date)) +
 #==== 2.3 Use pivot_longer() to pivot the columns pce, pop, psavert, uempmed and unemploy. Column names should end up in a single column variable and values should end up in a single column value ====
 #Use group_by(), mutate() and rescale01() to create a rescaled version of the value column. Call this new column value01. Don't forget to ungroup()! ====
 
-rescaled_economics_2 <- rescaled_economics %>%
-  pivot_longer(c(-1), names_to = "variable", values_to = "value") %>%
-  group_by(variable) %>%
-  mutate(value01 = rescale01(value)) %>%
+rescaled_economics_2 <- rescaled_economics |>
+  pivot_longer(c(-1), names_to = "variable", values_to = "value") |>
+  group_by(variable) |>
+  mutate(value01 = rescale01(value)) |>
   ungroup()
 
 
@@ -109,7 +109,7 @@ ggplot(rescaled_economics_2) +
 #==== 3.2 The axis labels on the following plot are not very clear =============================================
 #https://stackoverflow.com/questions/1330989/rotating-and-spacing-axis-labels-in-ggplot2
 
-mpg %>% 
+mpg |> 
   ggplot(aes(manufacturer)) +
   geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
@@ -124,7 +124,7 @@ ggplot(diamonds, aes(depth, colour = cut, label = cut)) +
   
 #==== 4.2 - Use {ggpointdensity} to improve the following plot: ================
 
-txhousing %>% 
+txhousing |> 
   ggplot(aes(log(sales), log(listings))) +
   geom_pointdensity() +
   scale_color_viridis(option = "plasma") 
@@ -137,7 +137,7 @@ plot_diamonds <- ggplot(diamonds, aes(depth, colour = cut, label = cut)) +
   theme(legend.position = "none") +
   theme_dark()
 
-plot_housing <- txhousing %>% 
+plot_housing <- txhousing |> 
   ggplot(aes(log(sales), log(listings))) +
   geom_pointdensity() +
   scale_color_viridis(option = "plasma") +
@@ -179,7 +179,7 @@ ggplot(df, aes(x, y, group =  )) +
 
 #==== 5.3 - Re-create the plot from part 2 without using the group aesthetic. Do this by first applying an appropriate mutate() to the x variable in df ==== 
 
-df2 <- df %>% 
+df2 <- df |> 
   mutate(x = as.numeric(x))
 ggplot(df2, aes(x, y)) +
   geom_line()
@@ -205,7 +205,7 @@ ggplot(mpg, aes(displ, manufacturer, colour = factor(cyl))) +
 
 
 #3 using factor before plotting
-mpg2 <- mpg %>% 
+mpg2 <- mpg |> 
   mutate(cyl = factor(cyl))
 ggplot(mpg2, aes(displ, manufacturer, colour = cyl)) +
   geom_jitter() +

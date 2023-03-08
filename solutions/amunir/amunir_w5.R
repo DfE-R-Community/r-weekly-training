@@ -15,7 +15,7 @@ txhousing2 <- txhousing
   unique(txhousing$city)
 
 #table filtered to only show the counties
-Counties_1.1 <- txhousing%>%
+Counties_1.1 <- txhousing|>
   filter (city == c("Brazoria County", "Collin County", "Denton County","NE Tarrant County",
                     "Montgomery County"))
 
@@ -65,7 +65,7 @@ rescale01 <- function(x) {
 economics_View <- economics
 
 #Tried with Summarise (could not figure out why it didn't work)
-#economics_rescale_2.1 <- economics_View %>% 
+#economics_rescale_2.1 <- economics_View |> 
 #  summarise (pce = rescale01(pce),
 #          pop = rescale01(pop),
 #          psavert = rescale01(psavert),
@@ -74,7 +74,7 @@ economics_View <- economics
 
 
 #Used group by to group all columns and resize using the function above
-economics_rescale_2.1 <- economics_View %>% 
+economics_rescale_2.1 <- economics_View |> 
   group_by (pce = rescale01(pce),
              pop = rescale01(pop),
              psavert = rescale01(psavert),
@@ -97,11 +97,11 @@ ggplot(data = economics_rescale_2.1) +
 
 #using pivot longer to put all the columns into a a column called variable
 #I have then created a new column with the re-scaled values
-economics_reformat_2.3 <- economics_View %>%
+economics_reformat_2.3 <- economics_View |>
   pivot_longer(c('pce', 'pop', 'psavert', 'uempmed', 'unemploy'), 
-               names_to = "variable", values_to = "value") %>%
-                group_by(variable)%>%
-                mutate(value01 = rescale01(value))%>%
+               names_to = "variable", values_to = "value") |>
+                group_by(variable)|>
+                mutate(value01 = rescale01(value))|>
                 ungroup()
 
 #-------Q2.4-------------------------------------------------
@@ -140,7 +140,7 @@ ggplot(data = economics_reformat_2.3) +
 #I changed the element_text size and angle to make the graph much clearer
 suppressPackageStartupMessages(library(tidyverse))
 
-mpg %>% 
+mpg |> 
   ggplot(aes(manufacturer)) +
   geom_bar() + theme(axis.text.x  = element_text(angle = 90, size = 12))
 
@@ -165,7 +165,7 @@ ggplot(diamonds, aes(depth, label = cut, colour = cut)) +
 #Installed ggpointdensity package
 #used geom_pointdensity to show a density gradient
 #ALso changed the and shape of points to improve the look
-txhousing %>% 
+txhousing |> 
   ggplot(aes(log(sales), log(listings))) +
   geom_pointdensity(size = 0.5, shape = 3, adjust = 2)+
   theme ( legend.position = "none")
@@ -188,7 +188,7 @@ ggplot(diamonds, aes(depth, label = cut, colour = cut)) +
   theme_calc()
 
 #Txhousing plot----------
-txhousing %>% 
+txhousing |> 
   ggplot(aes(log(sales), log(listings))) +
   geom_pointdensity(size = 0.5, shape = 3, adjust = 2)+
   theme ( legend.position = "none")+
@@ -234,7 +234,7 @@ ggplot(df, aes(x=x, y=y) ) + geom_line(group = 0)
 
 #---Q5.3---------------------------------------------------------
 #Could not get to work
-#df2 <- df%>%
+#df2 <- df|>
  # mutate(x)
 
 #ggplot(df2, aes(x=x, y=y) ) + geom_line(group = 0)

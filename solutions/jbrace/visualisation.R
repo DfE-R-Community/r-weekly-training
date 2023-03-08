@@ -8,16 +8,16 @@ library(patchwork)
 # 1) Plotting txplotting --------------------------------------------------
 
 # Create column that indicates which rows are counties
-housing <- txhousing %>% mutate(is_county = grepl("County", city))
+housing <- txhousing |> mutate(is_county = grepl("County", city))
 
 housing_plot <- ggplot() +
   # Plot grey lines with only non-county data
-  geom_line(data = housing %>% filter(!is_county),
+  geom_line(data = housing |> filter(!is_county),
             aes(x = date, y = median, group = city),
             colour = "grey",
             alpha = 0.25) +
   # Plot line using county data on top of grey lines
-  geom_line(data = housing %>% filter(is_county),
+  geom_line(data = housing |> filter(is_county),
             aes(x = date, y = median, colour = city)) +
   theme_minimal() +
   scale_colour_colorblind() +
@@ -35,9 +35,9 @@ rescale01 <- function(x) {
   (x - rng[1]) / (rng[2] - rng[1])
 }
 
-economics_plot <- economics %>%
-  mutate(across(-date, rescale01)) %>%
-  pivot_longer(!date, names_to = "variable", values_to = "value") %>%
+economics_plot <- economics |>
+  mutate(across(-date, rescale01)) |>
+  pivot_longer(!date, names_to = "variable", values_to = "value") |>
   ggplot(aes(x = date, y = value, colour = variable)) +
   geom_line(size = 1) + 
   scale_colour_colorblind() +
@@ -64,7 +64,7 @@ economics_plot <- economics %>%
 # Chosen to wrap the x axis text with width so each word has a line of its own
 # Also chosen to flip the coordinates
 
-cars_plot <- mpg %>% 
+cars_plot <- mpg |> 
   ggplot(aes(str_wrap(manufacturer, 1))) +
   geom_bar() +
   labs(x = "Car Manufacturer", y = "Count") +
@@ -75,7 +75,7 @@ cars_plot <- mpg %>%
 
 # 1)
 
-diamonds_plot <- diamonds %>%
+diamonds_plot <- diamonds |>
   ggplot(aes(depth, colour = cut, label = cut)) +
   geom_textdensity(size = 6, fontface = 1, hjust = 0.35) +
   xlim(55, 70) +
@@ -84,7 +84,7 @@ diamonds_plot <- diamonds %>%
   
 # 2)
 
-housing_point <- txhousing %>% 
+housing_point <- txhousing |> 
   ggplot(aes(log(sales), log(listings))) +
   geom_pointdensity() +
   theme_clean()
@@ -100,20 +100,20 @@ print(diamonds_plot | housing_point)
 # This option works well and is self explanatory. I think this is the most
 # suited for this situation where you want to change the colour of all
 # points
-diamonds %>%
+diamonds |>
   ggplot(aes(carat, price)) +
   geom_point(colour = "blue")
 
 # Option `scale_colour_manual()` is a bit odd here since you generally use
 # it when you want multiple colours for several intervals
-diamonds %>%
+diamonds |>
   ggplot(aes(carat, price, colour = "Blue Point")) +
   geom_point() +
   scale_colour_manual(values = "blue")
 
 # This option works fine here but it would probably be more suited for
 # when you wanted to use multiple colours
-diamonds %>%
+diamonds |>
   ggplot(aes(carat, price, colour = "blue")) +
   geom_point() +
   scale_colour_identity()
@@ -126,7 +126,7 @@ df <- tibble(x = c("1", "2", "3", "4", "5"), y = 1:5)
 # to join up to make a line. With one line, just putting `groups = 1` will
 # suffice
 
-df %>%
+df |>
   ggplot(aes(x = x, y = y, group = 1)) +
   geom_line()
 
@@ -134,8 +134,8 @@ df %>%
 
 # In the plot above, x is being recognised as categorical. If x is numeric
 # instead, we can do a a general line plot without the grouping
-line_plot <- df %>%
-  mutate(x = as.numeric(x)) %>%
+line_plot <- df |>
+  mutate(x = as.numeric(x)) |>
   ggplot(aes(x = x, y = y)) +
   geom_line()
 
@@ -151,14 +151,14 @@ line_plot <- df %>%
 
 
 # You could make cyl discrete
-mpg %>%
+mpg |>
   ggplot(aes(y = manufacturer, fill = factor(cyl))) +
   geom_bar() +
   scale_fill_viridis_d()
 # OR
-mpg %>%
+mpg |>
   # This way you won't have the `factor()` part in the legend
-  mutate(cyl = factor(cyl)) %>%
+  mutate(cyl = factor(cyl)) |>
   ggplot(aes(y = manufacturer, fill = cyl)) +
   geom_bar() +
   scale_fill_viridis_d()
@@ -166,7 +166,7 @@ mpg %>%
 
 # `scale_colour_viridis_c()` is the continuous version of its `_d` counterpart.
 # This however doesn't colour bars that have stacks
-mpg %>%
+mpg |>
   ggplot(aes(y = manufacturer, fill = cyl)) +
   geom_bar(position = position_dodge()) +
   scale_colour_viridis_c()

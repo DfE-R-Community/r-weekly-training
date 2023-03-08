@@ -15,8 +15,8 @@ var_coeff <- function(x, na.rm = FALSE) {
 }
 
 ## Use functions for original code
-storms %>% 
-  group_by(status) %>% 
+storms |> 
+  group_by(status) |> 
   summarise(
     
     ts_diameter_prop_na = prop_na(ts_diameter),
@@ -31,8 +31,8 @@ storms %>%
 
 # --- 1.2 --- 
 ## Use dplyr::across() to apply a function to multiple columns 
-storms %>% 
-  group_by(status) %>% 
+storms |> 
+  group_by(status) |> 
   summarise(
     
     across(c(ts_diameter, hu_diameter), prop_na, .names = "{.col}_prop_na"),
@@ -119,9 +119,9 @@ print_info <- function(df, quiet = FALSE, ...){
 }
 
 ## Run check
-starwars %>% 
-  print_info() %>% 
-  count(homeworld, species) %>% 
+starwars |> 
+  print_info() |> 
+  count(homeworld, species) |> 
   print_info()
 
 
@@ -134,14 +134,14 @@ gsub2 <- function(x,y,z) {
 }
 
 ## Test
-c("string 1", "string 2") %>% 
+c("string 1", "string 2") |> 
   gsub2("ing", "")
 
   
 # --- 2.3 ---
 ## Use a . to tell the function to place the strings in the position 
 ## of the third argument
-c("string 1", "string 2") %>% 
+c("string 1", "string 2") |> 
   gsub("ing", "", .)
 
 
@@ -331,8 +331,8 @@ to_clipboard(starwars, "", header = FALSE)
 # --- 5.1 ---
 ## Create aggregate function 
 aggregate <- function(df, ..., .cols, .fn = sum){
-  df %>%
-    group_by(...) %>%
+  df |>
+    group_by(...) |>
     summarise(
       across({{.cols}}, .fn), 
       .groups = "drop")
@@ -345,8 +345,8 @@ starwars
 # --- 5.2 ---
 ## Adapting function for it to dissaggregate
 disaggregate <- function(df, ..., .cols, .fn = sum){
-  df %>%
-    group_by(across(!c(... , {{ .cols }}))) %>%
+  df |>
+    group_by(across(!c(... , {{ .cols }}))) |>
     summarise(
       across({{.cols}}, .fn), 
       .groups = "drop")
@@ -358,16 +358,16 @@ disaggregate(starwars, name, species, .cols = c(mass, height))
 
 # --- 5.3 ---
 ## Look at original code
-diamonds %>% 
-  group_by(cut, color, clarity) %>% 
-  summarise(across(price, mean), .groups = "drop") %>% 
+diamonds |> 
+  group_by(cut, color, clarity) |> 
+  summarise(across(price, mean), .groups = "drop") |> 
   ggplot(aes(price, cut, fill = color)) +
   facet_wrap(vars(clarity)) +
   geom_col(position = "dodge")
 
 ## Create new function to generalise this code using previously created aggregate function
 bar_plot <- function(data, x, y, fill = NULL, fn = mean) {
-  aggregate(data, {{y}}, {{fill}}, .cols = {{x}}, .fn = fn) %>%
+  aggregate(data, {{y}}, {{fill}}, .cols = {{x}}, .fn = fn) |>
     ggplot(aes({{x}}, {{y}}, fill = {{fill}})) +
     geom_col(position = "dodge")
 }
@@ -380,7 +380,7 @@ bar_plot(diamonds, price, cut, fill = color, fn = mean)
 ## Add in facet and position arguments to bar_plot function
 bar_plot <- function(data, x, y, fill = NULL, fn = mean, 
                      facet = NULL, position = "dodge") {
-  aggregate(data, {{y}}, {{facet}}, {{fill}}, .cols = {{x}}, .fn = fn) %>%
+  aggregate(data, {{y}}, {{facet}}, {{fill}}, .cols = {{x}}, .fn = fn) |>
     ggplot(aes({{x}}, {{y}}, fill = {{fill}})) +
     geom_col(position = position) + 
     facet_wrap(vars({{facet}}))

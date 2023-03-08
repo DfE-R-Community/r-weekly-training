@@ -31,11 +31,11 @@ of [R for Data Science](https://r4ds.had.co.nz/functions.html).
     variation](https://en.wikipedia.org/wiki/Coefficient_of_variation)).
 
     ``` r
-    suppressPackageStartupMessages(library(tidyverse))
+    library(tidyverse)
 
-    storms %>% 
-      group_by(status) %>% 
+    storms |> 
       summarise(
+        .by = status,
 
         # Proportions of `NA` values for ts_diameter and hu_diameter
         ts_diameter_prop_na = sum(is.na(tropicalstorm_force_diameter)) / length(tropicalstorm_force_diameter),
@@ -43,22 +43,20 @@ of [R for Data Science](https://r4ds.had.co.nz/functions.html).
 
         # Coefficients of variation for wind and pressure
         wind_var_coeff      = sd(wind,     na.rm = TRUE) / mean(wind,     na.rm = TRUE),
-        pressure_var_coeff  = sd(pressure, na.rm = TRUE) / mean(pressure, na.rm = TRUE),
-
-        .groups = "drop"
+        pressure_var_coeff  = sd(pressure, na.rm = TRUE) / mean(pressure, na.rm = TRUE)
 
       )
     #>  # A tibble: 9 × 5
     #>    status                 ts_diameter_prop_na hu_diameter_prop_na wind_…¹ press…²
     #>    <fct>                                <dbl>               <dbl>   <dbl>   <dbl>
-    #>  1 disturbance                         0.0616              0.0616   0.229 0.00383
-    #>  2 extratropical                       0.434               0.434    0.324 0.0140 
-    #>  3 hurricane                           0.562               0.562    0.239 0.0193 
-    #>  4 other low                           0.0968              0.0968   0.267 0.00523
-    #>  5 subtropical depression              0.848               0.848    0.180 0.00342
-    #>  6 subtropical storm                   0.510               0.510    0.179 0.00731
-    #>  7 tropical depression                 0.640               0.640    0.136 0.00385
-    #>  8 tropical storm                      0.488               0.488    0.181 0.00694
+    #>  1 tropical depression                 0.640               0.640    0.136 0.00385
+    #>  2 tropical storm                      0.488               0.488    0.181 0.00694
+    #>  3 extratropical                       0.434               0.434    0.324 0.0140 
+    #>  4 hurricane                           0.562               0.562    0.239 0.0193 
+    #>  5 subtropical storm                   0.510               0.510    0.179 0.00731
+    #>  6 subtropical depression              0.848               0.848    0.180 0.00342
+    #>  7 disturbance                         0.0616              0.0616   0.229 0.00383
+    #>  8 other low                           0.0968              0.0968   0.267 0.00523
     #>  9 tropical wave                       0.387               0.387    0.161 0.00182
     #>  # … with abbreviated variable names ¹​wind_var_coeff, ²​pressure_var_coeff
     ```
@@ -69,7 +67,7 @@ of [R for Data Science](https://r4ds.had.co.nz/functions.html).
     habit of doing this you’ll never want to go back!
 
 2.  Edit your answer to part 1 to use `dplyr::across()`. This function
-    is extremely useful, so read through its documentation carefully.
+    is extremely useful, so read through its documentation carefully!
 
 3.  Similarly, try simplifying the following code by creating a
     function:
@@ -103,12 +101,13 @@ of [R for Data Science](https://r4ds.had.co.nz/functions.html).
 ## Q2. Pipeable functions
 
 Before attempting this question, please read the [chapter on
-pipes](https://r4ds.had.co.nz/pipes.html) from R for Data Science.
+pipes](https://r4ds.hadley.nz/data-transform.html#the-pipe) from R for
+Data Science.
 
 1.  The following function is badly written and fairly useless - it
     simply takes a data.frame and prints the numbers of rows, columns
     and cells if `quiet = FALSE`. Rework this function to be compatible
-    with the pipe `%>%`.
+    with the pipe `|>`.
 
     ``` r
     print_info <- function(quiet = FALSE, df, ...) {
@@ -129,9 +128,9 @@ pipes](https://r4ds.had.co.nz/pipes.html) from R for Data Science.
     using something like this:
 
     ``` r
-    starwars %>% 
-      print_info() %>% 
-      count(homeworld, species) %>% 
+    starwars |> 
+      print_info() |> 
+      count(homeworld, species) |> 
       print_info()
     ```
 
@@ -140,15 +139,11 @@ pipes](https://r4ds.had.co.nz/pipes.html) from R for Data Science.
     example, have the following behaviour:
 
     ``` r
-    c("string 1", "string 2") %>% 
+    c("string 1", "string 2") |> 
       gsub2("ing", "")
 
     #> [1] "str 1" "str 2"
     ```
-
-3.  Read the documentation for `` magrittr::`%>%` ``, in particular the
-    section ‘Placing lhs elsewhere in rhs call’. How would you get the
-    code in part 2 working using regular `gsub()`?
 
 ## Q3. Infix functions
 
@@ -196,8 +191,8 @@ my_starwars <- dplyr::starwars
 #    to character format, then replace any `"NA"` values with `""`
 for (col_name in colnames(my_starwars)) {
   
-  col_formatted   <- format(my_starwars[[col_name]])
-  col_na_replaced <- ifelse(col_formatted == "NA", "", col_formatted)
+  col_formatted   <- format(my_starwars[[col_name]], na.encode = FALSE)
+  col_na_replaced <- ifelse(is.na(col_formatted), "", col_formatted)
   
   my_starwars[[col_name]] <- col_na_replaced
   
@@ -206,9 +201,7 @@ for (col_name in colnames(my_starwars)) {
 # 3. Create text representations of the table body and headers. `"\t"` 
 #    means 'new cell' and `"\r\n"` means 'new row'. Don't worry about
 #    `do.call()` - this might be covered in a future week.
-body_text <- do.call(paste, args = c(
-  my_starwars, sep = "\t", collapse = "\r\n"
-))
+body_text <- do.call(paste, c(my_starwars, sep = "\t", collapse = "\r\n"))
 headers_text <- paste(colnames(my_starwars), collapse = "\t")
 
 # 4. Combine headers and body
@@ -251,7 +244,7 @@ all_text <- paste(c(headers_text, body_text), collapse = "\r\n")
       copied, e.g. the numbers of rows and columns.
 
     - Finally, it should *invisibly* return the unchanged `df`. This
-      will make the function compatible with the pipe `%>%`.
+      will make the function compatible with the pipe `|>`.
 
     Test `to_clipboard()` by copying a few datasets into Excel. Make
     sure all the arguments, e.g. `headers = FALSE` are working
@@ -276,11 +269,10 @@ patterns](https://rlang.r-lib.org/reference/topic-data-mask-programming.html).
 1.  The following is a very common pattern in data analysis with R:
 
     ``` r
-    df %>% 
-      group_by(col1, col2, col3) %>% 
+    df |> 
       summarise(
-        across(c(col4, col5, col5), sum), 
-        .groups = "drop"
+        .by = c(col1, col2, col3),
+        across(c(col4, col5, col5), sum)
       )
     ```
 
@@ -303,9 +295,11 @@ patterns](https://rlang.r-lib.org/reference/topic-data-mask-programming.html).
 3.  The following is another common pattern in data analysis with R:
 
     ``` r
-    diamonds %>% 
-      group_by(cut, color) %>% 
-      summarise(across(price, mean), .groups = "drop") %>% 
+    diamonds |> 
+      summarise(
+        .by = c(cut, color),
+        across(price, mean)
+      ) |> 
       ggplot(aes(price, cut, fill = color)) +
       geom_col(position = "dodge")
     ```
@@ -339,25 +333,26 @@ patterns](https://rlang.r-lib.org/reference/topic-data-mask-programming.html).
 
 A recursive function is a function which calls itself. This is a
 slightly more advanced technique, but can occasionally be just the right
-tool for a particular job. Try and figure out how this function uses
-recursion to implement a factorial calculation:
+tool for a particular job. The following function is recursive; it calls
+itself to compute the factorial of a given number `n`:
 
 ``` r
 # N.B. There are *much* better ways than this to
 # create a factorial function
-my_factorial <- function(n) {
+recursive_factorial <- function(n) {
   
   if (n == 2) {
     return(n)
   }
   
-  n * my_factorial(n - 1)
+  n * recursive_factorial(n - 1)
 }
 
 # Testing:
 5 * 4 * 3 * 2
 #>  [1] 120
-my_factorial(5)
+
+recursive_factorial(5)
 #>  [1] 120
 ```
 

@@ -11,16 +11,16 @@ library(patchwork)
 # 1.1
 
 # Create subset of txhousing, filtering to only include counties
-txhousing_counties <- txhousing %>% 
+txhousing_counties <- txhousing |> 
   filter(grepl("County", city))
 
 # 1.2 & 1.3 & 1.4
 
 # Combine year and month columns into date column
-txhousing_counties <- txhousing_counties %>% 
+txhousing_counties <- txhousing_counties |> 
   mutate(date = make_date(year, month))
 
-txhousing_with_date <- txhousing %>% 
+txhousing_with_date <- txhousing |> 
   mutate(date = make_date(year, month))
 
 # Plot median for counties and cities 
@@ -53,7 +53,7 @@ rescale01 <- function(x) {
 }
 
 # Apply rescale01 function to economics dataset
-economics_rescaled <- economics %>% 
+economics_rescaled <- economics |> 
   mutate(across(2:6, rescale01))
 
 # Plot all columns against date
@@ -71,10 +71,10 @@ economics_plot
 # 2.3 & 2.4
 
 # Reformat and rescale economics dataset 
-economics_rescaled_2 <- economics %>% 
-  pivot_longer(!date, names_to = "variable", values_to = "value") %>% 
-  group_by(variable) %>% 
-  mutate(value = rescale01(value)) %>% 
+economics_rescaled_2 <- economics |> 
+  pivot_longer(!date, names_to = "variable", values_to = "value") |> 
+  group_by(variable) |> 
+  mutate(value = rescale01(value)) |> 
   ungroup()
 
 # Plot all columns against date
@@ -125,7 +125,7 @@ economics_plot_2
 # 3.2
 
 # Flip plot to have manufacturer on y axis
-mpg %>% 
+mpg |> 
   ggplot(aes(manufacturer)) +
   geom_bar() +
   coord_flip()
@@ -149,7 +149,7 @@ plot_1
 
 # 4.2
 
-plot_2 <- txhousing %>% 
+plot_2 <- txhousing |> 
   ggplot(aes(log(sales), log(listings))) +
   geom_pointdensity() +
   theme_stata()
@@ -181,16 +181,16 @@ ggplot(diamonds, aes(carat, price, colour = "blue")) +
 # x is a string, group partions the data into the correct groups to plot
 df <- tibble(x = c("1", "2", "3", "4", "5"), y = 1:5)
 
-df %>% ggplot(aes(x = x, y = y, group = 1)) +
+df |> ggplot(aes(x = x, y = y, group = 1)) +
   geom_line()
 
 # 5.3
 
 # Setting x type to integer before plotting
-df <- df %>% 
+df <- df |> 
   mutate(x = as.numeric(x))
 
-df %>% ggplot(aes(x = x, y = y)) +
+df |> ggplot(aes(x = x, y = y)) +
   geom_line()
 
 # 5.4 
@@ -206,7 +206,7 @@ ggplot(mpg, aes(displ, manufacturer, colour = factor(cyl))) +
   scale_colour_viridis_d()
 
 # Edit cyl data type to be factor before plotting
-mpg_modified <- mpg %>% 
+mpg_modified <- mpg |> 
   mutate(cyl = as.factor(cyl))
 
 ggplot(mpg_modified, aes(displ, manufacturer, colour = cyl)) +

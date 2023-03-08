@@ -13,9 +13,9 @@ ofsted_scores <- read_csv("ofsted_scores.csv")
 # need to verify that each provider only has one recorded inspection
 ofsted <- as.data.frame(ofsted)
 
-verify_count <- ofsted %>%
+verify_count <- ofsted |>
   # count the number of times a provider appears
-  count(provider_name) %>%
+  count(provider_name) |>
   # arrange that count in descending order
   arrange(desc(n))
 # Health Education England has 2 entries under the same name but they have two different
@@ -27,11 +27,11 @@ dim(ofsted)  # 2053 rows of data
 num_unique_ukprn <- length(unique(ofsted$ukprn)) 
 
 #---- 2.3 ----
-proportion_ISC <- ofsted %>%
+proportion_ISC <- ofsted |>
   # group by provider type
-  group_by(provider_type) %>%
+  group_by(provider_type) |>
   # count the number of times each provider appears
-  summarise(n=n()) %>%
+  summarise(n=n()) |>
   # calculate the percentage or proportion of each provider type
   mutate("proportion%" = n/sum(n)*100)
 
@@ -41,11 +41,11 @@ proportion_ISC <- ofsted %>%
 # left join on ofsted and ofsted_scores data by inspection_number and inspection_id
 joined_ofsted <- left_join(ofsted,ofsted_scores, by=c("inspection_number"="inspection_id"))
 
-joined_ofsted <- joined_ofsted %>%
+joined_ofsted <- joined_ofsted |>
   # group the data by categoryand score
-  group_by(inspection_category,score_description) %>%
+  group_by(inspection_category,score_description) |>
   # count for each combination
-  summarise(n1=n()) %>%
+  summarise(n1=n()) |>
   # percentage for occurance for each combination
   mutate(percent=n1/sum(n1)*100)
 
@@ -54,11 +54,11 @@ joined_ofsted <- joined_ofsted %>%
 #---- 2.5 ----
 # Make sure that the dates are formatted as dates
 ofsted$inspection_date <- as_date(ofsted$inspection_date)
-ofsted_dates <- ofsted %>%
+ofsted_dates <- ofsted |>
   # omit the any NA's
-  na.omit() %>%
+  na.omit() |>
   # Add new column for the days of the week
-  mutate(day = wday(inspection_date, label= TRUE, abbr = FALSE)) %>%
+  mutate(day = wday(inspection_date, label= TRUE, abbr = FALSE)) |>
   # group data by the days of the week
   group_by(day)
 
@@ -66,8 +66,8 @@ ofsted_dates <- ofsted %>%
 summarise(ofsted_dates,day_num = n())
 # A large majority of the inspections take place on a Tuesday.
 
-ofsted_dates2 <- ofsted_dates %>%
-  group_by(inspection_type, day) %>%
+ofsted_dates2 <- ofsted_dates |>
+  group_by(inspection_type, day) |>
   summarise(day_num = n(), .groups="drop")
 
 # Full inspections mainly happen on a tuesday, short inspections mainly happen on a wednesday
@@ -76,13 +76,13 @@ ofsted_dates2 <- ofsted_dates %>%
 #Do the same thing in 2.4 but include the provider group
 joined_ofsted <- left_join(ofsted,ofsted_scores, by=c("inspection_number"="inspection_id"))
 
-joined_ofsted2 <- joined_ofsted %>%
+joined_ofsted2 <- joined_ofsted |>
   # group the data by category and score
-  group_by(inspection_category,score_description, provider_group) %>%
+  group_by(inspection_category,score_description, provider_group) |>
   # filter by apprenticeships with the outstanding score
-  filter(inspection_category == "Apprenticeships" & score_description == "Outstanding") %>%
+  filter(inspection_category == "Apprenticeships" & score_description == "Outstanding") |>
   # count for each combination
-  summarise(n2=n()) %>%
+  summarise(n2=n()) |>
   # percentage for occurance for each combination
   mutate(percent=n2/sum(n2)*100)
 
@@ -91,18 +91,18 @@ joined_ofsted2 <- joined_ofsted %>%
 # i.e 59% of outstanding scores are from independent learning providers
 
 #---- 3.2 ----
-outstanding_appre <- joined_ofsted %>%
-  filter(inspection_category == "Apprenticeships") %>%
-  group_by(score_description, provider_group) %>%
-  summarise(n3=n()) %>%
+outstanding_appre <- joined_ofsted |>
+  filter(inspection_category == "Apprenticeships") |>
+  group_by(score_description, provider_group) |>
+  summarise(n3=n()) |>
   # percentage for occurance for each combination
   mutate(percent=n3/sum(n3))
 
-wider_outstanding_appre <- outstanding_appre %>%
+wider_outstanding_appre <- outstanding_appre |>
   # select the columns you want
-  select(score_description, provider_group, percent) %>%
+  select(score_description, provider_group, percent) |>
   # pivot the table to a wider format with the column names as score description and values from the percent column
-  pivot_wider(names_from = score_description, values_from = percent) %>%
+  pivot_wider(names_from = score_description, values_from = percent) |>
   janitor::clean_names()
 
 #---- 3.3 ----
@@ -110,11 +110,11 @@ wider_outstanding_appre <- outstanding_appre %>%
 joined_ofsted <- left_join(ofsted,ofsted_scores, by=c("inspection_number"="inspection_id"))
 ofsted_starts <- left_join(joined_ofsted,starts, by = c("ukprn"))
 
-starts_effect <- ofsted_starts %>%
+starts_effect <- ofsted_starts |>
   # filter by category
-  filter(inspection_category == "Overall effectiveness") %>%
+  filter(inspection_category == "Overall effectiveness") |>
   # group it by the score
-  group_by(score) %>%
+  group_by(score) |>
   # remove any NA values
   na.omit() 
 
@@ -122,11 +122,11 @@ starts_effect <- ofsted_starts %>%
 summarise(starts_effect, total_starts = sum(starts))
 
 #---- 3.4 ----
-starts_apprenticeship <- ofsted_starts %>%
+starts_apprenticeship <- ofsted_starts |>
   # filter by apprenticeships
-  filter(inspection_category == "Apprenticeships") %>%
+  filter(inspection_category == "Apprenticeships") |>
   # group by score
-  group_by(score) %>%
+  group_by(score) |>
   # remove any NA values
   na.omit()
 
@@ -139,13 +139,13 @@ summarise(starts_apprenticeship, total_starts = sum(starts))
 #---- 4.1 ----
 
 inad_join <- left_join(course_details,starts_effect, by=c("std_fwk_code"))
-inad_join2 <- inad_join %>%
+inad_join2 <- inad_join |>
   # group by region, std_fwk_flag and score description
-  group_by(delivery_region, std_fwk_flag, score_description) %>%
+  group_by(delivery_region, std_fwk_flag, score_description) |>
   # create a column with the number of occurrences for each combo
-  summarise(num=n()) %>%
+  summarise(num=n()) |>
   # percentage for occurance for each combination
-  mutate(risk_factor=num/sum(num)*100) %>%
+  mutate(risk_factor=num/sum(num)*100) |>
   # filter to look at those with the score inadequate
   filter(score_description == "Inadequate")
 

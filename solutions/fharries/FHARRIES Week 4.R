@@ -18,8 +18,8 @@ var_coeff <- function(x) {
   
 }
 
-storms %>% 
-  group_by(status) %>% 
+storms |> 
+  group_by(status) |> 
   summarise(
     
   # Proportions of `NA` values for ts_diameter and hu_diameter
@@ -73,9 +73,9 @@ print_info <- function(df, quiet = FALSE) {
   invisible(df)
 }
 
-starwars %>%
-  print_info() %>% 
-  count(homeworld, species) %>% 
+starwars |>
+  print_info() |> 
+  count(homeworld, species) |> 
   print_info()
 
 # 2.2 
@@ -89,13 +89,13 @@ gsub2 <-  function(string, old_text, new_text) {
 
 }
 
-c("string 1", "string 2") %>% 
-  gsub2("ing", "") %>% 
+c("string 1", "string 2") |> 
+  gsub2("ing", "") |> 
   gsub2("st", "")
 
 # 2.3
 
-c("string 1", "string 2") %>% 
+c("string 1", "string 2") |> 
   gsub("ing", "", .)
 
 # Q3 ----------------------------------------------------------------------
@@ -259,8 +259,8 @@ to_clipboard(starwars, headers = FALSE)
 
 aggregate <- function(df, ..., .cols, .fn = sum){
 
-  df %>% 
-  group_by(...) %>% 
+  df |> 
+  group_by(...) |> 
   summarise(
     across( {{ .cols }} , .fn), 
     .groups = "drop"
@@ -274,8 +274,8 @@ aggregate(starwars, name, hair_color, .cols = height)
 # Summarise across all columns except selected columns
 disaggregate <- function(df, ..., .cols, .fn = sum){
 
-  df %>% 
-  group_by(across(-c(..., {{ .cols }} ))) %>% 
+  df |> 
+  group_by(across(-c(..., {{ .cols }} ))) |> 
   summarise(
     across( {{ .cols }} , .fn), 
     .groups = "drop"
@@ -288,8 +288,8 @@ disaggregate(starwars, name, hair_color, .cols = c(height, mass))
 
 
 bar_plot <- function(data, x, y, fill = NULL, fn = mean, facet = NULL, position = "dodge"){
-  data %>% 
-  aggregate({{ y }}, {{ fill }}, .cols = {{ x }}, .fn = fn) %>% 
+  data |> 
+  aggregate({{ y }}, {{ fill }}, .cols = {{ x }}, .fn = fn) |> 
   ggplot(aes( {{ x }} , {{ y }}, fill = {{ fill }} )) +
   geom_col(position = position) +
   facet_wrap(vars( {{ facet }} ))

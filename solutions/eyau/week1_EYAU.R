@@ -33,31 +33,31 @@ mtcars2 <- as_tibble(cbind(mtcars, car))
 # #Adds this TRUE/FALSE column as a new column in mtcars2
 # mtcars2 <- cbind(mtcars2,over20mpg)
 
-mtcars2 <- mtcars2 %>% 
+mtcars2 <- mtcars2 |> 
   mutate(over20mpg = mpg >= 20)
 
 #---- Exercise 4 part b ----
-cyl_gear <- mtcars2 %>%
+cyl_gear <- mtcars2 |>
   #group the data by cylinder number and gear
-  group_by(cyl,gear) %>%
+  group_by(cyl,gear) |>
   # then summarise the data by finding the mean mpg for each combination of cyl and gear
   summarise(avempg = mean(mpg))
 
 #---- Exercise 4 part c ----
 # To ensure that the answer in part b is not 'grouped',
 # We can use .groups= "drop". This drops all levels of grouping
-cyl_gear <- mtcars2 %>%
-  group_by(cyl,gear) %>%
+cyl_gear <- mtcars2 |>
+  group_by(cyl,gear) |>
   #same process as part b but drop all levels of grouping
   summarise(avempg = mean(mpg), .groups = "drop")
 
 #---- Exercise 4 part d ----
-make_model <- mtcars2 %>%
-  group_by(cyl,gear) %>%
+make_model <- mtcars2 |>
+  group_by(cyl,gear) |>
   separate(car, c("Make","Model"), extra="merge", fill="left")
 
-make_cyl_gear <- make_model %>%
-  group_by(cyl, gear, Make) %>%
+make_cyl_gear <- make_model |>
+  group_by(cyl, gear, Make) |>
   summarise(avempg = mean(mpg), .groups = "drop")
 
 #---- Exercise 5 part a ----

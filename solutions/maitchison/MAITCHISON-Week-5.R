@@ -15,7 +15,7 @@ library(patchwork)
 View(distinct(txhousing, city))
 
 # Create new data set only including cities with "County" in the name
-txhousing_county <- txhousing %>%
+txhousing_county <- txhousing |>
   filter(grepl("County", city))
 
 # ---- Q1.2 ----
@@ -31,7 +31,7 @@ ggplot(data = txhousing_county, mapping = aes(x = date, y = median)) +
 
 # Create a data set which includes all cities without "County" in the name
 # (we will use two separate data sets to create the plot for this question)
-txhousing_not_county <- txhousing %>%
+txhousing_not_county <- txhousing |>
   filter(!grepl("County", city))
 
 # Create axes which plot median and time (date)  
@@ -112,15 +112,15 @@ ggplot(data = economics_rescaled) +
 # ---- Q2.3 ----
 
 # Create new data set for simplified method introduced by this question
-economics_rescaled_grouped <- economics_rescaled %>%
+economics_rescaled_grouped <- economics_rescaled |>
   
   # Merge the 5 columns into one "variable" column with a "value" column for their values
   pivot_longer(c('pce', 'pop', 'psavert', 'uempmed', 'unemploy'), 
-               names_to = "variable", values_to = "value") %>%
+               names_to = "variable", values_to = "value") |>
   
   # Group by variable and create new column for rescaled values
-  group_by(variable) %>%
-  mutate(value01 = rescale01(value)) %>%
+  group_by(variable) |>
+  mutate(value01 = rescale01(value)) |>
   ungroup() 
 
 
@@ -165,7 +165,7 @@ ggplot(data = economics_rescaled_grouped) +
 # ---- Q3.2 ----
 
 # Make axis labels clearer 
-mpg %>% 
+mpg |> 
   ggplot(aes(manufacturer)) +
   geom_bar() + 
   
@@ -193,7 +193,7 @@ ggplot(diamonds, aes(depth, colour = cut, label = cut)) +
 # ---- Q4.2 ----
 
 # Use "ggpointdesnity" extension to improve clarity of plot
-txhousing %>% 
+txhousing |> 
   ggplot(aes(log(sales), log(listings))) +
   
   # Use "geom_pointdesnity" to colour points by density of points in that location of plot
@@ -214,7 +214,7 @@ ggplot(diamonds, aes(depth, colour = cut, label = cut)) +
   theme(legend.position = "none") 
   
 
-txhousing %>% 
+txhousing |> 
   ggplot(aes(log(sales), log(listings))) +
   geom_pointdensity() +
   
@@ -235,7 +235,7 @@ p1 <- ggplot(diamonds, aes(depth, colour = cut, label = cut)) +
   theme(legend.position = "none")
 
 # Assign the plot relating to Q4.2 to the variable "p2"
-p2 <- txhousing %>% 
+p2 <- txhousing |> 
   ggplot(aes(log(sales), log(listings))) +
   geom_pointdensity() +
   theme_excel()
@@ -281,7 +281,7 @@ ggplot(data = df) +
 
 # Create a new data set for this questions where the x column is set to contain
 # numeric values instead of strings
-df2 <- df %>%
+df2 <- df |>
   mutate(x = as.numeric(x)) 
 
 # Plot the data without the need for the group aesthetic 
@@ -309,7 +309,7 @@ ggplot(mpg, aes(y = manufacturer, fill = factor(cyl))) +
 
 # 3) Create new data set which converts cyl to a character, and use this new data type
 # to create the plot
-mpg2 <- mpg %>%
+mpg2 <- mpg |>
   mutate(cyl = as.character(cyl))
 ggplot(mpg2, aes(y = manufacturer, fill = cyl)) +
   geom_bar() +

@@ -11,7 +11,7 @@ unique(txhousing$city)
 counties <- subset(txhousing, grepl("County", txhousing$city))
 
 # ---- 1.2 ---------------------------------------------------------------------
-county_plot <- counties %>%
+county_plot <- counties |>
   # using counties data, plot the median house prices against date
   # as.factor(city) groups the data by county
   ggplot(aes(date, median, colour = as.factor(city)))+
@@ -48,7 +48,7 @@ rescale01 <- function(x) {
   (x - rng[1]) / (rng[2] - rng[1])
 }
 
-rescaled_eco <- economics %>%
+rescaled_eco <- economics |>
   mutate(pce = rescale01(economics$pce), pop = rescale01(economics$pop), 
          psavert = rescale01(economics$psavert), uempmed = rescale01(economics$uempmed), 
          unemploy = rescale01(economics$unemploy))
@@ -65,10 +65,10 @@ ggplot(rescaled_eco)+
 
 # ---- 2.3 ---------------------------------------------------------------------
 
-longer_economics <- economics %>%
-  pivot_longer(cols = !date, names_to = "variables", values_to = "value")%>%
-  group_by(variables) %>%
-  mutate(value01 = rescale01(value)) %>%
+longer_economics <- economics |>
+  pivot_longer(cols = !date, names_to = "variables", values_to = "value")|>
+  group_by(variables) |>
+  mutate(value01 = rescale01(value)) |>
   ungroup()
 # grouping the data by date returns NaN values but found that you don't need to group it
 
@@ -95,7 +95,7 @@ ggplot(longer_economics, aes(x=date, y=value01, color= variables))+
   theme(plot.background = element_rect(fill = "lightblue"))
   
 # ---- 3.2 ---------------------------------------------------------------------
-mpg %>% 
+mpg |> 
   ggplot(aes(manufacturer)) +
   geom_bar()+
   theme(axis.text.x = element_text(angle = 45))
@@ -111,7 +111,7 @@ ggplot(diamonds, aes(depth, colour = cut)) +
 # ---- 4.2 ---------------------------------------------------------------------
 library(ggpointdensity)
 
-txhousing %>% 
+txhousing |> 
   ggplot(aes(log(sales), log(listings))) +
   geom_pointdensity()
 
@@ -127,7 +127,7 @@ ggplot(diamonds, aes(depth, colour = cut)) +
   theme(legend.position = "none") 
 
 # change the theme from graph in question 4.2
-txhousing %>% 
+txhousing |> 
   ggplot(aes(log(sales), log(listings))) +
   geom_pointdensity()+
   theme_stata()
@@ -141,7 +141,7 @@ d <- ggplot(diamonds, aes(depth, colour = cut)) +
   theme_economist()+
   theme(legend.position = "none") 
 
-t <- txhousing %>% 
+t <- txhousing |> 
   ggplot(aes(log(sales), log(listings))) +
   geom_pointdensity()+
   theme_stata()
@@ -173,7 +173,7 @@ ggplot(df, aes(x,y, group = 1))+
   geom_line()
 
 # ---- 5.3 ---------------------------------------------------------------------
-df <- df %>%
+df <- df |>
   mutate(group = 1)
 
 ggplot(df, aes(x,y))+

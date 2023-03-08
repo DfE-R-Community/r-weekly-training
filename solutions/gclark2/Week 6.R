@@ -7,39 +7,39 @@ library(rex)
 
 # --- 1.1 ---
 # Find fruits containing the word 'berry'
-fruit %>%
+fruit |>
   str_subset("berry")
 
 # --- 1.2 --- 
 # Find fruits where berry is inside the word only
-fruit %>% 
+fruit |> 
   str_subset("[^\\s]berry") 
 
 # --- 1.3 ---
 # Find fruits that start with a, b or c and end with x, y or z
 # Both work since they are all one word but the first would rule out any fruits 
 # that are two words
-fruit %>%
+fruit |>
   str_subset("^[abc][A-Za-z]*[xyz]$") 
-fruit %>%
+fruit |>
   str_subset("^[abc]\\w*[xyz]$") 
 
 # --- 1.4 --- 
 # Find sentences that have a word with 10 or more characters then extract those 
 # words
-sentences %>%
-  str_subset("\\w{10,}") %>%
+sentences |>
+  str_subset("\\w{10,}") |>
   str_extract("\\w{10}" )
 
 # --- 1.5 ---
 # Find all words that start and end with vowels including single letter words 
-sentences %>%
+sentences |>
   str_extract_all("\\b[aeiou]\\b|\\b[aeiou][A-Za-z]*[aeiou]\\b")
 
 # --- 2.1.1 ---
 # Replace the word berry with "\033[31mberry\033[39m" and then concat
-fruit %>%
-  str_replace_all("berry", "\033[31mberry\033[39m") %>% 
+fruit |>
+  str_replace_all("berry", "\033[31mberry\033[39m") |> 
   cat(sep = '\n')
 
 # --- 2.1.2 ---
@@ -49,13 +49,13 @@ str_replace_all("string", "(i)", "!\\1!")
 # Replace the first word in every sentence with the first word surround by 
 # "\033[31m \033[39m"
 # Then concat to highlight every first word in red
-sentences %>% 
-  str_replace_all("^(\\w+)", "\033[31m\\1\033[39m") %>% 
+sentences |> 
+  str_replace_all("^(\\w+)", "\033[31m\\1\033[39m") |> 
   cat(sep = "\n")
 
 # --- 2.1.3 --- 
 # Convert every first word to upper case
-sentences %>% 
+sentences |> 
   str_replace_all("^(\\w+)", str_to_upper)
 
 # --- 2.1.4 --- 
@@ -76,13 +76,13 @@ str_replace_all(lazy_sentence, Abbreviations)
 messy_sentence <- "  the  quick brown  FOx  jumps ovEr the Lazy  dog        "
 
 # Tidy the sentence
-tidy_sentence <- messy_sentence %>%
-  str_squish() %>%  
-  str_to_sentence() %>%
-  str_wrap(width = 10) %>%
-  str_split('\\n', simplify = TRUE) %>%
-  str_pad(10, side = "both") %>%
-  str_c("\n") %>%
+tidy_sentence <- messy_sentence |>
+  str_squish() |>  
+  str_to_sentence() |>
+  str_wrap(width = 10) |>
+  str_split('\\n', simplify = TRUE) |>
+  str_pad(10, side = "both") |>
+  str_c("\n") |>
   cat("\n")
 
 # --- 3.1 --- 
@@ -108,8 +108,8 @@ validate_password('Grace\\Clark')
 # Create function to change camelCase to snake_case
 
 str_to_snake <- function(string) {
-  string %>%
-  str_replace_all("([A-Z])", "_\\1") %>%
+  string |>
+  str_replace_all("([A-Z])", "_\\1") |>
   str_replace_all("^(\\w+)", str_to_lower)
   
 }
