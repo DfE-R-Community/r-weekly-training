@@ -3,6 +3,7 @@ project:
   render: 
     - "*.qmd"
     - "!solutions/"
+    - "!week-01-version-control/week-03b-version-control-azure-devops/"
 
 output-file: "README"
 
