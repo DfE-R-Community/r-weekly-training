@@ -70,7 +70,7 @@ when installing git is **not to use the default text editor**. When
 asked to choose a text editor, it is recommended that you choose
 Notepad - this will make your life easier later on.
 
-### 01. Fork the Repo
+### 01. Fork `DfE-R-Community/r-weekly-training`
 
 When you create a fork, you create a copy of a repository which is
 owned by your GitHub account. Here you are free to make any changes
@@ -80,7 +80,7 @@ the 'Fork' button at the top right of the screen
 
 ![](create-a-fork.jpg "how to create a fork")
 
-### 02. Clone your Fork
+### 02. Clone Your Fork
 
 The next task is to *clone* your forked version of the repo so you
 can work on the code from your PC:
@@ -244,7 +244,7 @@ branch to push to, use the command suggested in the error message.
 The next time you run `push`, everything should go through smoothly
 :)
 
-### 10. 
+### 10. Create a Pull Request
 
 All that's left now is to create a pull request to merge your solutions into the
 original codebase. To do this, go to your forked version of the repo on GitHub.
@@ -267,7 +267,7 @@ The final screen should look like this:
 
 ![](create-a-pull-request-2.jpg "How to create a pull request")
 
-### 10. Completing the Pull Request
+### 10. Complete the Pull Request
 
 That's it! Someone should now be able to look through your code and
 leave a bit of feedback. You may want to go back into R and make
