@@ -1,7 +1,7 @@
 
 <!-- Please edit README.Rmd - not README.md -->
 
-# Week 01: Introduction to R
+# Week 02: Introduction to R
 
 Welcome to the DfE R Community’s weekly R training! This programme
 should get you up-to-speed with the basics of R, ready to use it
@@ -12,6 +12,9 @@ develop your R skills moving forward.
 
 - **R and RStudio**: If you don’t have these installed already, you can
   find out how to get them set up by referring to week 00.
+- **Git and GitHub**: You’ll need to know how to use these to submit
+  solutions. Read exercises 3-10 of [Chapter
+  1](../week-01-version-control) for a recap of how to do this.
 - **Reading**: Read through chapters 1 - 5 of [R for Data
   Science](https://r4ds.had.co.nz/introduction.html) and try the
   examples as you go along - this will require you to install some
@@ -77,12 +80,8 @@ develop your R skills moving forward.
     try dividing it into [different
     sections](https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections-in-the-RStudio-IDE)
 
-7.  Email your script to [Jacob
-    Scott](mailto:jacob.scott@education.gov.uk) if you’d like feedback
-    on your solutions. Make sure you also save it somewhere sensible, as
-    we’ll come back to it in a later session.
+7.  Submit your solutions by making a pull request on GitHub. If someone
+    has agreed to review your solutions, add them as a required reviewer
+    and GitHub will send them an email asking them to check your code.
 
-Good luck! If you get stuck, remember you can always post on the
-[Training
-Support](https://teams.microsoft.com/l/channel/19%3a1c926bdbecf94b8b8d7e303670f98bc2%40thread.skype/Training%2520Support?groupId=b95c605d-8fbc-4e4d-9a76-2f7d1c55e70a&tenantId=fad277c9-c60a-4da1-b5f3-b3b8b34a82f9)
-on ‘DfE R Community’ :)
+Good luck!

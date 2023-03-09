@@ -24,6 +24,15 @@ December 2021.
 
 # Exercises
 
+<div>
+
+> **Submitting Solutions**
+>
+> Read exercises 3-10 of [Chapter 1](../week-01-version-control) for a
+> recap of how to get feedback on your solutions using GitHub
+
+</div>
+
 ## 1. Setup/Data import
 
 <div>
