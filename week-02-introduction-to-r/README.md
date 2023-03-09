@@ -13,8 +13,9 @@ develop your R skills moving forward.
 - **R and RStudio**: If you don’t have these installed already, you can
   find out how to get them set up by referring to week 00.
 - **Git and GitHub**: You’ll need to know how to use these to submit
-  solutions. Read exercises 3-10 of [Chapter
-  1](../week-01-version-control) for a recap of how to do this.
+  solutions. Read exercises 3-10 of [Week
+  1](../week-01-version-control#03-check-the-state-of-the-repo) for a
+  recap of how to do this.
 - **Reading**: Read through chapters 1 - 5 of [R for Data
   Science](https://r4ds.had.co.nz/introduction.html) and try the
   examples as you go along - this will require you to install some

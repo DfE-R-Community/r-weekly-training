@@ -28,7 +28,8 @@ December 2021.
 
 > **Submitting Solutions**
 >
-> Read exercises 3-10 of [Chapter 1](../week-01-version-control) for a
+> Read exercises 3-10 of [Week
+> 1](../week-01-version-control#03-check-the-state-of-the-repo) for a
 > recap of how to get feedback on your solutions using GitHub
 
 </div>

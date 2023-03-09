@@ -12,8 +12,9 @@ develop your R skills moving forward.
 -   **R and RStudio**: If you don't have these installed already, you
     can find out how to get them set up by referring to week 00.
 -   **Git and GitHub**: You'll need to know how to use these to submit
-    solutions. Read exercises 3-10 of [Chapter
-    1](../week-01-version-control) for a recap of how to do this.
+    solutions. Read exercises 3-10 of [Week
+    1](../week-01-version-control#03-check-the-state-of-the-repo) for a
+    recap of how to do this.
 -   **Reading**: Read through chapters 1 - 5 of [R for Data
     Science](https://r4ds.had.co.nz/introduction.html) and try the
     examples as you go along - this will require you to install some
@@ -72,8 +73,8 @@ develop your R skills moving forward.
     try dividing it into [different
     sections](https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections-in-the-RStudio-IDE)
 
-7.  Submit your solutions by making a pull request on GitHub. If someone has 
-    agreed to review your solutions, add them as a required reviewer and GitHub
-    will send them an email asking them to check your code.
+7.  Submit your solutions by making a pull request on GitHub. If someone
+    has agreed to review your solutions, add them as a required reviewer
+    and GitHub will send them an email asking them to check your code.
 
 Good luck!
