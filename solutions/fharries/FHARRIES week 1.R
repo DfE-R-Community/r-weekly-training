@@ -11,7 +11,7 @@ library(ggplot2)
 
 #mtcars2 is new version of mtcars with column for car model 
 
-mtcars2 <- tibble::rownames_to_column(mtcars, "car") |> as_tibble()
+mtcars2 <- tibble::rownames_to_column(mtcars, "car") %>% as_tibble()
 mtcars2
 
 
@@ -19,26 +19,26 @@ mtcars2
 
 #Adding column to mtcars2, true if mpg > 20, else False
 
-mtcars2 <- mtcars2 |> 
+mtcars2 <- mtcars2 %>% 
   mutate(mpg_over_20 = mpg > 20) 
 
 select(mtcars2, mpg, mpg_over_20)
 
 #Average mpg for each combination of cyl and gear 
 
-cyl_gear_grouped <- mtcars2 |> 
-  group_by(cyl, gear) |> 
+cyl_gear_grouped <- mtcars2 %>% 
+  group_by(cyl, gear) %>% 
   summarise(avg_mpg = mean(mpg), .groups = 'drop')
 
 cyl_gear_grouped
 
 #Average mpg for each combination of cyl and gear for each car make
 
-car_make <- mtcars2 |> 
+car_make <- mtcars2 %>% 
   separate(car, c("make", "model"))
 
-cyl_gear_make_grouped <- car_make |> 
-  group_by(cyl, gear, make) |> 
+cyl_gear_make_grouped <- car_make %>% 
+  group_by(cyl, gear, make) %>% 
   summarise(avg_mpg = mean(mpg), .groups = 'drop')
 
 cyl_gear_make_grouped

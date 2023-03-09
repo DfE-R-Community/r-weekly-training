@@ -19,30 +19,30 @@ mtcars2 <- tibble::rownames_to_column(mtcars, "Car") #Found on stackexchange, co
 #Question 4a
 #Add new column giving TRUE/FALSE dependent on if a car does more than 20 miles/gallon
 
-mtcars3 <- mtcars2 |> #Create new data set for this question
+mtcars3 <- mtcars2 %>% #Create new data set for this question
   mutate(Efficient = ifelse(mpg > 20, TRUE, FALSE)) #Use mutate to add column, and ifelse to wrtie a condition
 
 #Question 4b
 #Create new data set giving mean miles/gallon for each combination of cyl and gear
 
-mtcars4 <- mtcars3 |> #Create new data set
-  group_by(cyl, gear) |> # use group_by to group by the two specified attributes
+mtcars4 <- mtcars3 %>% #Create new data set
+  group_by(cyl, gear) %>% # use group_by to group by the two specified attributes
   summarise(avg_mpg = mean(mpg)) #use mean function to calculate average
 
 #Question 4c
 #Ensure the output to 4b is not grouped by reading documentation of 'summarise'
 
 #by default, summerise eliminates the last stated group used in group_by, this can be overidden using .groups
-mtcars4 <- mtcars3 |> #Create new data set 
-  group_by(cyl, gear,) |>
+mtcars4 <- mtcars3 %>% #Create new data set 
+  group_by(cyl, gear,) %>%
   summarise(avg_mpg = mean(mpg), .groups = 'drop') #eliminates all grouping
 
 #Question 4d
 #Bonus: Do the same, but include each make of car in the output using 'separate'
 
-mtcars5 <- mtcars2 |> #Create new data set
-  separate(col = Car, into = c('Make','Model'), sep = ' ', extra = "drop", fill = "right") |> #separate column at the point of space between two words
-  group_by(Make, cyl, gear) |>
+mtcars5 <- mtcars2 %>% #Create new data set
+  separate(col = Car, into = c('Make','Model'), sep = ' ', extra = "drop", fill = "right") %>% #separate column at the point of space between two words
+  group_by(Make, cyl, gear) %>%
   summarise(avg_mpg = mean(mpg), .groups = 'drop')
 
 #Note- some null values are given when the 'Car' category only has one word, this means entries in the new 'Model' column

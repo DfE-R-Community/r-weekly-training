@@ -20,8 +20,8 @@ var_coeff <- function(y){
   return(sd(y, na.rm = TRUE)/ mean(y, na.rm=TRUE))
 }
 
-storms |> 
-  group_by(status) |> 
+storms %>% 
+  group_by(status) %>% 
   summarise(
     
     # Proportions of `NA` values for ts_diameter and hu_diameter
@@ -37,8 +37,8 @@ storms |>
   )
 
 # ---- 1.2 ---------------------------------------------------------------------
-storms |>
-  group_by(status) |>
+storms %>%
+  group_by(status) %>%
   summarise(
     across(c(ts_diameter, hu_diameter), prop_na, .names = "{.fn}.{.col}"),
     across(c(wind, pressure), var_coeff, .names = "{.fn}.{.col}")
@@ -77,7 +77,7 @@ parse_and_format_time(dates2, "%Y%m%d", "%d %B %y")
     
 print_info <- function(data, quiet){
   if(quiet == TRUE) return(NULL)
-  data |>
+  data %>%
     summarise(Rows = nrow(data), Columns = ncol(data), Total = nrow(data)*ncol(data))
 }    
   
@@ -88,14 +88,14 @@ print_info(starwars, FALSE)
 gsub2 <- function(string,value, replacement){
   gsub(value, replacement, string)
 }
-c("string 1", "string 2") |>
+c("string 1", "string 2") %>%
   gsub2("ing", "")
 
 # ---- 2.3 ---------------------------------------------------------------------
 
 gsub2 <- function(string1, string2, value, replacement){
   strings <- paste(string1, string2) 
-  strings |>
+  strings %>%
     {gsub( value, replacement, ., fixed=TRUE)}
 }
 gsub2("String 1", "String 2", "ing", " ")
@@ -237,8 +237,8 @@ to_clipboard(starwars, "", headers =FALSE)
 
 # ---- 5.1 ---------------------------------------------------------------------
 aggregate <- function(data, ..., .cols, .func = sum){
-  data |>
-    group_by(...) |>
+  data %>%
+    group_by(...) %>%
     summarise(across({{.cols}}, .func), .groups = "drop")
 }
 
@@ -246,14 +246,14 @@ aggregate(starwars, name, species, .cols = c(mass, height))
 
 # ---- 5.2 ---------------------------------------------------------------------
 disaggregate <- function(data, ..., .cols, .func = sum){
-  data |>
-    group_by(!select(...)) |>
+  data %>%
+    group_by(!select(...)) %>%
     summarise(across({{.cols}},.func) , .groups= "drop")
 }
 
 # ---- 5.3 ---------------------------------------------------------------------
 bar_plot <- function(data, x, y, fil = NULL, fn = mean){
-  aggregate(data, {{y}}, {{fil}}, .cols={{x}}, .func = fn)|>
+  aggregate(data, {{y}}, {{fil}}, .cols={{x}}, .func = fn)%>%
     ggplot(aes({{x}}, {{y}}, fill = {{fil}})) +
     geom_col(position = "dodge")
 }
@@ -262,7 +262,7 @@ bar_plot(diamonds, price, cut, fil = color, fn= mean)
 
 # ---- 5.4 ---------------------------------------------------------------------
 bar_plot2 <- function(data, x, y, fil = NULL, fn = mean, facet = NULL, position = "dodge"){
-  aggregate(data, {{y}}, {{facet}},{{fil}}, .cols={{x}}, .func = fn)|>
+  aggregate(data, {{y}}, {{facet}},{{fil}}, .cols={{x}}, .func = fn)%>%
     ggplot(aes({{x}}, {{y}}, fill = {{fil}})) +
     geom_col(position = position) +
     facet_wrap(vars({{facet}}))

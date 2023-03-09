@@ -25,7 +25,7 @@ mtcars2 <- as_tibble(mtcars2)
 #of the data frame. This Calls the column Over20mpg and creates a Boolean
 #it then puts this within mtcars2
 
-mtcars2 <- mtcars2 |>
+mtcars2 <- mtcars2 %>%
   mutate(Over20mpg = mpg >= 20)
 
 #-------Exercise 4 B -------------
@@ -35,16 +35,16 @@ mtcars2 <- mtcars2 |>
 #a new data frame is created from the group variables
 #within this data from a new column called mean_mpg 
 #a mean of the mpg values is given here
-gear_cyl <- mtcars2 |>
-  group_by(cyl, gear) |>
+gear_cyl <- mtcars2 %>%
+  group_by(cyl, gear) %>%
   summarize(mean_mpg = mean(mpg, na.rm = TRUE))
 
 #-------Exercise 4 C -------------
 
 #to un groups everything using .group, I have made it equal drop
 #as this un groups everything
-gear_cyl <- mtcars2 |>
-  group_by(cyl, gear) |>
+gear_cyl <- mtcars2 %>%
+  group_by(cyl, gear) %>%
   summarize(mean_mpg = mean(mpg, na.rm = TRUE), .groups = "drop")
 
 

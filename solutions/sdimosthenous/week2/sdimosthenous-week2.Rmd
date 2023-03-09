@@ -35,37 +35,37 @@ ofsted_scores <- read_csv("../../../week-02-data-wrangling/ofsted_scores.csv", s
 ## Part 2: Wrangle
 ```{r, echo=TRUE, results="hide"}
 # Sort providers by name and how many times the name appears in the dataset
-ofsted |> count(provider_name, sort = TRUE)
+ofsted %>% count(provider_name, sort = TRUE)
 
 # Same as above to check uniqueness
-ofsted |> count(ukprn, sort = TRUE)
+ofsted %>% count(ukprn, sort = TRUE)
 
 # Use count() and summarise() to generate a tibble with proportions of provider types across sum of provider types for each learning provider
-ofsted |> 
-  count(provider_type) |> 
+ofsted %>% 
+  count(provider_type) %>% 
   summarise(provider_type, prop = n / sum(n))
 
 # Join ofsted and ofsted_scores
 ofsted_joined <- left_join(ofsted, ofsted_scores, by = c("inspection_number" = "inspection_id"))
 
 # Count percentage of inspections with ineffective safeguarding
-ofsted_joined |> 
-  group_by(inspection_category) |> 
-  count(score_description) |> 
+ofsted_joined %>% 
+  group_by(inspection_category) %>% 
+  count(score_description) %>% 
   summarise(score_description, "score_decription_percentage" = 100 * n / sum(n), .groups = "drop")
 
 # Convert "inspection_date" to date type
-inspection_trends <- ofsted |> 
+inspection_trends <- ofsted %>% 
   mutate(inspection_date = lubridate::as_date(inspection_date, format = "%Y.%m.%d"),
-         day_of_week = wday(inspection_date, label = T, abbr = F)) |>
+         day_of_week = wday(inspection_date, label = T, abbr = F)) %>%
   filter(!is.na(day_of_week))
 
-# inspection_trends |> 
+# inspection_trends %>% 
 #   ggplot(mapping = aes(dayofweek)) +
 #   geom_bar() +
 #   labs(x = "Day of the Week", y = "Number of inspections")
 
-# inspection_trends |>
+# inspection_trends %>%
 #   ggplot(mapping = aes(x = dayofweek, fill = inspection_type)) +
 #   geom_bar() +
 #   scale_fill_brewer(palette = "Set2", labels = scales::label_wrap(15)) +
@@ -80,14 +80,14 @@ inspection_trends <- ofsted |>
 5. Convert to day of week
     * From the resulting bar chart, the day of the week with the most inspections is Tuesday.
     ```{r echo=FALSE}
-    inspection_trends |>
+    inspection_trends %>%
       ggplot(mapping = aes(day_of_week)) +
       geom_bar() +
       labs(x = "Day of the Week", y = "Number of inspections")
     ```
     * Yes but not to a significant degree. Between the two inspection types, there was a higher number of short inspections performed on Wednesdays compared to Tuesdays.
     ```{r echo=FALSE}
-    inspection_trends |>
+    inspection_trends %>%
       ggplot(mapping = aes(x = day_of_week, fill = inspection_type)) +
       geom_bar() +
       scale_fill_brewer(palette = "Set2", labels = scales::label_wrap(15)) +
@@ -98,13 +98,13 @@ inspection_trends <- ofsted |>
 ```{r, echo=TRUE, results="hide"}
 # Task 1
 # Code below is what I ran to get the proportion for provider_type grouping
-ofsted_joined |>
-  filter(inspection_category == "Apprenticeships") |> 
-  group_by(provider_type, score_description) |>
-  summarise(n = n(), .groups = "drop_last") |>
-  mutate(prop = round(n / sum(n), digits = 2)) |>
-  filter(score_description == "Outstanding") |>
-  arrange(score_description, desc(prop)) |> 
+ofsted_joined %>%
+  filter(inspection_category == "Apprenticeships") %>% 
+  group_by(provider_type, score_description) %>%
+  summarise(n = n(), .groups = "drop_last") %>%
+  mutate(prop = round(n / sum(n), digits = 2)) %>%
+  filter(score_description == "Outstanding") %>%
+  arrange(score_description, desc(prop)) %>% 
   ungroup()
 
 # Code below creates a table with provider grouping
@@ -113,18 +113,18 @@ ofsted_joined |>
 # "drop_last" flag explicit for my benefit, mostly
 # add a proportion column measuring the proportion across the scores for each provider type
 # arrange them for readibility
-score_prop <- ofsted_joined |>
-  filter(inspection_category == "Apprenticeships") |> 
-  group_by(provider_type, score_description) |>
-  summarise(n = n(), .groups = "drop_last") |>
-  mutate(prop = round(n / sum(n), 2)) |>
-  arrange(score_description, desc(prop)) |> 
+score_prop <- ofsted_joined %>%
+  filter(inspection_category == "Apprenticeships") %>% 
+  group_by(provider_type, score_description) %>%
+  summarise(n = n(), .groups = "drop_last") %>%
+  mutate(prop = round(n / sum(n), 2)) %>%
+  arrange(score_description, desc(prop)) %>% 
   ungroup()
 
 # Task 2 Create lookup table by pivoting
-score_lookup <- drop_na(score_prop) |>
-  select(!n) |>
-  pivot_wider(names_from = score_description, values_from = prop) |>
+score_lookup <- drop_na(score_prop) %>%
+  select(!n) %>%
+  pivot_wider(names_from = score_description, values_from = prop) %>%
   janitor::clean_names()
 # Output via knitr kable() within markdown document
 
@@ -136,15 +136,15 @@ overall_starts <- inner_join(filter(ofsted_joined, inspection_category == "Overa
 
 # Determine total number of starts by grouping by score description and summarising with a sum over groupings
 # remove any rows with NA or NaN first - failsafe, I guess?
-starts_score_description <- overall_starts |> 
-  filter(inspection_category == "Overall effectiveness") |> 
-  group_by("Score Description" = score_description) |> 
+starts_score_description <- overall_starts %>% 
+  filter(inspection_category == "Overall effectiveness") %>% 
+  group_by("Score Description" = score_description) %>% 
   summarise("Total starts" = sum(starts))
 
 # Task 4 Determine total apprenticeship starts associated with each inspection score
-total_apprenticeship_starts <- overall_starts |> 
-  filter(inspection_category == "Apprenticeships") |>
-  group_by("Score Description" = score_description) |> 
+total_apprenticeship_starts <- overall_starts %>% 
+  filter(inspection_category == "Apprenticeships") %>%
+  group_by("Score Description" = score_description) %>% 
   summarise("Total starts" = sum(starts))
 ```
 

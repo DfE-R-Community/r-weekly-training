@@ -17,14 +17,14 @@ mtcars2 <- as_tibble(mtcars2)
 mtcars2 <- mutate(mtcars2, over_20 = mpg > 20)
 typeof(mtcars2) # Not certain as_tibble conversion is strictly necessary
 # Group by cylinder and gear and summarise combinations by the mean of miles per gallon
-mtcars2 |> 
-  group_by(cyl, gear) |>
+mtcars2 %>% 
+  group_by(cyl, gear) %>%
   summarise(mean(mpg), .groups = "drop")
 # Split car column into columns make and model
 # Group by car make, cylinder and gear and summarise combinations by the mean of miles per gallon
-mtcars2 |> 
-  separate(cars, c("make", "model"),  sep = " ", extra = "merge", fill = "right") |> 
-  group_by(make, cyl, gear) |> 
+mtcars2 %>% 
+  separate(cars, c("make", "model"),  sep = " ", extra = "merge", fill = "right") %>% 
+  group_by(make, cyl, gear) %>% 
   summarise(mean(mpg), .groups = "keep")
 
 #### PLOT DATA ####

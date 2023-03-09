@@ -55,8 +55,8 @@ standardise_date <- function(dates, input_format, output_format = "%Y-%m-%d") {
 #### Stats functions
 ```{r, include=TRUE, echo=TRUE}
 
-storms |> 
-  group_by(status) |> 
+storms %>% 
+  group_by(status) %>% 
   summarise(
     
     
@@ -120,17 +120,17 @@ gsub2 <- function(x, pattern, replacement) {
 ### Q 2 working area
 #### Piping
 ```{r, include=TRUE, echo=TRUE}
-starwars |>
-  print_info() |>
-  count(homeworld, species) |>
+starwars %>%
+  print_info() %>%
+  count(homeworld, species) %>%
   print_info()
 ```
 
 ```{r, include=TRUE, echo=TRUE}
-c("string 1", "string 2") |> gsub2("ing", "")
+c("string 1", "string 2") %>% gsub2("ing", "")
 
 #### Part 3
-c("string 1", "string 2") |> gsub("ing", "", .)
+c("string 1", "string 2") %>% gsub("ing", "", .)
 ```
 
 ## Q 3
@@ -278,7 +278,7 @@ to_clipboard <- function (df, na = "", headers = TRUE, ...) {
 
 #### Aggregate function ####
 aggregate <- function (.data, ..., .cols, .fn = sum) {
-  .data |> group_by(...) |> 
+  .data %>% group_by(...) %>% 
     summarise(
       across(c({{ .cols }}), .fn),
       .groups = "drop"
@@ -288,8 +288,8 @@ aggregate <- function (.data, ..., .cols, .fn = sum) {
 #### Disaggregate function ####
 
 disaggregate <- function (.data, ..., .cols, .fn = sum) {
-  .data |> 
-    group_by(across(!c(..., {{ .cols }}))) |>
+  .data %>% 
+    group_by(across(!c(..., {{ .cols }}))) %>%
     summarise(
       across(c({{ .cols }}), .fn),
       .groups = "drop"
@@ -301,7 +301,7 @@ disaggregate <- function (.data, ..., .cols, .fn = sum) {
 bar_plot <- function (.data, x, y, fill = NULL, .fn = mean, facet = NULL, position = "dodge") {
   df <- aggregate(.data, {{ y }}, {{ fill }}, .cols = {{ x }}, .fn = {{ .fn }})
   
-  df |> ggplot(mapping = aes({{ x }}, {{ y }}, fill = {{ fill }})) +
+  df %>% ggplot(mapping = aes({{ x }}, {{ y }}, fill = {{ fill }})) +
     facet_wrap(vars({{ facet }})) +
     geom_col(position = position)
 }
@@ -311,7 +311,7 @@ bar_plot <- function (.data, x, y, fill = NULL, .fn = mean, facet = NULL, positi
 ### Q 5 Code area
 ```{r, include=TRUE, echo=TRUE}
 #### Test bar plot ####
-diamonds |> bar_plot(price, cut, color)
+diamonds %>% bar_plot(price, cut, color)
 ```
 
 ## Q 6

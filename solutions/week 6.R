@@ -30,7 +30,7 @@ words_list <- str_extract_all(sentences, "\\b[aeiou]\\w*[aeiou]\\b|\\b[aeiou]\\b
 
 #==== Q2.1.1 - Use str_extract_all() to find all the words in the sentences dataset that start and end with vowels. =====
 my_result <- 
-  str_replace_all(fruit,"berry", "\033[31mberry\033[39m") |>
+  str_replace_all(fruit,"berry", "\033[31mberry\033[39m") %>%
   cat(sep = "\n")
 
 
@@ -38,13 +38,13 @@ my_result <-
 str_replace_all("string", "(i)", "!\\1!")
 
 coloured_sentences <-
-  str_replace_all(sentences, "(^\\w*)", "\033[31m\\1\033[39m") |>
+  str_replace_all(sentences, "(^\\w*)", "\033[31m\\1\033[39m") %>%
   cat(sep = "\n")
 
 
 #==== Q2.1.3 -Use str_replace_all() to make the first word of every sentence in the sentences dataset upper-case =====
 first_word_upper <-
-  str_replace_all(sentences, "(^\\w*)", toupper) |>
+  str_replace_all(sentences, "(^\\w*)", toupper) %>%
   cat(sep = "\n")
 
 
@@ -68,12 +68,12 @@ lazy_sentence <- str_replace_all(
 #==== Q2.2 - {stringr} has lots of convenience functions. Use str_squish(), str_to_sentence(), str_wrap(), str_split(), str_pad() and str_c() =====
 messy_sentence <- "  the  quick brown  FOx  jumps ovEr the Lazy  dog        "
 
-clean_sentence <- messy_sentence |>
-  str_squish() |> #removes unnecessary space i.e. two or spaces to one 
-  str_to_sentence() |> #Capitalizes first letter of the sentence 
-  str_wrap(width = 10) |> #Converts long string to segments/paragraphs defined by width(10)
-  str_split("\\n", simplify = TRUE) |># converts individual lines to a vector. TRUE returns character matrix
-  str_pad(10, side = "both") |> #adds space. Side = where padding is added i.e both sides
+clean_sentence <- messy_sentence %>%
+  str_squish() %>% #removes unnecessary space i.e. two or spaces to one 
+  str_to_sentence() %>% #Capitalizes first letter of the sentence 
+  str_wrap(width = 10) %>% #Converts long string to segments/paragraphs defined by width(10)
+  str_split("\\n", simplify = TRUE) %>%# converts individual lines to a vector. TRUE returns character matrix
+  str_pad(10, side = "both") %>% #adds space. Side = where padding is added i.e both sides
   str_c("\n") # combines inputs to one. In this example, splits it/collapses the text. 
 
 cat(clean_sentence)
@@ -111,8 +111,8 @@ validate_password("HelloWorld.")
 
 #==== Q3.2 - Using functions from stringr(), create a custom function str_to_snake() which converts camelCase strings to snake_case. =====
 str_to_snake <- function(camel_case_string){
-  camel_case_string |>
-    str_replace_all("([A-Z])", "_\\1" ) |>
+  camel_case_string %>%
+    str_replace_all("([A-Z])", "_\\1" ) %>%
     str_replace_all("([A-Z])", str_to_lower)
 }
 str_to_snake(c("thisIsStringOne", "anotherAwkwardString"))

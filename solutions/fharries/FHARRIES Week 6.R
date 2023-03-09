@@ -16,8 +16,8 @@ str_subset(fruit, "^[abc].*[xyz]$")
 
 # 1.4 
 
-fruit |> 
-  str_subset("[a-z]{10}") |> 
+fruit %>% 
+  str_subset("[a-z]{10}") %>% 
   str_extract("[a-z]{10,}")
 
 # 1.5 
@@ -33,12 +33,12 @@ str_extract_all(
 
 # 2.1.1
 
-str_replace_all(fruit, "berry", "\033[31mberry\033[39m") |> 
+str_replace_all(fruit, "berry", "\033[31mberry\033[39m") %>% 
   cat(sep = "\n")
 
 # 2.1.2
 
-str_replace_all(sentences, "(^\\w+)", "\033[31m\\1\033[39m") |> 
+str_replace_all(sentences, "(^\\w+)", "\033[31m\\1\033[39m") %>% 
   cat(sep = "\n")
 
 # 2.1.3
@@ -63,12 +63,12 @@ str_replace_all(lazy_sentence, c(
 
 messy_sentence <- "  the  quick brown  FOx  jumps ovEr the Lazy  dog        "
 
-tidy_sentence <- messy_sentence |> 
-  str_squish() |> 
-  str_to_sentence() |> 
-  str_wrap(width = 10) |> 
-  str_split("\n", simplify = TRUE) |> 
-  str_pad(width = 10, side = "right") |> 
+tidy_sentence <- messy_sentence %>% 
+  str_squish() %>% 
+  str_to_sentence() %>% 
+  str_wrap(width = 10) %>% 
+  str_split("\n", simplify = TRUE) %>% 
+  str_pad(width = 10, side = "right") %>% 
   str_c(collapse = "\n")
 
 cat(tidy_sentence)
@@ -94,7 +94,7 @@ validate_password("PIneapple!")
 # 3.2
 
 str_to_snake <- function(string){
-  str_replace_all(string, "([:upper:])", "_\\1") |> 
+  str_replace_all(string, "([:upper:])", "_\\1") %>% 
   str_to_lower()
 }
 

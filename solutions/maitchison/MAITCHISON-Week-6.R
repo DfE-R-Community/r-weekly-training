@@ -58,7 +58,7 @@ str_extract_all(sentences, regex("\\b[aeiou]\\w*[aeiou]\\b|\\ba\\b", ignore_case
 my_result <- str_replace_all(fruit, "berry", "\033[31mberry\033[39m")
 
 # Display the result of the above code to find it converts the word "berry" to red text
-my_result |> cat(sep = "\n")
+my_result %>% cat(sep = "\n")
 
 # ---- Q2.1.2 ----
 
@@ -70,7 +70,7 @@ str_replace_all("string", "(i)", "!\\1!")
 my_result2 <- str_replace_all(sentences, "^([\\w]+)", "\033[31m\\1\033[39m")
 
 # Display the result of the above code
-my_result2 |> cat(sep = "\n")
+my_result2 %>% cat(sep = "\n")
 
 # ---- Q2.1.3 ----
 

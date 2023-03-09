@@ -20,8 +20,8 @@ var_coeff <- function(x) {
 }
 
 # Code now using new functions 
-storms |> 
-  group_by(status) |> 
+storms %>% 
+  group_by(status) %>% 
   summarise(
     
     # Proportions of `NA` values using new function
@@ -40,8 +40,8 @@ storms |>
 
 # across() can be used to apply the same function across multiple columns
 
-storms |> 
-  group_by(status) |> 
+storms %>% 
+  group_by(status) %>% 
   summarise(
     
     # Proportions of `NA` values using across() to apply new function to both columns in one line
@@ -88,7 +88,7 @@ standardise(dates3, "%d %B %y")
 
 #Here, abstract out the output format into another argument
 reformat <- function(x, in_format = "%Y-%m-%d", out_format = "%d %B %y") {
-  x |> strptime(in_format) |> strftime(out_format)
+  x %>% strptime(in_format) %>% strftime(out_format)
 }
 
 #Checks to see if function works
@@ -117,9 +117,9 @@ print_info <- function( df, quiet = FALSE, ...) {
 print_info(quiet = FALSE,starwars)
 
 #Check to see if function works in pipe
-starwars |> 
-  print_info() |> 
-  count(homeworld, species) |> 
+starwars %>% 
+  print_info() %>% 
+  count(homeworld, species) %>% 
   print_info()
 
 # ---- Q2.2 ---- 
@@ -130,13 +130,13 @@ gsub2 <- function(x,y,z){
 }
 
 # Check to see if function works
-c("string 1", "string 2") |> 
+c("string 1", "string 2") %>% 
   gsub2("ing", "")
 
 # ---- Q2.3 ---- 
 
 # Use '.' to indicate to insert the vector of strings in the third argument position instead of first
-c("string 1", "string 2") |>
+c("string 1", "string 2") %>%
   gsub("ing", "", .)
 
 # ---- Q3.1 ---- 
@@ -338,9 +338,9 @@ to_clipboard(dplyr::starwars, "", headers = FALSE)
 
 #Initialise function with desired arguments, setting .fn to have a default of sum
 aggregate1 <- function(df, ..., .cols, .fn = sum){
-  df |>
+  df %>%
     # '...' does not need to be wraped with '{{'
-    group_by(...) |>
+    group_by(...) %>%
     #Wrap .cols with '{{' so that R knows it is refering to the data in df
     summarise(across({{ .cols }}, .fn), .groups = "drop")
 }
@@ -354,11 +354,11 @@ aggregate1(mtcars, cyl, gear, .cols = c(mpg, hp))
 
 # Initialise function with same argments as before
 disaggregate <- function(df, ..., .cols, .fn = sum){
-  df |>
+  df %>%
     # Use the '-' to indicate to group by everything but selected arguments
     # Use c() to include .cols and ...
     # Wrap .cols in '{{' to refer to data df
-    group_by(across(-c({{.cols}}, ...))) |>
+    group_by(across(-c({{.cols}}, ...))) %>%
     summarise(across({{ .cols }}, .fn), .groups = "drop")
 }
 
@@ -371,7 +371,7 @@ disaggregate(mtcars, cyl, gear, .cols = c(mpg, hp))
 #Solution provided in feedback
 bar_plot <- function(data, x, y, fill = NULL, fn = mean){
   # Wrap y, fill and x in '{{' to refer to data
-  aggregate1(data, {{ y }}, {{ fill }}, .cols = {{ x }}, .fn = fn) |>
+  aggregate1(data, {{ y }}, {{ fill }}, .cols = {{ x }}, .fn = fn) %>%
     ggplot(aes({{ x }},{{ y }}, fill = {{ fill }})) +
     geom_col(position = "dodge")
 }
@@ -384,7 +384,7 @@ bar_plot(data = diamonds, x = price, y = cut, fill = color, fn = mean)
 
 #Solution provided in feedback 
 bar_plot <- function(data, x, y, fill = NULL, fn = mean, facet = NULL, position = "dodge"){
-  aggregate1(data, {{ y }}, {{ facet }}, {{ fill }}, .cols = {{ x }}, .fn = mean) |>
+  aggregate1(data, {{ y }}, {{ facet }}, {{ fill }}, .cols = {{ x }}, .fn = mean) %>%
     ggplot(mapping = aes({{ x }},{{ y }}, fill = {{ fill }})) +
     geom_col(position = position) +
     facet_wrap(vars({{ facet }}))

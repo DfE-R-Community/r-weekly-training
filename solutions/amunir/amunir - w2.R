@@ -15,8 +15,8 @@ ofsted_scores  <- read_csv("ofsted_scores.csv")
 #arranging in descending order as any above 1 would appear first
 #NOTE: One repeated twice but had two different ukprn so
 #I classed them as different places
-ofsted_count <- as_tibble(ofsted) |>
-  count (provider_name) |>
+ofsted_count <- as_tibble(ofsted) %>%
+  count (provider_name) %>%
   arrange(desc(n))
 
 #--------- Exercise 2)2--------
@@ -24,8 +24,8 @@ ofsted_count <- as_tibble(ofsted) |>
 #Similar to 2.1 I used count to total up each ukprn
 #putting them in descending would have pointed out if any 
 #were not unique
-ofsted_ukprn <- as_tibble(ofsted) |>
-  count (ukprn) |>
+ofsted_ukprn <- as_tibble(ofsted) %>%
+  count (ukprn) %>%
   arrange(desc(n))
 
 #--------- Exercise 2)3--------
@@ -33,7 +33,7 @@ ofsted_ukprn <- as_tibble(ofsted) |>
 #I first counted every provider group that was an Independent specialist colleges
 #using the column indicated as TRUE (how many I S colleges) and the total provider
 #groups (adding each cell for TRUE & FALSE) to get a proportion
-ofsted_Inde <- as_tibble(ofsted) |>
+ofsted_Inde <- as_tibble(ofsted) %>%
   count (provider_group == "Independent specialist colleges")
 
 x <- ofsted_Inde [2,2] / (ofsted_Inde [2,2] + ofsted_Inde [1,2])
@@ -45,10 +45,10 @@ print(x)
 #I found the proportion by using the cell values and multiplying by 100 to get the
 #percentage
 
-ofsted_2 <- ofsted|>
+ofsted_2 <- ofsted%>%
   rename(inspection_id = inspection_number)
 
-combined_ofsted <- left_join(ofsted_2, ofsted_scores, by="inspection_id" ) |>
+combined_ofsted <- left_join(ofsted_2, ofsted_scores, by="inspection_id" ) %>%
  count(inspection_category == "Is safeguarding effective", 
   score_description == "No")
 
@@ -68,9 +68,9 @@ percentage_safeG <- (combined_ofsted [3,3] / (combined_ofsted [2,3] + combined_o
  
 ofsted$inspection_date <- as_date(ofsted$inspection_date)
  
-ofsted_week <- ofsted |>
-   mutate (day_of_week = wday(inspection_date, label= TRUE, abbr=FALSE)) |>
-  group_by(day_of_week, inspection_type)|>
+ofsted_week <- ofsted %>%
+   mutate (day_of_week = wday(inspection_date, label= TRUE, abbr=FALSE)) %>%
+  group_by(day_of_week, inspection_type)%>%
   summarise(count = n())
   
 #count(day_of_week == "Monday", day_of_week == "Tuesday", day_of_week == "Wednesday",
@@ -84,10 +84,10 @@ ofsted_week <- ofsted |>
 #counted how many there are of each. then found the proportion of each
 combined_ofsted_2 <- left_join(ofsted_2, ofsted_scores, by="inspection_id" )
 
-combined_ofsted_app <- combined_ofsted_2|>
-  group_by(score_description, provider_group)|>
-  summarise(count = n())|>
-mutate(Proportion_freq_3_1 = count / sum(count)) |>
+combined_ofsted_app <- combined_ofsted_2%>%
+  group_by(score_description, provider_group)%>%
+  summarise(count = n())%>%
+mutate(Proportion_freq_3_1 = count / sum(count)) %>%
   ungroup()
 combined_ofsted_app <- as_tibble(combined_ofsted_app)
 
@@ -99,8 +99,8 @@ combined_ofsted_app <- as_tibble(combined_ofsted_app)
 #using pivot wider it has become clearer to see. Each column for proportion, should
 #sum to 1.
 
-combined_ofsted_app_3_2 <- combined_ofsted_app |>
-  group_by(score_description, provider_group, Proportion_freq_3_1 )|>
+combined_ofsted_app_3_2 <- combined_ofsted_app %>%
+  group_by(score_description, provider_group, Proportion_freq_3_1 )%>%
   pivot_wider(names_from = score_description, values_from = c(Proportion_freq_3_1,
               count),
               values_fill = 0)
@@ -112,8 +112,8 @@ combined_ofsted_app_3_2 <- combined_ofsted_app |>
 #combining combined_ofsted_2 (ofsted & ofsted_scores combined) to starts using
 #the ukprn. group by necessary columns including inspection category for overall
 #effectiveness. Sums for each different combination
-combined_ofsted_scores_starts_3_3 <- left_join(combined_ofsted_2, starts, by="ukprn" )|>
-  group_by(starts, score, inspection_category == "Overall effectiveness")|>
+combined_ofsted_scores_starts_3_3 <- left_join(combined_ofsted_2, starts, by="ukprn" )%>%
+  group_by(starts, score, inspection_category == "Overall effectiveness")%>%
   summarise(count = n())
 
 
@@ -122,8 +122,8 @@ combined_ofsted_scores_starts_3_3 <- left_join(combined_ofsted_2, starts, by="uk
 #Similar to 3.3 I have carried out the same process but only counted for inspection
 #category "apprenticeships". 
 
-combined_ofsted_scores_starts_3_4 <- left_join(combined_ofsted_2, starts, by="ukprn" )|>
-  group_by(starts, score, inspection_category == "Apprenticeships")|>
+combined_ofsted_scores_starts_3_4 <- left_join(combined_ofsted_2, starts, by="ukprn" )%>%
+  group_by(starts, score, inspection_category == "Apprenticeships")%>%
   summarise(count = n())
 
 

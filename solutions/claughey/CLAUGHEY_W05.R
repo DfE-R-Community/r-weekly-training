@@ -6,7 +6,7 @@ library(scales)
 # -------- Q1. Plotting --------------
 # Create subset of txhousing includes counties
 # unique(txhousing$city)  # conclude counties contain the string 'County' in the city field
-txhousing_counties <- txhousing |> 
+txhousing_counties <- txhousing %>% 
   filter(grepl('County', city))
 
 # Plot median price against time
@@ -43,7 +43,7 @@ rescale01 <- function(x) {
   (x - rng[1]) / (rng[2] - rng[1])
 }
 
-economics_rescaled <- economics |>
+economics_rescaled <- economics %>%
   mutate(across(!date, rescale01))
   
 # Plot rescaled data
@@ -60,14 +60,14 @@ ggplot(mapping = aes(x=date), data = economics_rescaled) +
   theme_minimal()
 
 # Create a new economics dataset for easier plotting
-economics_tidied <- economics |>
+economics_tidied <- economics %>%
   pivot_longer(
     cols = pce:unemploy, 
     names_to = "variable", 
     values_to = "value", 
     values_drop_na = TRUE  # Just in case
-  ) |>
-  group_by(variable) |>
+  ) %>%
+  group_by(variable) %>%
   mutate(value01 = rescale01(value))
 
 # Now the corresponding plot should be beautiful
@@ -100,9 +100,9 @@ my_plot +
        title = "How Has the US Economy Changed in the Past 50 Years?")
   
 # How I would present this mpg data
-mpg |> 
-  group_by(manufacturer) |> # group and summarise to get counts for ordering the plot
-  summarise(count = n()) |> 
+mpg %>% 
+  group_by(manufacturer) %>% # group and summarise to get counts for ordering the plot
+  summarise(count = n()) %>% 
   ggplot(aes(x = reorder(manufacturer, count), y=count)) +
     geom_bar(stat = 'identity') +
     labs(x = "Manufacturer") +
@@ -129,7 +129,7 @@ diamonds_plot <- ggplot(diamonds, aes(x = depth, label=cut, color=cut)) +
 
 
 # Use ggpointdensity to improve the log-log graph
-housing_plot <- txhousing |> 
+housing_plot <- txhousing %>% 
   ggplot(aes(log(sales), log(listings))) +
   geom_pointdensity() +  # avoid the issue of overlapping data points
   theme_par()
@@ -155,8 +155,8 @@ ggplot(df, aes(x, y, group=93203)) +
 
 
 # Recreate this plot by using mutate
-df |> 
-  mutate(across(x, as.numeric)) |> # what we learned in a previous week
+df %>% 
+  mutate(across(x, as.numeric)) %>% # what we learned in a previous week
   ggplot(aes(x,y)) +
   geom_line()
 

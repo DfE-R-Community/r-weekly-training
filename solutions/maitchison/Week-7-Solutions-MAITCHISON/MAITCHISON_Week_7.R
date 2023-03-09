@@ -17,7 +17,7 @@ library(ragg)
 
 # One option is to use the tidytuesday package
 # tues_data <- tidytuesdayR::tt_load('2022-03-08')
-# erasmus <- tues_data$erasmus |> 
+# erasmus <- tues_data$erasmus %>% 
  # clean_names()
 
 # Use manually method to load data
@@ -41,26 +41,26 @@ View(erasmus)
 # participants aged between 20-25
 
 # Create a table containing the necessary data for the above graph
-male_receiving_countries_tbl <- erasmus |> 
+male_receiving_countries_tbl <- erasmus %>% 
   
   # Isolate the required gender, age and country columns
-  select(participant_gender, participant_age, receiving_country_code) |> 
+  select(participant_gender, participant_age, receiving_country_code) %>% 
   
   # Apply appropriate gender and age filters
-  filter(participant_gender == "Male", participant_age > 19, participant_age < 26) |> 
+  filter(participant_gender == "Male", participant_age > 19, participant_age < 26) %>% 
    
   # Count the number of males by country     
-  group_by(receiving_country_code) |> 
-  summarise(male_count = n()) |> 
+  group_by(receiving_country_code) %>% 
+  summarise(male_count = n()) %>% 
     
   # Arrange table by descending male count value  
-  arrange(desc(male_count)) |> 
+  arrange(desc(male_count)) %>% 
   
   # Create new column with male_count nicely formatted
-  mutate(formated_label = format(male_count, big.mark = ',')) |> 
+  mutate(formated_label = format(male_count, big.mark = ',')) %>% 
     
   # Display the top 10 results  
-  top_n(10) |> 
+  top_n(10) %>% 
   
   # Replace country code with country name (case_when replicates the behavior of 
   # multiple if else statements)
@@ -78,10 +78,10 @@ male_receiving_countries_tbl <- erasmus |>
     
     # If this code was ever generalised, this would ensure the country code is used 
     # if the country is not listed above
-    TRUE ~ receiving_country_code)) |> 
+    TRUE ~ receiving_country_code)) %>% 
   
   # reorder in descending order
-  mutate(receiving_country_code = receiving_country_code |> fct_reorder(male_count)) |>
+  mutate(receiving_country_code = receiving_country_code %>% fct_reorder(male_count)) %>%
     
   ungroup()
 
@@ -97,7 +97,7 @@ font_add_google(family='Saira Semi Condensed', 'Saira Semi Condensed') # will be
 showtext_auto(enable = TRUE) 
 
 #Plot visuals
-male_receiving_countries_tbl |> 
+male_receiving_countries_tbl %>% 
   
   #Set x and y axes
   ggplot(aes(x = male_count,

@@ -1,8 +1,8 @@
 library(tidyverse)
 library(dplyr)
 
-#storms |> 
-#  group_by(status) |> 
+#storms %>% 
+#  group_by(status) %>% 
 #  summarise(
     
     # Proportions of `NA` values for ts_diameter and hu_diameter
@@ -31,8 +31,8 @@ var_coeff <- function(x){
 }
 
 #using storm dataset
-storms |>
-  group_by(status)|>
+storms %>%
+  group_by(status)%>%
   summarise(
 
     #calls function for hu_diameter and ts_diameter
@@ -52,8 +52,8 @@ storms |>
 
 #across used to simplify and transform columns
 
-storms |>
-  group_by(status) |>
+storms %>%
+  group_by(status) %>%
   summarise(
     across(c(ts_diameter, hu_diameter), prop_na),
     across(c(wind, pressure), var_coeff),
@@ -116,27 +116,27 @@ print_info <- function(df, quiet = FALSE ) {
 }
 
 
-starwars |> 
-  print_info(quiet = FALSE) |> 
-  count(homeworld, species) |> 
+starwars %>% 
+  print_info(quiet = FALSE) %>% 
+  count(homeworld, species) %>% 
   print_info(quiet = TRUE)
 
 
 #-----------Q2) 2----------------------------------
 #Function which wraps gsub()
-#change order so it is compatible with a |>
+#change order so it is compatible with a %>%
 gsub2 <- function (a, b, c){
   gsub(b, c, a)
 }
 
 
-c("string 1", "string 2") |> 
+c("string 1", "string 2") %>% 
   gsub2("ing", "")
 
 #---------Q2) 3------------------------------------
 
 #using a . to allow it to work with a normal gsub
-c("string 1", "string 2") |> 
+c("string 1", "string 2") %>% 
   gsub("ing", "", .)
 
 
@@ -245,7 +245,7 @@ all_text <- paste(c(headers_text, body_text), collapse = "\r\n")
 }
 
 
-starwars |>
+starwars %>%
   as_text()
 
 #--------Q4)2----------------------------------------------
@@ -279,7 +279,7 @@ as_text <- function(df, na ="", headers = TRUE){
   }
 
 
-starwars |>
+starwars %>%
   as_text()
 
 
@@ -311,7 +311,7 @@ as_text <- function(df, na ="", headers = TRUE, ...){
 }
 
 
-starwars |>
+starwars %>%
   as_text()
 
 #---------Q4)4--------------------------------------------
@@ -325,15 +325,15 @@ to_clipboard <- function(df, na = "", headers = FALSE, ...){
   invisible(df)
 }
 
-starwars|>
+starwars%>%
 to_clipboard()
 
 
 #-----Q5)1----------------------------------------------
 aggregate <- function(df, ..., .cols, .fn){
   
-  df |> 
-    group_by(...) |> 
+  df %>% 
+    group_by(...) %>% 
     summarise(
       across(({{.cols }}), .fn), 
       .groups = "drop"

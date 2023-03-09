@@ -15,19 +15,19 @@ tuesdata <- tidytuesdayR::tt_load(2022, week = 10)
 erasmus <- tuesdata$erasmus
 
 # See the data types and summary statistics for all variables
-erasmus |>
+erasmus %>%
   summary()
 
 # ------------- Data Wrangling ------------------
 # Remove unwanted columns for this analysis 
-erasmus_reduced <- erasmus |>
-  select(c(academic_year, mobility_duration, participant_nationality, participant_gender, participant_profile, participant_age, sending_country_code, receiving_country_code, participants, fewer_opportunities)) |>
-  filter(participant_age >4, participant_age < 60) |> # Consider secondary school age upwards, also removes incorrect values (<0)
+erasmus_reduced <- erasmus %>%
+  select(c(academic_year, mobility_duration, participant_nationality, participant_gender, participant_profile, participant_age, sending_country_code, receiving_country_code, participants, fewer_opportunities)) %>%
+  filter(participant_age >4, participant_age < 60) %>% # Consider secondary school age upwards, also removes incorrect values (<0)
   uncount(participants)   
 
 # ---------------- Visualisations ------------
 # See the distribution of students age in Erasmus by year
-plot1 <- erasmus_reduced |>
+plot1 <- erasmus_reduced %>%
   # Configure plot
   ggplot(aes(participant_age, fill = fewer_opportunities)) +
   geom_histogram() +
@@ -50,17 +50,17 @@ plot1
 
 # See which countries students move to
 # Find top 10 countries that send the most students (limited for plotting purposes)
-top_countries <- erasmus_reduced |> 
-  count(sending_country_code, sort = TRUE) |>
-  slice(1:10) |>
+top_countries <- erasmus_reduced %>% 
+  count(sending_country_code, sort = TRUE) %>%
+  slice(1:10) %>%
   pull(sending_country_code)
 
 
 # Plot movement of students
-plot2 <- erasmus_reduced |> 
-  filter(receiving_country_code != sending_country_code) |> # Exclude students travelling to same country
-  filter(receiving_country_code %in% top_countries) |> # only consider countries that send most students
-  filter(sending_country_code %in% top_countries) |>
+plot2 <- erasmus_reduced %>% 
+  filter(receiving_country_code != sending_country_code) %>% # Exclude students travelling to same country
+  filter(receiving_country_code %in% top_countries) %>% # only consider countries that send most students
+  filter(sending_country_code %in% top_countries) %>%
   
   # Plot
   ggplot(aes(receiving_country_code, sending_country_code)) +
@@ -84,10 +84,10 @@ plot2
 
 
 # Make a facet plot of the change in students by gender, year and country
-plot3 <- erasmus_reduced |>
-  filter(participant_nationality %in% top_countries) |> # only consider students from countries that send most students
-  group_by(participant_nationality, academic_year, participant_gender) |> 
-  summarise(count = n(), .groups = "keep") |>
+plot3 <- erasmus_reduced %>%
+  filter(participant_nationality %in% top_countries) %>% # only consider students from countries that send most students
+  group_by(participant_nationality, academic_year, participant_gender) %>% 
+  summarise(count = n(), .groups = "keep") %>%
   
   # Configure the plot
   ggplot(aes(x=academic_year, y=count, group=participant_gender, colour=participant_gender)) +

@@ -27,20 +27,20 @@ vowel_word_list[!is.na(vowel_word_list)]
 # ----------- Q2. Some nice {stringr} features --------------
 # Replace all instances of the word ‘berry’ in the fruits dataset with "\033[31mberry\033[39m"
 fruit_altered <- str_replace(fruit, "berry", "\033[31mberry\033[39m")
-fruit_altered |> cat(sep = "\n") # Cool, 'berry' turns red
+fruit_altered %>% cat(sep = "\n") # Cool, 'berry' turns red
 
 # Apply the transformation from part 1 to the first word in every sentence from sentences
 sentences_highlighted <- str_replace_all(sentences,
                                          "^(\\w+)\\b",          # find string that starts with a word character and ends with a space
                                          "\033[31m\\1\033[39m") # \\1 is whatever is in the brackets above
 
-sentences_highlighted |> cat(sep = "\n")  # First word turns red
+sentences_highlighted %>% cat(sep = "\n")  # First word turns red
 
 # Make the first word of every sentence in the sentences dataset upper-case
 sentences_capitalised <- str_replace_all(sentences, 
                                          "^\\w+\\b",
                                          toupper)
-sentences_capitalised |> cat(sep = "\n")
+sentences_capitalised %>% cat(sep = "\n")
 
 
 # Lazy sentence
@@ -56,12 +56,12 @@ str_replace_all(lazy_sentence, pattern)
 # CLean with messy sentence
 messy_sentence <- "  the  quick brown  FOx  jumps ovEr the Lazy  dog        "
 
-clean_sentence <- messy_sentence |>
-  str_squish() |>                   # removes whitespace
-  str_to_sentence() |>              # converts to sentence case
-  str_wrap(width = 10) |>           # wraps to lines of 10 characters or less
-  str_split("\n", simplify = T) |>  # Convert lines to vector
-  str_pad(10, side = "right") |>    # Adds whitspaces to make vector 10 spaces long
+clean_sentence <- messy_sentence %>%
+  str_squish() %>%                   # removes whitespace
+  str_to_sentence() %>%              # converts to sentence case
+  str_wrap(width = 10) %>%           # wraps to lines of 10 characters or less
+  str_split("\n", simplify = T) %>%  # Convert lines to vector
+  str_pad(10, side = "right") %>%    # Adds whitspaces to make vector 10 spaces long
   str_c(collapse = "\n")             # Combine to single string with line breaks on 10th space
 
 cat(clean_sentence)
@@ -97,8 +97,8 @@ validate_password(string= "AweWrsdfns") # False
 
 # Convert camel case to snake case
 str_to_snake <- function(string){
-  string |> 
-    str_replace_all("([:upper:])", "_\\1") |> # Add in the underscore where there's an uppercase
+  string %>% 
+    str_replace_all("([:upper:])", "_\\1") %>% # Add in the underscore where there's an uppercase
     str_to_lower() # convert to lowercase
 }
   

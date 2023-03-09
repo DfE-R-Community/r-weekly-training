@@ -11,8 +11,8 @@ prop_na <- function(x)
 var_coeff <- function(x)
   sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
 
-storms |> 
-  group_by(status) |> 
+storms %>% 
+  group_by(status) %>% 
   summarise(
     
     # Proportions of `NA` values for ts_diameter and hu_diameter
@@ -28,8 +28,8 @@ storms |>
   )
 
 # Now use dplyr::across() to do the same, specifying a list of functions returns a field with "_{functionName}" appended 
-storms |> 
-  group_by(status) |> 
+storms %>% 
+  group_by(status) %>% 
   summarise(
     across(c(ts_diameter, hu_diameter), list(prop_na = prop_na)),
     across(c(wind, pressure), list(var_coeff = var_coeff)),
@@ -80,9 +80,9 @@ print_info <- function(quiet=FALSE, df, ...) {
   df
 }
 
-starwars |> 
-  print_info(quiet=FALSE) |> 
-  count(homeworld, species) |> 
+starwars %>% 
+  print_info(quiet=FALSE) %>% 
+  count(homeworld, species) %>% 
   print_info(quiet=FALSE)
 
 # Create a function gsub2() which wraps gsub() to work well with the pipe. 
@@ -92,11 +92,11 @@ gsub2 <- function(.data, str, str_rep) {
 }
   
 # Check
-c("string 1", "string 2") |> 
+c("string 1", "string 2") %>% 
   gsub2("ing", "")
 
 # Alternatively you can call
-c("string 1", "string 2") |> 
+c("string 1", "string 2") %>% 
   gsub("ing", "", .)
 
 
