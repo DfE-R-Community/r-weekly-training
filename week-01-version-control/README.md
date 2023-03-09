@@ -1,4 +1,43 @@
 
+- <a href="#week-03-version-control" id="toc-week-03-version-control">Week
+  03: Version Control</a>
+- <a href="#a-brief-overview" id="toc-a-brief-overview">A Brief
+  Overview</a>
+  - <a href="#what-is-git" id="toc-what-is-git">What is Git?</a>
+  - <a href="#what-github" id="toc-what-github">What GitHub?</a>
+  - <a href="#what-is-a-pull-request" id="toc-what-is-a-pull-request">What
+    is a Pull Request?</a>
+- <a href="#exercises" id="toc-exercises">Exercises</a>
+  - <a href="#set-up-one-time-only" id="toc-set-up-one-time-only">Set-Up
+    (One-Time Only)</a>
+    - <a href="#install-git" id="toc-install-git">00. Install Git</a>
+    - <a href="#fork-dfe-r-communityr-weekly-training"
+      id="toc-fork-dfe-r-communityr-weekly-training">01. Fork
+      <code>DfE-R-Community/r-weekly-training</code></a>
+    - <a href="#clone-your-fork" id="toc-clone-your-fork">02. Clone Your
+      Fork</a>
+  - <a href="#make-and-submit-a-change-weekly"
+    id="toc-make-and-submit-a-change-weekly">Make and Submit a Change
+    (Weekly)</a>
+    - <a href="#check-the-state-of-the-repo"
+      id="toc-check-the-state-of-the-repo">03. Check the State of the Repo</a>
+    - <a href="#check-the-git-log" id="toc-check-the-git-log">04. Check the
+      Git Log</a>
+    - <a href="#check-out-a-new-branch" id="toc-check-out-a-new-branch">05.
+      Check Out a New Branch</a>
+    - <a href="#add-a-file" id="toc-add-a-file">06. Add a File</a>
+    - <a href="#commit-your-changes" id="toc-commit-your-changes">07. Commit
+      Your Changes</a>
+    - <a href="#push-the-changes" id="toc-push-the-changes">08. Push the
+      Changes</a>
+    - <a href="#create-a-pull-request" id="toc-create-a-pull-request">10.
+      Create a Pull Request</a>
+    - <a href="#complete-the-pull-request"
+      id="toc-complete-the-pull-request">10. Complete the Pull Request</a>
+- <a href="#summary-of-git-commands"
+  id="toc-summary-of-git-commands">Summary of Git Commands</a>
+- <a href="#learning-more" id="toc-learning-more">Learning More</a>
+
 <!-- Please edit README.Rmd - not README.md -->
 
 # Week 03: Version Control

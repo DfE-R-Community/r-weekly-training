@@ -1,3 +1,8 @@
+---
+format:
+  gfm: 
+    toc: true
+---
 <!-- Please edit README.Rmd - not README.md -->
 
 # Week 03: Version Control
