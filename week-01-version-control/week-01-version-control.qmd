@@ -3,6 +3,7 @@ format:
   gfm: 
     toc: true
 ---
+
 <!-- Please edit README.Rmd - not README.md -->
 
 # Week 03: Version Control
@@ -70,43 +71,42 @@ cover 90% of what you'll use it for day-to-day.
 
 If you haven't already, install Git. You can do this by internet
 searching 'Git for Windows' or by going to [this
-link](https://gitforwindows.org/). The only important thing to note
-when installing git is **not to use the default text editor**. When
-asked to choose a text editor, it is recommended that you choose
-Notepad - this will make your life easier later on.
+link](https://gitforwindows.org/). The only important thing to note when
+installing git is **not to use the default text editor**. When asked to
+choose a text editor, it is recommended that you choose Notepad - this
+will make your life easier later on.
 
 ### 01. Fork `DfE-R-Community/r-weekly-training`
 
-When you create a fork, you create a copy of a repository which is
-owned by your GitHub account. Here you are free to make any changes
-you like, and optionally to later request that these are merged back
-into the original repo via a 'pull request. To create a fork, use
-the 'Fork' button at the top right of the screen
+When you create a fork, you create a copy of a repository which is owned
+by your GitHub account. Here you are free to make any changes you like,
+and optionally to later request that these are merged back into the
+original repo via a 'pull request. To create a fork, use the 'Fork'
+button at the top right of the screen
 
 ![](create-a-fork.jpg "how to create a fork")
 
 ### 02. Clone Your Fork
 
-The next task is to *clone* your forked version of the repo so you
-can work on the code from your PC:
+The next task is to *clone* your forked version of the repo so you can
+work on the code from your PC:
 
 1.  Open RStudio and click 'File \> New Project'. You should see an
-    option for 'Version Control'. Select this option, then select
-    'Git'. You should now see a field 'Repository URL'. To get this
-    URL, go to your forked version of the repo on GitHub and copy
-    the URL from your browser's search bar.
+    option for 'Version Control'. Select this option, then select 'Git'.
+    You should now see a field 'Repository URL'. To get this URL, go to
+    your forked version of the repo on GitHub and copy the URL from your
+    browser's search bar.
 
-    (Note: If this doesn't work and you definitely have installed
-    Git, try restarting RStudio. If this doesn't work, try
-    restarting your PC. If this *still* doesn't work, try
-    reinstalling Git and RStudio. If all else fails, get in touch
-    :))
+    (Note: If this doesn't work and you definitely have installed Git,
+    try restarting RStudio. If this doesn't work, try restarting your
+    PC. If this *still* doesn't work, try reinstalling Git and RStudio.
+    If all else fails, get in touch :))
 
-2.  You'll also need to choose a sensible place for the project to
-    live on your PC. A good option is to create a `Documents/Repos`
-    folder and save it there. Wherever you save it, make sure
-    OneDrive **doesn't** have access to it - this can come back to
-    bite you otherwise.
+2.  You'll also need to choose a sensible place for the project to live
+    on your PC. A good option is to create a `Documents/Repos` folder
+    and save it there. Wherever you save it, make sure OneDrive
+    **doesn't** have access to it - this can come back to bite you
+    otherwise.
 
 3.  Click 'Create Project' and Git will clone the repo
 
@@ -114,18 +114,19 @@ can work on the code from your PC:
 
 ### 03. Check the State of the Repo
 
-Before you begin writing code, the first thing you should always do is to check
-that your local copy of the repo is up to date with the version hosted on
-GitHub. To do this, first run the following in the RStudio Terminal (note, 
-this is different to the Console):
+Before you begin writing code, the first thing you should always do is
+to check that your local copy of the repo is up to date with the version
+hosted on GitHub. To do this, first run the following in the RStudio
+Terminal (note, this is different to the Console):
 
     git fetch
 
-Running `git fetch` tells Git to download any changes which have happened in the
-repo since you last updated your local copy. Of course, you just downloaded the
-repo, so right now this probably isn't necessary. However, you should get into
-the habit of doing this whenever you open up a Git project so that your local
-version doesn't fall behind if other people make changes while you're away.
+Running `git fetch` tells Git to download any changes which have
+happened in the repo since you last updated your local copy. Of course,
+you just downloaded the repo, so right now this probably isn't
+necessary. However, you should get into the habit of doing this whenever
+you open up a Git project so that your local version doesn't fall behind
+if other people make changes while you're away.
 
 Now run:
 
@@ -136,10 +137,9 @@ You should see a message which says something like
 version of the repo is just like the remote version. In other words,
 you're free to start making changes.
 
-(Note, if you don't see the Terminal, in RStudio, use Tools \>
-Terminal \> New Terminal) to open a new instance. If you'd like to
-know what Git's actually doing here, run `git help checkout` in the
-terminal.
+(Note, if you don't see the Terminal, in RStudio, use Tools \> Terminal
+\> New Terminal) to open a new instance. If you'd like to know what
+Git's actually doing here, run `git help checkout` in the terminal.
 
 ### 04. Check the Git Log
 
@@ -162,51 +162,51 @@ This should produce an output similar to this:
     | * 9ce8a80 finalise week 2 content - Jacob Scott
     | * 1e67595 more stuff - Jacob Scott
 
-Reading the git log takes practice. After running the command, study
-the output and see if you can make sense of it. Some notes
+Reading the git log takes practice. After running the command, study the
+output and see if you can make sense of it. Some notes
 
 -   `HEAD` indicates your current position in the repo
--   `origin/my-branch` indicates the current status of a branch on
-    the *remote* repo - i.e. the version on GitHub
--   Usually, next to a `origin/my-branch` you'll also have
-    `my-branch`. This indicates the status of your *local* version
-    of the branch. These may not be in the same place though. If
-    not, it will either be because you're ahead of the remote
-    version (fixed with `git push`) or the remote version is ahead
-    of you (fixed with `git pull`).
+-   `origin/my-branch` indicates the current status of a branch on the
+    *remote* repo - i.e. the version on GitHub
+-   Usually, next to a `origin/my-branch` you'll also have `my-branch`.
+    This indicates the status of your *local* version of the branch.
+    These may not be in the same place though. If not, it will either be
+    because you're ahead of the remote version (fixed with `git push`)
+    or the remote version is ahead of you (fixed with `git pull`).
 
 ### 05. Check Out a New Branch
 
 With the repo now cloned, you should 'check out' a new branch where
-you'll add your solutions to previous and future problem sheets. To
-do this, run the following in the RStudio Terminal. **Remember to
-replace `jscott4` with your username!**
+you'll add your solutions to previous and future problem sheets. To do
+this, run the following in the RStudio Terminal. **Remember to replace
+`jscott4` with your username!**
 
     git checkout -b solutions/week-01-version-control main
 
-NB, conceptually, Git is like a history book for your project, and creating a 
-branch is like adding a new chapter. For this reason you should strive to 
-give your branches each a distinct scope, and you should merge your branch
-back into the main branch when the planned changes are complete.
+NB, conceptually, Git is like a history book for your project, and
+creating a branch is like adding a new chapter. For this reason you
+should strive to give your branches each a distinct scope, and you
+should merge your branch back into the main branch when the planned
+changes are complete.
 
 ### 06. Add a File
 
-You can now start making changes in the repo. Create a new folder in
-the repo, `solutions/your-username`. In this folder create a script called
-`week-01-version-control.R` and add some code (`print("Hello world")` is 
+You can now start making changes in the repo. Create a new folder in the
+repo, `solutions/your-username`. In this folder create a script called
+`week-01-version-control.R` and add some code (`print("Hello world")` is
 as good as anything). Once you've made this change, run:
 
     git status
 
-This will give you a description of the state of your repo. You
-should see something about 'untracked files'. This means that, while
-Git can see that you've made a change to the repo, Git doesn't yet know what
-to do with that change.
+This will give you a description of the state of your repo. You should
+see something about 'untracked files'. This means that, while Git can
+see that you've made a change to the repo, Git doesn't yet know what to
+do with that change.
 
 ### 07. Commit Your Changes
 
-We'll now `git commit` the changes to the repo. In the RStudio
-terminal, run
+We'll now `git commit` the changes to the repo. In the RStudio terminal,
+run
 
     git add .
 
@@ -215,23 +215,25 @@ committed. To commit them, run
 
     git commit -m "Add a 'Hello world\!' script"
 
-Note that you need to escape the exclamation mark using `\!`. Note also that
-your commit messages should be in the [*present tense* and *imperative
+Note that you need to escape the exclamation mark using `\!`. Note also
+that your commit messages should be in the [*present tense* and
+*imperative
 mood*](https://stackoverflow.com/questions/3580013/should-i-use-past-or-present-tense-in-git-commit-messages).
-This may feel weird at first, but this convention makes your commits easier to
-read and work with in future.
+This may feel weird at first, but this convention makes your commits
+easier to read and work with in future.
 
-NB, Git is more than happy for you to move your commits around and squash them
-together as needed (Git lets you rewrite history when it's beneficial to do so).
-For this reason it's best to make your commits small and frequent, so you
-should repeat steps 6 and 7 quite often as you keep changing code.
+NB, Git is more than happy for you to move your commits around and
+squash them together as needed (Git lets you rewrite history when it's
+beneficial to do so). For this reason it's best to make your commits
+small and frequent, so you should repeat steps 6 and 7 quite often as
+you keep changing code.
 
 ### 08. Push the Changes
 
-You've now cloned the repo, checked out a new branch, made a change and finally 
-committed it. But all this has been done on your
-PC - the remote, centralised version of the repo has no record of
-your changes. To upload them, use `push`:
+You've now cloned the repo, checked out a new branch, made a change and
+finally committed it. But all this has been done on your PC - the
+remote, centralised version of the repo has no record of your changes.
+To upload them, use `push`:
 
     git push
 
@@ -242,31 +244,33 @@ This will return an error, something like the following:
 
     git push --set-upstream origin solutions/week-01-version-control
 
-Essentially this means that Git doesn't know which branch in the
-remote repo you're trying to push your changes to. This is
-expected - your branch doesn't exist in the remote repo! To set up a
-branch to push to, use the command suggested in the error message.
-The next time you run `push`, everything should go through smoothly
-:)
+Essentially this means that Git doesn't know which branch in the remote
+repo you're trying to push your changes to. This is expected - your
+branch doesn't exist in the remote repo! To set up a branch to push to,
+use the command suggested in the error message. The next time you run
+`push`, everything should go through smoothly :)
 
 ### 10. Create a Pull Request
 
-All that's left now is to create a pull request to merge your solutions into the
-original codebase. To do this, go to your forked version of the repo on GitHub.
-At the top of the screen you should see a tab called 'Pull Requests'
+All that's left now is to create a pull request to merge your solutions
+into the original codebase. To do this, go to your forked version of the
+repo on GitHub. At the top of the screen you should see a tab called
+'Pull Requests'
 
 ![](create-a-pull-request.jpg "How to create a a pull request")
 
 Creating a pull request you should make sure:
 
-*  The branch being merged *into* is `DfE-R-Community/r-weekly-training`
+-   The branch being merged *into* is
+    `DfE-R-Community/r-weekly-training`
 
-*  The branch being merged *from* is `you/solutions/week-01-version-control`
+-   The branch being merged *from* is
+    `you/solutions/week-01-version-control`
 
-*  You have assigned someone to review your code (here wklimowicz is the
-   assigned reviewer)
-   
-*  You have written a concise, bulleted description of your changes 
+-   You have assigned someone to review your code (here wklimowicz is
+    the assigned reviewer)
+
+-   You have written a concise, bulleted description of your changes
 
 The final screen should look like this:
 
@@ -275,14 +279,13 @@ The final screen should look like this:
 ### 10. Complete the Pull Request
 
 That's it! Someone should now be able to look through your code and
-leave a bit of feedback. You may want to go back into R and make
-some more commits after this; if so, these will automatically be
-added to your pull request (provided you don't forget to `git push`
-them). Once someone has reviewed your pull request they may
-'complete' the it for you, merging your changes into the main
-branch, or this may be deferred until a convenient time, or they may
-ask you to complete it. Either way, you should be notified via email
-once your branch is merged in.
+leave a bit of feedback. You may want to go back into R and make some
+more commits after this; if so, these will automatically be added to
+your pull request (provided you don't forget to `git push` them). Once
+someone has reviewed your pull request they may 'complete' the it for
+you, merging your changes into the main branch, or this may be deferred
+until a convenient time, or they may ask you to complete it. Either way,
+you should be notified via email once your branch is merged in.
 
 # Summary of Git Commands
 
