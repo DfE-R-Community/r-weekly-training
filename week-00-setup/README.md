@@ -40,7 +40,7 @@ website](https://www.rstudio.com/products/rstudio/).
 ## RStudio Layout
 
 When opening RStudio for the first time, you should see something like
-this: ![](rstudio-layout.png, "RStudio Window")
+this: ![](rstudio-layout.PNG "RStudio Window")
 
 ### Top Left
 
