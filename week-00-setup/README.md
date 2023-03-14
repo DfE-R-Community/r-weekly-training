@@ -87,14 +87,14 @@ code under ‘Run Region’ under ‘Code’:
   within - Ctrl + Alt + T (Mac ⌥⌘T).
 - Run All - Runs the whole document - Ctrl + Alt + R (Mac ⌥⌘R). Code
   that is run appears in the ‘Console’ pane and any variables created in
-  the ‘Environment’ pane. ![RStudio
-  Console](rstudio-console-environment.png)
+  the ‘Environment’ pane.
+  ![](rstudio-console-environment.PNG "RStudio Console")
 
 # Changing the Theme
 
 The default RStudio theme is very white and a bit blinding, but there
 are lots of alternative themes available which are a bit easier on the
-eyes. Go to ‘Tools’ -\> ‘Global Options’ -\> ‘Appearance’ to change the
+eyes. Go to ‘Tools’ \> ‘Global Options’ \> ‘Appearance’ to change the
 theme. My favourite is ‘Cobalt’ :)
 
 # Installing Packages
