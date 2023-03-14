@@ -1,4 +1,43 @@
 
+- <a href="#week-03-version-control" id="toc-week-03-version-control">Week
+  03: Version Control</a>
+- <a href="#a-brief-overview" id="toc-a-brief-overview">A Brief
+  Overview</a>
+  - <a href="#what-is-git" id="toc-what-is-git">What is Git?</a>
+  - <a href="#what-github" id="toc-what-github">What GitHub?</a>
+  - <a href="#what-is-a-pull-request" id="toc-what-is-a-pull-request">What
+    is a Pull Request?</a>
+- <a href="#exercises" id="toc-exercises">Exercises</a>
+  - <a href="#set-up-one-time-only" id="toc-set-up-one-time-only">Set-Up
+    (One-Time Only)</a>
+    - <a href="#install-git" id="toc-install-git">00. Install Git</a>
+    - <a href="#fork-dfe-r-communityr-weekly-training"
+      id="toc-fork-dfe-r-communityr-weekly-training">01. Fork
+      <code>DfE-R-Community/r-weekly-training</code></a>
+    - <a href="#clone-your-fork" id="toc-clone-your-fork">02. Clone Your
+      Fork</a>
+  - <a href="#make-and-submit-a-change-weekly"
+    id="toc-make-and-submit-a-change-weekly">Make and Submit a Change
+    (Weekly)</a>
+    - <a href="#check-the-state-of-the-repo"
+      id="toc-check-the-state-of-the-repo">03. Check the State of the Repo</a>
+    - <a href="#check-the-git-log" id="toc-check-the-git-log">04. Check the
+      Git Log</a>
+    - <a href="#check-out-a-new-branch" id="toc-check-out-a-new-branch">05.
+      Check Out a New Branch</a>
+    - <a href="#add-a-file" id="toc-add-a-file">06. Add a File</a>
+    - <a href="#commit-your-changes" id="toc-commit-your-changes">07. Commit
+      Your Changes</a>
+    - <a href="#push-the-changes" id="toc-push-the-changes">08. Push the
+      Changes</a>
+    - <a href="#create-a-pull-request" id="toc-create-a-pull-request">10.
+      Create a Pull Request</a>
+    - <a href="#complete-the-pull-request"
+      id="toc-complete-the-pull-request">10. Complete the Pull Request</a>
+- <a href="#summary-of-git-commands"
+  id="toc-summary-of-git-commands">Summary of Git Commands</a>
+- <a href="#learning-more" id="toc-learning-more">Learning More</a>
+
 <!-- Please edit README.Rmd - not README.md -->
 
 # Week 03: Version Control
@@ -15,7 +54,10 @@
 
 This week we’ll introduce Git and GitHub for code version control. Using
 version control for your code is helpful for lots of reasons, but the
-main one is that it makes it easy to collaborate when writing code.
+main one is that it makes it easy to collaborate when writing code. This
+training programme expects you to use Git and GitHub in future weeks to
+get feedback on your solutions, so you should refer back to this
+document if you forget how to do this.
 
 # A Brief Overview
 
@@ -61,205 +103,226 @@ receive feedback on solutions, so don’t worry if this seems a lot to
 take in. With Git, practice is the key, and the following steps should
 cover 90% of what you’ll use it for day-to-day.
 
-1.  **Install Git**
+## Set-Up (One-Time Only)
 
-    If you haven’t already, install Git. You can do this by internet
-    searching ‘Git for Windows’ or by going to [this
-    link](https://gitforwindows.org/). The only important thing to note
-    when installing git is **not to use the default text editor**. When
-    asked to choose a text editor, it is recommended that you choose
-    Notepad - this will make your life easier later on.
+### 00. Install Git
 
-2.  **Fork the Repo**
+If you haven’t already, install Git. You can do this by internet
+searching ‘Git for Windows’ or by going to [this
+link](https://gitforwindows.org/). The only important thing to note when
+installing git is **not to use the default text editor**. When asked to
+choose a text editor, it is recommended that you choose Notepad - this
+will make your life easier later on.
 
-    When you create a fork, you create a copy of a repository which is
-    owned by your GitHub account. Here you are free to make any changes
-    you like, and optionally to later request that these are merged back
-    into the original repo via a ‘pull request. To create a fork, use
-    the ’Fork’ button at the top right of the screen
+### 01. Fork `DfE-R-Community/r-weekly-training`
 
-    ![](create-a-fork.jpg "how to create a fork")
+When you create a fork, you create a copy of a repository which is owned
+by your GitHub account. Here you are free to make any changes you like,
+and optionally to later request that these are merged back into the
+original repo via a ‘pull request. To create a fork, use the ’Fork’
+button at the top right of the screen
 
-3.  **Clone the Repo**
+![](create-a-fork.jpg "how to create a fork")
 
-    The next task is to *clone* your forked version of the repo so you
-    can work on the code from your PC:
+### 02. Clone Your Fork
 
-    1.  Open RStudio and click ‘File \> New Project’. You should see an
-        option for ‘Version Control’. Select this option, then select
-        ‘Git’. You should now see a field ‘Repository URL’. To get this
-        URL, go to your forked version of the repo on GitHub and copy
-        the URL from your browser’s search bar.
+The next task is to *clone* your forked version of the repo so you can
+work on the code from your PC:
 
-        (Note: If this doesn’t work and you definitely have installed
-        Git, try restarting RStudio. If this doesn’t work, try
-        restarting your PC. If this *still* doesn’t work, try
-        reinstalling Git and RStudio. If all else fails, get in touch
-        :))
+1.  Open RStudio and click ‘File \> New Project’. You should see an
+    option for ‘Version Control’. Select this option, then select ‘Git’.
+    You should now see a field ‘Repository URL’. To get this URL, go to
+    your forked version of the repo on GitHub and copy the URL from your
+    browser’s search bar.
 
-    2.  You’ll also need to choose a sensible place for the project to
-        live on your PC. A good option is to create a `Documents/Repos`
-        folder and save it there. Wherever you save it, make sure
-        OneDrive **doesn’t** have access to it - this can come back to
-        bite you otherwise.
+    (Note: If this doesn’t work and you definitely have installed Git,
+    try restarting RStudio. If this doesn’t work, try restarting your
+    PC. If this *still* doesn’t work, try reinstalling Git and RStudio.
+    If all else fails, get in touch :))
 
-    3.  Click ‘Create Project’ and Git will clone the repo
+2.  You’ll also need to choose a sensible place for the project to live
+    on your PC. A good option is to create a `Documents/Repos` folder
+    and save it there. Wherever you save it, make sure OneDrive
+    **doesn’t** have access to it - this can come back to bite you
+    otherwise.
 
-4.  **Check the State of the Repo**
+3.  Click ‘Create Project’ and Git will clone the repo
 
-    The next thing to do is ‘check out’ a new branch. First though, try
-    running the following in the RStudio Terminal at the bottom of the
-    screen
+## Make and Submit a Change (Weekly)
 
-        git fetch
+### 03. Check the State of the Repo
 
-    Running this is essentially a way of telling Git to update its view
-    of the version of the repo which is hosted on GitHub. Of course -
-    you just downloaded the repo, so this isn’t really necessary.
-    However, you should get into the habit of doing this so your local
-    version doesn’t fall behind if other people make changes while
-    you’re away.
+Before you begin writing code, the first thing you should always do is
+to check that your local copy of the repo is up to date with the version
+hosted on GitHub. To do this, first run the following in the RStudio
+Terminal (note, this is different to the Console):
 
-    Now run:
+    git fetch
 
-        git status
+Running `git fetch` tells Git to download any changes which have
+happened in the repo since you last updated your local copy. Of course,
+you just downloaded the repo, so right now this probably isn’t
+necessary. However, you should get into the habit of doing this whenever
+you open up a Git project so that your local version doesn’t fall behind
+if other people make changes while you’re away.
 
-    You should see a message which says something like
-    `nothing to commit,  working tree clean`. This means your current
-    version of the repo is just like the remote version. In other words,
-    you’re free to start making changes.
+Now run:
 
-    (Note, if you don’t see the Terminal, in RStudio, use Tools \>
-    Terminal \> New Terminal) to open a new instance. If you’d like to
-    know what Git’s actually doing here, run `git help checkout` in the
-    terminal.
+    git status
 
-5.  **Look at the Git Log**
+You should see a message which says something like
+`nothing to commit,  working tree clean`. This means your current
+version of the repo is just like the remote version. In other words,
+you’re free to start making changes.
 
-    Now, look at the ‘git log’ to see where you are in the repo. You can
-    view the most recent, say, 10 commits to the repo as follows:
+(Note, if you don’t see the Terminal, in RStudio, use Tools \> Terminal
+\> New Terminal) to open a new instance. If you’d like to know what
+Git’s actually doing here, run `git help checkout` in the terminal.
 
-        git nl -10
+### 04. Check the Git Log
 
-    This should produce an output similar to this:
+Now, look at the ‘git log’ to see where you are in the repo. You can
+view the most recent, say, 10 commits to the repo as follows:
 
-        * f06a5b8 - (2 minutes ago) add PR template and a bit more content - Jacob Scott (origin/version-control, version-control)
-        * 98f3cc7 - (15 hours ago) a bit more stuff - Jacob Scott
-        * bbfac6c - (16 hours ago) add a load of new content about git - Jacob Scott
-        * 1ff1cf9 - (18 hours ago) update gitignore - Jacob Scott
-        *   c8f22ee - (7 days ago) Merged PR 14895: Week 02 - Data Wrangling - Jacob SCOTT (HEAD -> main, origin/main, origin/HEAD)
-        |\
-        | * 5962a89 - (7 days ago) remove reference to filename - Jacob Scott (origin/content, content)
-        | * a406f08 - (7 days ago) clarify wording - Jacob Scott
-        | * a81c846 - (7 days ago) formatting and typos - Jacob Scott
-        | * 9ce8a80 - (7 days ago) finalise week 2 content - Jacob Scott
-        | * 1e67595 - (8 days ago) more stuff - Jacob Scott
+    git log --oneline --graph --all -10
 
-    Reading the git log takes practice. After running the command, study
-    the output and see if you can make sense of it. Some notes
+This should produce an output similar to this:
 
-    - `HEAD` indicates your current position in the repo
-    - `origin/my-branch` indicates the current status of a branch on the
-      *remote* repo - i.e. the version on GitHub
-    - Usually, next to a `origin/my-branch` you’ll also have
-      `my-branch`. This indicates the status of your *local* version of
-      the branch. These may not be in the same place though. If not, it
-      will either be because you’re ahead of the remote version (fixed
-      with `git push`) or the remote version is ahead of you (fixed with
-      `git pull`).
+    * f06a5b8 add PR template and a bit more content - Jacob Scott (origin/version-control, version-control)
+    * 98f3cc7 a bit more stuff - Jacob Scott
+    * bbfac6c add a load of new content about git - Jacob Scott
+    * 1ff1cf9 update gitignore - Jacob Scott
+    *   c8f22ee Merged PR 14895: Week 02 - Data Wrangling - Jacob SCOTT (HEAD -> main, origin/main, origin/HEAD)
+    |\
+    | * 5962a89 remove reference to filename - Jacob Scott (origin/content, content)
+    | * a406f08 clarify wording - Jacob Scott
+    | * a81c846 formatting and typos - Jacob Scott
+    | * 9ce8a80 finalise week 2 content - Jacob Scott
+    | * 1e67595 more stuff - Jacob Scott
 
-6.  **Check Out a New Branch**
+Reading the git log takes practice. After running the command, study the
+output and see if you can make sense of it. Some notes
 
-    With the repo now cloned, you should ‘checkout’ a new branch where
-    you’ll add your solutions to previous and future problem sheets. To
-    do this, run the following in the RStudio Terminal. **Remember to
-    replace `jscott4` with your username!**
+- `HEAD` indicates your current position in the repo
+- `origin/my-branch` indicates the current status of a branch on the
+  *remote* repo - i.e. the version on GitHub
+- Usually, next to a `origin/my-branch` you’ll also have `my-branch`.
+  This indicates the status of your *local* version of the branch. These
+  may not be in the same place though. If not, it will either be because
+  you’re ahead of the remote version (fixed with `git push`) or the
+  remote version is ahead of you (fixed with `git pull`).
 
-        git checkout -b solutions/week-03-jscott4 main
+### 05. Check Out a New Branch
 
-    Note - the addition of `main` here isn’t strictly necessary, but
-    this explicitly tells Git that your new branch should be based on
-    the latest version of the `main` branch. If you base it off some
-    other branch, `main` won’t be updated when your branch is finally
-    merged in.
+With the repo now cloned, you should ‘check out’ a new branch where
+you’ll add your solutions to previous and future problem sheets. To do
+this, run the following in the RStudio Terminal. **Remember to replace
+`jscott4` with your username!**
 
-7.  **Change Some Files**
+    git checkout -b solutions/week-01-version-control main
 
-    You can now start making changes in the repo. Create a new folder in
-    the repo, `solutions/your-username`. Copy your scripts for weeks 1
-    and 2 into this folder. Now, in the RStudio terminal, run
+NB, conceptually, Git is like a history book for your project, and
+creating a branch is like adding a new chapter. For this reason you
+should strive to give your branches each a distinct scope, and you
+should merge your branch back into the main branch when the planned
+changes are complete.
 
-        git status
+### 06. Add a File
 
-    This will give you a description of the state of your repo. You
-    should see something about ‘untracked files’. This means that, while
-    you’ve made a change to the repo, you haven’t yet told Git what to
-    do about it.
+You can now start making changes in the repo. Create a new folder in the
+repo, `solutions/your-username`. In this folder create a script called
+`week-01-version-control.R` and add some code (`print("Hello world")` is
+as good as anything). Once you’ve made this change, run:
 
-8.  **Commit the Changes**
+    git status
 
-    We’ll now `git commit` the changes to the repo. In the RStudio
-    terminal, run
+This will give you a description of the state of your repo. You should
+see something about ‘untracked files’. This means that, while Git can
+see that you’ve made a change to the repo, Git doesn’t yet know what to
+do with that change.
 
-        git add .
+### 07. Commit Your Changes
 
-    This adds your changes to the ‘staging area’ - but they aren’t yet
-    committed. To commit them, run
+We’ll now `git commit` the changes to the repo. In the RStudio terminal,
+run
 
-        git commit -m "Add solution scripts for weeks 1 and 2"
+    git add .
 
-    Note that your commit messages should be *present tense*. This may
-    feel weird at first, but it makes them easier to understand in a
-    development context.
+This adds your changes to the ‘staging area’ - but they aren’t yet
+committed. To commit them, run
 
-9.  **Push the Changes**
+    git commit -m "Add a 'Hello world\!' script"
 
-    You’ve now cloned the repo, checked out a new branch, added some
-    files and finally committed them. But all this has been done on your
-    PC - the remote, centralised version of the repo has no record of
-    your changes. To upload them, use `push`:
+Note that you need to escape the exclamation mark using `\!`. Note also
+that your commit messages should be in the [*present tense* and
+*imperative
+mood*](https://stackoverflow.com/questions/3580013/should-i-use-past-or-present-tense-in-git-commit-messages).
+This may feel weird at first, but this convention makes your commits
+easier to read and work with in future.
 
-        git push
+NB, Git is more than happy for you to move your commits around and
+squash them together as needed (Git lets you rewrite history when it’s
+beneficial to do so). For this reason it’s best to make your commits
+small and frequent, so you should repeat steps 6 and 7 quite often as
+you keep changing code.
 
-    This will return an error, something like the following:
+### 08. Push the Changes
 
-        fatal: The current branch version-control has no upstream branch.
-        To push the current branch and set the remote as upstream, use
+You’ve now cloned the repo, checked out a new branch, made a change and
+finally committed it. But all this has been done on your PC - the
+remote, centralised version of the repo has no record of your changes.
+To upload them, use `push`:
 
-        git push --set-upstream origin branch-name
+    git push
 
-    Essentially this means that Git doesn’t know which branch in the
-    remote repo you’re trying to push your changes to. This is
-    expected - your branch doesn’t exist in the remote repo! To set up a
-    branch to push to, use the command suggested in the error message.
-    The next time you run `push`, everything should go through smoothly
-    :)
+This will return an error, something like the following:
 
-10. **Create a Pull Request**
+    fatal: The current branch soluions/week-01-version-control has no upstream branch.
+    To push the current branch and set the remote as upstream, use
 
-    Congratulations, the hard part is over! All that’s left now is to
-    create a pull request to merge your solutions into the original
-    codebase. To do this, go to the
-    [repo](https://github.com/DfE-R-Community/r-weekly-training) on
-    GitHub. At the top of the screen you should see a tab called ‘Pull
-    Requests’
+    git push --set-upstream origin solutions/week-01-version-control
 
-    ![](create-a-pull-request.jpg "How to create a a pull request")
+Essentially this means that Git doesn’t know which branch in the remote
+repo you’re trying to push your changes to. This is expected - your
+branch doesn’t exist in the remote repo! To set up a branch to push to,
+use the command suggested in the error message. The next time you run
+`push`, everything should go through smoothly :)
 
-    Creating a new pull request, you should see a note giving some final
-    checks you should make before submitting.
+### 10. Create a Pull Request
 
-11. **Completing the Pull Request**
+All that’s left now is to create a pull request to merge your solutions
+into the original codebase. To do this, go to your forked version of the
+repo on GitHub. At the top of the screen you should see a tab called
+‘Pull Requests’
 
-    That’s it! Someone should now be able to look through your code and
-    leave a bit of feedback. You may want to go back into R and make
-    some more commits after this; if so, these will automatically be
-    added to your pull request (provided you don’t forget to `git push`
-    them). Once someone has reviewed your pull request they may
-    ‘complete’ the it for you, merging your changes into the main
-    branch, or this may be deferred until a convenient time, or they may
-    ask you to complete it. Either way, you should be notified via email
-    once your branch is merged in.
+![](create-a-pull-request.jpg "How to create a a pull request")
+
+Creating a pull request you should make sure:
+
+- The branch being merged *into* is `DfE-R-Community/r-weekly-training`
+
+- The branch being merged *from* is
+  `you/solutions/week-01-version-control`
+
+- You have assigned someone to review your code (here wklimowicz is the
+  assigned reviewer)
+
+- You have written a concise, bulleted description of your changes
+
+The final screen should look like this:
+
+![](create-a-pull-request-2.jpg "How to create a pull request")
+
+### 10. Complete the Pull Request
+
+That’s it! Someone should now be able to look through your code and
+leave a bit of feedback. You may want to go back into R and make some
+more commits after this; if so, these will automatically be added to
+your pull request (provided you don’t forget to `git push` them). Once
+someone has reviewed your pull request they may ‘complete’ the it for
+you, merging your changes into the main branch, or this may be deferred
+until a convenient time, or they may ask you to complete it. Either way,
+you should be notified via email once your branch is merged in.
 
 # Summary of Git Commands
 
@@ -268,20 +331,25 @@ you’ll ever need to know about Git. Keep practising these by submitting
 pull requests with your solutions each week and this process will become
 second nature. To recap:
 
-- Use `git fetch` to update your local repo with information about the
-  state of the remote version on GitHub.
+- Once you’ve forked and cloned a repo from GitHub, whenever you open it
+  in RStudio, from the terminal use `git fetch` to update your local
+  copy of the repo with information about the state of the remote
+  version on GitHub
 
-- After `git fetch`, run `git status` to see if anything needs changing.
-  After this, you may need `git pull` to actually update your local
-  version of some particular branch if any changes have been made since
-  you last worked on the project. You should do this quiet often - make
-  a habit of doing it whenever you checkout the ‘main’ branch.
+- After `git fetch`, run `git status` to see if your local version has
+  fallen behind the main version on GitHub. If it has, you’ll be
+  prompted to `git pull` any changes to update your local copy of the
+  code. You should run `git fetch`, `git status` and `git pull` quite
+  often, and should especially make a habit of doing it whenever you
+  checkout the ‘main’ branch.
 
-- Use `git checkout -b branch-name main` to create a new branch. Branch
-  names should always use-this-format, i.e. hyphen-separated lower case.
+- Use `git checkout -b my-new-branch-name main` to create a new branch.
+  Branch names should always use-this-format, i.e. hyphen-separated
+  lower case.
 
 - Whenever you feel you’ve made some tangible progress (which should be
-  fairly frequently), use `git add .` followed by
+  fairly frequently), use `git add my-changed-file` (or `git add .` to
+  include all files) followed by
   `git commit -m "description of changes"` to *commit* your code to the
   repo.
 
@@ -289,10 +357,12 @@ second nature. To recap:
   your new commits. The first time you `push` a new branch you’ll have
   to use something like `git push --set-upstream origin branch-name` to
   set up a remote branch where your changes will be pushed to. Git will
-  remind you about this though.
+  remind you to do this :)
 
-- If you want your changes merged into the main branch, make a pull
-  request on GitHub.
+- If you want your changes merged into the original repo, find the repo
+  on GitHub and create a pull request to merge your fork into the `main`
+  branch of the original repo. Don’t forget to make sure all your
+  changes are committed before doing this!
 
 # Learning More
 
@@ -310,3 +380,7 @@ There are lots of other resources online to help learning Git:
 - The [GitHub Documentation](https://docs.github.com/en) is a handy
   reference to refer to for GitHub concepts such as forks, codespaces,
   pull requests etc
+
+- If you prefer a video-based approach, the [Fireship video on how to
+  use Git and GitHub](https://www.youtube.com/watch?v=HkdAHXoRtos) is a
+  good primer on the topic

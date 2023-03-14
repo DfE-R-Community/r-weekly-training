@@ -21,12 +21,16 @@ and we strongly recommend you start there.
 
 ## Download from the Software Centre
 
-To download R and RStudio, simply open the Software Centre (this should
-be an existing app on your PC) and download from there. If for any
-reason you can’t see R or RStudio available, you’ll need to make a
-[service
-request](https://dfe.service-now.com/serviceportal?id=sc_category&catalog_id=-1)
-to get access to the software.
+- **DfE colleagues**: To download R and RStudio, simply open the
+  Software Centre (this should be an existing app on your PC) and
+  download from there. If for any reason you can’t see R or RStudio
+  available, you’ll need to make a [service
+  request](https://dfe.service-now.com/serviceportal?id=sc_category&catalog_id=-1)
+  to get access to the software.
+
+- **Anyone else**: Simply download R from
+  [CRAN](https://cran.rstudio.com/) and RStudio from the [Posit
+  website](https://posit.co/download/rstudio-desktop/).
 
 # Navigating RStudio
 
@@ -36,7 +40,7 @@ website](https://www.rstudio.com/products/rstudio/).
 ## RStudio Layout
 
 When opening RStudio for the first time, you should see something like
-this: ![RStudio Window](..\week-00-setup/rstudio-layout.PNG)
+this: ![RStudio Window](rstudio-layout.png)
 
 ### Top Left
 
@@ -84,7 +88,7 @@ code under ‘Run Region’ under ‘Code’:
 - Run All - Runs the whole document - Ctrl + Alt + R (Mac ⌥⌘R). Code
   that is run appears in the ‘Console’ pane and any variables created in
   the ‘Environment’ pane. ![RStudio
-  Console](..\week-00-setup/rstudio-console-environment.PNG)
+  Console](rstudio-console-environment.png)
 
 # Changing the Theme
 

@@ -111,7 +111,7 @@ before attempting these problems.
        version of the `value` column. Call this new column `value01`. Don't
        forget to `ungroup()`!
        
-    *  The above steps should be done in a single call using the pipe `%>%`.
+    *  The above steps should be done in a single call using the pipe `|>`.
     
 4.  Using your dataset from part 3, recreate the plot from part 2. 
     
@@ -132,7 +132,7 @@ before attempting these problems.
     ```{r}
     suppressPackageStartupMessages(library(tidyverse))
     
-    mpg %>% 
+    mpg |> 
       ggplot(aes(manufacturer)) +
       geom_bar()
     ```
@@ -155,7 +155,7 @@ can be found [here](https://exts.ggplot2.tidyverse.org/gallery/).
     
 2.  Use `{ggpointdensity}` to improve the following plot:
     ```{r}
-    txhousing %>% 
+    txhousing |> 
       ggplot(aes(log(sales), log(listings))) +
       geom_point()
     ```

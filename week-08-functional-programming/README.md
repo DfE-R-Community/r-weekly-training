@@ -13,7 +13,7 @@ to trip you up with subtle idiosyncrasies.
 
 ``` r
 # `{purrr}` is loaded as part of the tidyverse:
-suppressPackageStartupMessages(library(tidyverse))
+library(tidyverse)
 ```
 
 # Prerequisites
@@ -162,14 +162,14 @@ may wonder, why use `map()` if you can use a `for`-loop?
 
     samples
     #>  [[1]]
-    #>  [1] -0.6871574  1.8926997 -0.3109254
+    #>  [1] -0.4087465 -0.1484659 -0.5278715
     #>  
     #>  [[2]]
-    #>  [1]  0.5984067 -0.3153595 -1.2301844  0.9100640  0.1487775
+    #>  [1]  0.3195231 -0.6845575 -0.7381100 -0.2672108 -0.8944646
     #>  
     #>  [[3]]
-    #>  [1]  2.62252807 -1.57749082  0.08219269  2.03400860  0.07278920  1.91128452
-    #>  [7]  1.61891545
+    #>  [1]  0.57731632 -1.48740756  0.69335692  0.03461385  0.85082092  1.59636742
+    #>  [7]  0.46667880
     ```
 
 2.  Read the documentation for `purrr::map2()` and use it to simplify
@@ -186,14 +186,13 @@ may wonder, why use `map()` if you can use a `for`-loop?
 
     samples
     #>  [[1]]
-    #>  [1] 0.7356544 1.0345907 1.6531510
+    #>  [1]  0.4642351 -0.4842937 -0.1661647
     #>  
     #>  [[2]]
-    #>  [1] 0.5640348 0.2644715 0.5691553 0.8249317 0.8215934
+    #>  [1] 0.6043895 0.2486737 0.3593655 0.2113965 0.3776367
     #>  
     #>  [[3]]
-    #>  [1] 1.825602576 0.009115452 0.479344671 2.488818130 0.024747832 0.152497164
-    #>  [7] 2.662834698
+    #>  [1] 0.7442228 0.8058496 1.0523138 0.3013124 0.2493431 0.4824428 0.7851338
     ```
 
     Hint: try writing a function to do the work of the code inside the
@@ -269,14 +268,14 @@ to write and read. These questions outline a few ways of doing this.
 
     # 2. Define a function to compute R^2
     size_to_price_relationship_strength <- function(data) {
-      data %>% 
-        lm(price ~ x * y * z, data = .) %>% 
-        summary() %>% 
-        .$r.squared
+      data |> 
+        lm(price ~ x * y * z, data = _) |> 
+        summary() |> 
+        pluck("r.squared")
     }
 
     # 3. 
-    diamonds_split %>% 
+    diamonds_split |> 
       map(size_to_price_relationship_strength)
     #>  $Fair
     #>  [1] 0.7576571
@@ -302,16 +301,12 @@ to write and read. These questions outline a few ways of doing this.
     formula syntax. Hint: you may also find the documentation for
     `rlang::as_function()` helpful.
 
-3.  The pipe `%>%` can also be used to create compact anonymous
-    functions. Read the examples in `` ?`%>%` `` and use repeat part 1
-    using this syntax.
-
-4.  Comment on the relative strengths/weaknesses of each technique:
+3.  Comment on the relative strengths/weaknesses of each technique:
 
     - Creating named custom functions beforehand
-    - Defining anonymous function using R’s default `function` syntax
+    - Defining anonymous function using R’s default `function`/`\`
+      syntax
     - `{purrr}`’s formula syntax
-    - `{magrittr}`’s pipe syntax
 
 # 4. Other iterators from `{purrr}`
 

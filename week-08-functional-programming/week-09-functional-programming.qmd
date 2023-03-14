@@ -17,8 +17,10 @@ more consistent API and are less likely to trip you up with subtle
 idiosyncrasies. 
 
 ```{r}
+#| message: false
+
 # `{purrr}` is loaded as part of the tidyverse:
-suppressPackageStartupMessages(library(tidyverse))
+library(tidyverse)
 ```
 
 # Prerequisites
@@ -223,14 +225,14 @@ questions outline a few ways of doing this.
     
     # 2. Define a function to compute R^2
     size_to_price_relationship_strength <- function(data) {
-      data %>% 
-        lm(price ~ x * y * z, data = .) %>% 
-        summary() %>% 
-        .$r.squared
+      data |> 
+        lm(price ~ x * y * z, data = _) |> 
+        summary() |> 
+        pluck("r.squared")
     }
     
     # 3. 
-    diamonds_split %>% 
+    diamonds_split |> 
       map(size_to_price_relationship_strength)
     ```
     Rewrite step #3 in the above code to use an anonymous function. This should
@@ -241,15 +243,10 @@ questions outline a few ways of doing this.
     formula syntax. Hint: you may also find the documentation for 
     `rlang::as_function()` helpful.
     
-3.  The pipe `%>%` can also be used to create compact anonymous functions. 
-    Read the examples in `` ?`%>%` `` and use repeat part 1 using this 
-    syntax.
-    
-4.  Comment on the relative strengths/weaknesses of each technique:
+3.  Comment on the relative strengths/weaknesses of each technique:
     *  Creating named custom functions beforehand
-    *  Defining anonymous function using R's default `function` syntax
+    *  Defining anonymous function using R's default `function`/`\` syntax
     *  `{purrr}`'s formula syntax
-    *  `{magrittr}`'s pipe syntax
     
 # 4. Other iterators from `{purrr}`
 

@@ -14,14 +14,25 @@ December 2021.
 
 # Resources
 
-- [R for Data Science](https://r4ds.had.co.nz/transform.html):
-  - See chapter 5 for adding columns with `mutate()`, removing rows with
+- [R for Data Science](https://r4ds.hadley.nz/data-transform.html):
+  - See chapter 4 for adding columns with `mutate()`, removing rows with
     `filter()` and aggregating with `group_by()` and `summarise()`
-  - See chapter 12 for ‘pivoting’, dealing with missing values and
+  - See chapter 6 for ‘pivoting’, dealing with missing values and
     columns which have multiple observations per cell
-  - See chapter 13 for joins (this chapter is especially relevant!)
+  - See chapter 20 for joins (this chapter is especially relevant!)
+  - See chapter 18 for working with dates and times
 
 # Exercises
+
+<div>
+
+> **Submitting Solutions**
+>
+> Read exercises 3-10 of [Week
+> 1](../week-01-version-control#03-check-the-state-of-the-repo) for a
+> recap of how to get feedback on your solutions using GitHub
+
+</div>
 
 ## 1. Setup/Data import
 
@@ -80,18 +91,19 @@ Answer the following questions using the **`ofsted`** dataset.
     inspection in the data (otherwise we could get skewed results later
     on).
 
-2.  The UK Provider Reference Number (UKPRN) is a unique identifier for
-    education providers. Use this to see whether providers are uniquely
-    named in the `ofsted` dataset.
+2.  Each provider in the `ofsted` data has a unique UK Provider
+    Reference Number (UKPRN) associated with them. Using this
+    information, check whether the `provider_name` column can also be
+    used to uniquely identify providers in the data.
 
 3.  What proportion of providers are ‘Independent specialist colleges’?
 
 4.  Use `left_join()` to combine `ofsted` and `ofsted_scores`. What
-    percentage of providers have ineffective safeguarding according to
+    proportion of providers have ineffective safeguarding according to
     the data? Hint: look at `ofsted$inspection_number` and
     `ofsted_scores$inspection_id`
 
-5.  `{lubridate}` is a package for working with dates. Using functions
+5.  {lubridate} is a package for working with dates. Using functions
     from this package, convert the `inspection_date` column to `date`
     format, and then create a new column giving the day of the week on
     which the inspection occurred. Using this column, find out if there
@@ -108,35 +120,32 @@ Answer the following questions using the **`ofsted`** dataset.
 
 </div>
 
-1.  Using the `ofsted` and `ofsted_scores` datasets, work out which
-    provider group has the highest proportion of ‘outstanding’ scores
-    for apprenticeships. Do this in a generalised way, e.g. so that your
-    output is a data.frame/tibble which also includes proportions of
-    ‘inadequate’ scores by provider group.
-
-2.  Create a lookup table using your answer to question 3.1. Your output
-    should look something like this (your figures should **not** match
-    these):
-
-    | provider_group                                                | outstanding | good | requires_improvement | inadequate |
-    |:--------------------------------------------------------------|------------:|-----:|---------------------:|-----------:|
-    | Independent learning providers (including employer providers) |        0.54 | 0.26 |                 0.95 |       0.40 |
-    | Adult community education providers                           |        0.52 | 0.76 |                 0.83 |         NA |
-    | Colleges                                                      |        0.25 | 0.80 |                 0.88 |       0.39 |
-    | Higher education institutions                                 |        0.01 | 0.53 |                 0.27 |         NA |
-    | Independent specialist colleges                               |          NA | 0.98 |                 0.65 |       0.99 |
-
-    Hint: `janitor::clean_names()` may come in handy here.
-
-3.  Using `starts`, `ofsted` and `ofsted_scores`, work out the total
+1.  Using `starts`, `ofsted` and `ofsted_scores`, work out the total
     number of apprenticeship starts associated with each ofsted score
     for overall effectiveness.
 
-4.  Similarly to 3.3, work out the total number of apprenticeships
+2.  Similarly to 3.1, work out the total number of apprenticeships
     starts associated with each ofsted score for apprenticeships. Using
-    this information with your results from 3.3, see if you can draw any
+    this information with your results from 3.1, see if you can draw any
     conclusions about how providers perform in apprenticeships compared
     with how they perform overall.
+
+3.  Using the `ofsted` and `ofsted_scores` datasets, create a dataset
+    which shows the distribution of scores **for apprenticeships** for
+    each provider group.
+
+4.  Create a lookup table using your answer to question 3.1. Your output
+    should look something like this:
+
+    | provider_group                                                |      good | requires_improvement | outstanding | inadequate |
+    |:--------------------------------------------------------------|----------:|---------------------:|------------:|-----------:|
+    | Independent learning providers (including employer providers) | 0.7109375 |            0.1822917 |   0.0677083 |  0.0390625 |
+    | Adult community education providers                           | 0.8461538 |            0.1025641 |   0.0512821 |         NA |
+    | Colleges                                                      | 0.5474453 |            0.3284672 |   0.1094891 |  0.0145985 |
+    | Higher education institutions                                 | 0.8333333 |            0.1250000 |   0.0416667 |         NA |
+    | Independent specialist colleges                               | 0.3333333 |            0.3333333 |          NA |  0.3333333 |
+
+    Hint: `janitor::clean_names()` may come in handy here.
 
 ## 4. A recursive problem
 
@@ -161,6 +170,9 @@ least recommended that you collaborate with someone else. Remember to
     `delivery_region` and `std_fwk_flag`. Call the additional column
     `risk_factor`.
 
+    (Hint: first create a dataset which gives a simple `TRUE`/`FALSE`
+    for each provider to indicate whether they are at risk of closing.)
+
 2.  Now, say that a provider is at risk of closing if they are rated
     inadequate in any category, or if they have ineffective
     safeguarding. Modify your solution to 4.1 to include a column
@@ -179,23 +191,5 @@ least recommended that you collaborate with someone else. Remember to
 
 4.  Your dataset from 4.3 will include *implicit missing values*. Use
     `tidyr::complete()` to make these explicit. (Hint: read [R for Data
-    Science chapter
-    12.5](https://r4ds.had.co.nz/tidy-data.html?q=complete#missing-values-3)
-    if you’re not sure what this is all about)
-
-5.  Where there are missing values, we can attempt to fill these in
-    using a more a version of the dataset from 4.3 which is generalised
-    to include all `breakdowns` except `"apps_level"`. Populate the
-    missing values of `risk_factor` in your answer to 4.4. with the more
-    general values. If there are still missing values, repeat the
-    process, this time using breakdowns except `"apps_level"` **and**
-    `"route"`, and so on until there are no missing values remaining.
-    Your output should include a column to indicate how ‘general’ the
-    values of `risk_factor` are.
-
-    (Application: this could be used as a method of modelling risk for
-    future starts which don’t have historic data.)
-
-6.  Go back and ‘refactor’ your solution so that there is as little
-    repeating code as possible. Try writing functions to help with this
-    :)
+    Science chapter 19](https://r4ds.hadley.nz/missing-values.html) if
+    you’re not sure what this is all about)

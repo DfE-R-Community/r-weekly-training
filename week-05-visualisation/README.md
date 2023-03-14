@@ -106,7 +106,7 @@ attempting these problems.
       `value01`. Don’t forget to `ungroup()`!
 
     - The above steps should be done in a single call using the pipe
-      `%>%`.
+      `|>`.
 
 4.  Using your dataset from part 3, recreate the plot from part 2.
 
@@ -132,7 +132,7 @@ attempting these problems.
     ``` r
     suppressPackageStartupMessages(library(tidyverse))
 
-    mpg %>% 
+    mpg |> 
       ggplot(aes(manufacturer)) +
       geom_bar()
     ```
@@ -163,7 +163,7 @@ extensions can be found
 2.  Use `{ggpointdensity}` to improve the following plot:
 
     ``` r
-    txhousing %>% 
+    txhousing |> 
       ggplot(aes(log(sales), log(listings))) +
       geom_point()
     #>  Warning: Removed 1426 rows containing missing values (`geom_point()`).
